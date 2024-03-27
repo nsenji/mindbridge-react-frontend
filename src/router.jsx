@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Root from './Components/Root'
+import History from './Pages/History/History'
 
 const Router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const Router = createBrowserRouter([
     },
     {
       path:'/history',
-      element:null,
+      element:<History/>
     },
     {
       path:'/earnings',
