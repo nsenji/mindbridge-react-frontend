@@ -1,0 +1,20 @@
+a{
+    color: #000;
+}
+.sidebarlink{
+    margin-bottom: 20px;
+}
+.SideBar{
+    width: 20%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+    height: 100vh;
+}
+.bg-primary{
+    background-color: hsl(223, 100%, 43%);
+    color: #fff;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+}
+.SideBar ul{
+    list-style: none;
+}
