@@ -1,0 +1,63 @@
+.personaldetails{
+    display: flex;
+    align-items:stretch;
+    gap: 5%;
+    margin-bottom: 3rem;
+}
+
+.doctordetails{
+    display: flex;
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:flex-start;
+}
+
+.divider{
+    border: 1px solid lightgrey;
+}
+
+.generaldetails{
+    font-size: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 50%;
+    grid-gap: 15%;
+    display: flex;
+    align-items: center;
+}
+
+.detailsleft, .detailsright{
+    display: flex;
+    flex-direction: column;
+}
+.label{
+    color: grey;
+}
+.info{
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    align-items: center;
+    margin-left: 1.5rem;
+}
+.infoleft{
+    display: flex;
+    gap: 10px;
+    height: 70%;
+}
+
+.patients, .pendingappointments, .finishedpatients{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 33%;
+    border: 1px solid lightgrey;
+    border-radius: 20px;
+    padding: 10px;
+}
+.digit{
+    font-size: 30px;
+}

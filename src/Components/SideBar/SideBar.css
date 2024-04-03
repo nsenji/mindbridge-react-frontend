@@ -17,3 +17,13 @@ a{
 .SideBar ul{
     list-style: none;
 }
+.btn, .dropdown-menu{
+    margin: 0;
+    padding: 0;
+}
+#dropdownMenuButton:focus{
+    border: none;
+}
+.dropdown-menu ul{
+    padding: 5px;
+}

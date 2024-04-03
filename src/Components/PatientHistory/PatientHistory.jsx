@@ -1,8 +1,11 @@
 import './PatientHistory.css'
-const PatientHistory = ({id, name, email, appointmentDate, status})=>{
+const PatientHistory = ({name, time, appointmentDate, status})=>{
     return(
-        <div>
-            <span></span>
+        <div className='patienthistory'>
+            <span>{name}</span>
+            <span>{time}</span>
+            <span>{appointmentDate}</span>
+            <span>{status}</span>
         </div>
     )
 }

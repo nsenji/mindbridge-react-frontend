@@ -1,6 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Root from './Components/Root'
 import History from './Pages/History/History'
+import Appointments from './Pages/Appointments/Appointments'
+import ChosenAppointments from './Components/ChosenAppointments/ChosenAppointments'
+import UpcomingApp from './Components/UpcomingAppointments/UpcomingApp'
+import DashBoard from './Pages/DashBoard/DashBoard'
 
 const Router = createBrowserRouter([
   {
@@ -13,15 +17,22 @@ const Router = createBrowserRouter([
     },
     {
       path:'/dashboard',
-      element:null,
+      element:<DashBoard/>,
     },
     {
       path:'/appointments',
-      element:null,
-    },
-    {
-      path:'/my-schedule',
-      element:null,
+      element:<Appointments/>,
+      children:[
+        {
+          index:true,
+          path: '/appointments/chosen',
+          element: <ChosenAppointments/>
+        },
+        {
+          path: '/appointments/selected',
+          element: <UpcomingApp/>
+        }
+      ]
     },
     {
       path:'/history',

@@ -18,11 +18,30 @@ function SideBar(){
                         : ""
                     } to={'/dashboard'} style={{ textDecoration: 'none' }}><i className="bi bi-bag"></i> Dashboard</NavLink>
                 </li>
-                <li className='sidebarlink'><NavLink className={({ isActive }) =>
-                        isActive
-                        ? "bg-primary"
-                        : ""
-                    } to={'/my-schedule'} style={{ textDecoration: 'none' }}><i className="bi bi-calendar-event"></i> My Schedule</NavLink>
+                <li className='sidebarlink'>
+                    <div className="dropdown dropright">
+                        <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i className="bi bi-calendar-event"></i> Appointments
+                        </a>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul>
+                                <li>
+                                    <NavLink className={({ isActive }) =>
+                                        isActive
+                                        ? ""
+                                        : ""
+                                    } to={'/appointments/selected'} style={{ textDecoration: 'none' }}><i className="bi bi-file-earmark-text"></i> Appointments</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink className={({ isActive }) =>
+                                        isActive
+                                        ? ""
+                                        : ""
+                                    } to={'/appointments/chosen'} style={{ textDecoration: 'none' }}><i className="bi bi-file-earmark-text"></i> Available Times</NavLink>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
                 <li className='sidebarlink'><NavLink className={({ isActive }) =>
                         isActive
