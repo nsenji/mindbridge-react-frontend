@@ -1,0 +1,13 @@
+.totalearnings, .rate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+.paymentshistory{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+}

@@ -5,6 +5,7 @@ import Appointments from './Pages/Appointments/Appointments'
 import ChosenAppointments from './Components/ChosenAppointments/ChosenAppointments'
 import UpcomingApp from './Components/UpcomingAppointments/UpcomingApp'
 import DashBoard from './Pages/DashBoard/DashBoard'
+import Earnings from './Pages/Earnings/Earnings'
 
 const Router = createBrowserRouter([
   {
@@ -13,7 +14,7 @@ const Router = createBrowserRouter([
     children: [
     {
     index: true,
-    element:null
+    element:<DashBoard/>
     },
     {
       path:'/dashboard',
@@ -40,7 +41,7 @@ const Router = createBrowserRouter([
     },
     {
       path:'/earnings',
-      element:null,
+      element:<Earnings/>,
     }
   ]
   }

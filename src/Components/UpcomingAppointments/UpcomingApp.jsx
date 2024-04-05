@@ -43,7 +43,6 @@ let appointments = [
 export default function UpcomingApp(){
     const today = new Date();
     let currentdate = `${today.getDate().toString()}-${today.getMonth() + 1 > 9 ? today.getMonth() + 1 : `0${today.getMonth() + 1 }`}-${today.getFullYear().toString()}`
-    console.log(currentdate)
     return(
         <div className='upcomingmain'>
             <h3 className='timeheading'>Today</h3>

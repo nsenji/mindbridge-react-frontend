@@ -10,12 +10,6 @@ function SideBar(){
                         isActive
                         ? "bg-primary"
                         : ""
-                    }to={'/'} style={{ textDecoration: 'none' }}><i className="bi bi-house"></i> Home</NavLink>
-                </li>
-                <li className='sidebarlink'><NavLink className={({ isActive }) =>
-                        isActive
-                        ? "bg-primary"
-                        : ""
                     } to={'/dashboard'} style={{ textDecoration: 'none' }}><i className="bi bi-bag"></i> Dashboard</NavLink>
                 </li>
                 <li className='sidebarlink'>

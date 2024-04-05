@@ -1,47 +1,52 @@
+import { useState, useEffect } from 'react';
 import './ChosenAppointments.css'
+import { GridLoader } from 'react-spinners';
 import CreatedAppointment from '../CreatedAppointments/CreatedAppointment';
-import DatePicker from '../DatePicker';
-import TimePicker from '../TimePicker';
+import { Schedule } from '../../Services/api';
 
-const appointments = [
-    {
-        time: "08:00",
-        date: "2024-04-03",
-        status:"Available"
-    },
-    {
-        time: "13:30",
-        date: "2024-04-02",
-        status: "Available"
-    },
-    {
-        time: "15:45",
-        date: "2024-04-03",
-        status: "Available"
-    },
-    {
-        time: "10:15",
-        date: "2024-04-04",
-        status: "Available"
-    },
-    {
-        time: "19:00",
-        date: "2024-04-05",
-        status: "Available"
-    }
-];
 
 const ChosenAppointments = ()=>{
+    
+    const [datetime, setDateTime] = useState({date: null, time: null, doctorID: "f6313136-f285-11ee-93d0-f889d2136766", status: "available"})
+    const [schedules, setSchedules] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(()=>{
+        const getschedules = async ()=>{
+            try{
+                const times = await Schedule.getSchedules({doctorID: "f6313136-f285-11ee-93d0-f889d2136766"})
+                setSchedules(times.data)
+                setLoading(false)
+            } catch (error){
+                console.log(error)
+            }
+        }
+        getschedules()
+    }, [])
+
+    async function handleSubmit(){
+       try{
+            await Schedule.createSchedule(datetime)
+       } catch(error){
+            return error
+       }
+    }
+    if(loading){
+        <div className='loader'>
+            <GridLoader size={'150px'} aria-label='Loading Spinner'/>
+        </div>
+    }
     return(
         <div>
             <div className='availabletimes'>
+                {schedules.length ? 
                 <div className='appointmenttimes'>
                     <span>Time</span>
                     <span>Date</span>
                     <span>Status</span>
                     <span>Action</span>
-                </div>
-                {appointments.map((app,id) => <CreatedAppointment key={id} time={app.time} date={app.date} status={app.status}/>)}
+                </div> : null }
+                {schedules.length ? schedules.map((app) => app.time ? <CreatedAppointment key={app.apt_schedule_ID} time={app.time} date={app.date} status={app.status}/> : null) : <h4 className='noactivity'>No Activity</h4>}
             </div>
             <button type="button" className='addbtn' data-bs-toggle="modal" data-bs-target="#addtime">+</button>
 
@@ -56,14 +61,11 @@ const ChosenAppointments = ()=>{
                             </button>
                         </div>
                         <div className="modal-body">
-                           <form className='d-flex flex-column'>
-                                <DatePicker/>
-                                <TimePicker/>
+                           <form className='d-flex flex-column' onSubmit={handleSubmit}>
+                                <input type='date' className='inputfield' onChange={(e) => setDateTime({...datetime, date: e.target.value})}/>
+                                <input type='time' className='inputfield' onChange={(e) => setDateTime({...datetime, time: e.target.value})}/>
                                 <button type='submit'  className='savebtn'>Save</button>
                            </form>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                         </div>
                     </div>
