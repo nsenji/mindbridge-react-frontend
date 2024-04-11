@@ -6,6 +6,8 @@ import ChosenAppointments from './Components/ChosenAppointments/ChosenAppointmen
 import UpcomingApp from './Components/UpcomingAppointments/UpcomingApp'
 import DashBoard from './Pages/DashBoard/DashBoard'
 import Earnings from './Pages/Earnings/Earnings'
+import Signup from './Pages/Authentication/Signup'
+import Login from './Pages/Authentication/Login'
 
 const Router = createBrowserRouter([
   {
@@ -43,9 +45,17 @@ const Router = createBrowserRouter([
       path:'/earnings',
       element:<Earnings/>,
     }
-  ]
+  ]},
+
+  {
+    path:'/signup',
+    element:<Signup/>
+  },
+
+  {
+    path: '/login',
+    element: <Login/>
   }
-  
 ])
 
 export default Router

@@ -7,14 +7,14 @@ const Schedule = {
     createSchedule: async (schedule) => {
         try{
             const response = await axios.post(`${BASE_URL}/schedule/createschedule`, schedule)
-            return response.message
+            return response.data.message
         } catch(error){
             return error.message
         }
     },
     getSchedules: async (doctor)=>{
         try{
-            const response = await axios.post(`${BASE_URL}/schedule/getschedule`, doctor)
+            const response = await axios.post(`${BASE_URL}/schedule/getschedules`, doctor)
             return response.data
 
         } catch (error){
