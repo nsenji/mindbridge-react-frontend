@@ -27,3 +27,7 @@ a{
 .dropdown-menu ul{
     padding: 5px;
 }
+
+.logoutbtn{
+    width: 65%;
+}

@@ -3,18 +3,20 @@ import './ChosenAppointments.css'
 import { GridLoader } from 'react-spinners';
 import CreatedAppointment from '../CreatedAppointments/CreatedAppointment';
 import { Schedule } from '../../Services/api';
-
+import { useContext } from 'react';
+import { AuthContext } from '../../Services/authprovider';
 
 const ChosenAppointments = ()=>{
-    
-    const [datetime, setDateTime] = useState({date: null, time: null, doctorID: "f6313136-f285-11ee-93d0-f889d2136766", status: "available"})
+    const { authUser } = useContext(AuthContext)
+
+    const [datetime, setDateTime] = useState({date: null, time: null, doctorID: authUser.doc_ID, status: "available"})
     const [schedules, setSchedules] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(()=>{
         const getschedules = async ()=>{
             try{
-                const times = await Schedule.getSchedules({doctorID: "f6313136-f285-11ee-93d0-f889d2136766"})
+                const times = await Schedule.getSchedules({doctorID: authUser.doc_ID})
                 setSchedules(times.data)
                 setLoading(false)
             } catch (error){

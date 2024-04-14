@@ -1,9 +1,16 @@
 import './App.css'
-import Root from './Components/Root'
+import { useContext } from 'react'
+import { AuthContext } from './Services/authprovider'
+import { useRoutes } from 'react-router-dom'
+import Router from './router'
 
 function App() {
+  const { isAuthenticated } = useContext(AuthContext)
+  const routing = useRoutes(Router(isAuthenticated))
   return (
-    <Root/>
+   <>
+    {routing}
+   </>
   )
 }
 

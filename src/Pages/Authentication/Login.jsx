@@ -2,11 +2,15 @@ import { useState } from 'react'
 import './style.css'
 import logo from '../../assets/logo-main.png'
 import { Link, useNavigate } from 'react-router-dom'
-
+import { AuthContext } from '../../Services/authprovider'
+import { useContext } from 'react'
 import Auth from '../../Services/authentication'
+
 export default function Login(){
     const navigate = useNavigate()
-    
+
+    const { setAuthUser, setAuthenticated } = useContext(AuthContext)
+
     const [user, setUser] = useState({email: '', password:''})
     const [error, setError] = useState('')
 
@@ -14,8 +18,12 @@ export default function Login(){
         e.preventDefault()
         try{
             const response = await Auth.signIn(user)
-            response.message == 'Login successful' ? navigate("/dashboard") : navigate("/login")
+            setAuthUser(response.data)
+            setAuthenticated(true)
+            console.log(response.data)
+            response.data ? navigate('/dashboard') : navigate('/login')
         } catch(error){
+            console.log(error)
             setError(error.response.data.message)
             setTimeout(()=>{
                 setError('')

@@ -8,11 +8,12 @@ import DashBoard from './Pages/DashBoard/DashBoard'
 import Earnings from './Pages/Earnings/Earnings'
 import Signup from './Pages/Authentication/Signup'
 import Login from './Pages/Authentication/Login'
+import { Navigate } from 'react-router-dom'
 
-const Router = createBrowserRouter([
+const Router = (isAuthenticated) => [
   {
     path:'/',
-    element: <Root/>,
+    element: isAuthenticated ? <Root/> : <Navigate to={'/login'}/> ,
     children: [
     {
     index: true,
@@ -54,8 +55,8 @@ const Router = createBrowserRouter([
 
   {
     path: '/login',
-    element: <Login/>
+    element:  <Login/>
   }
-])
+]
 
 export default Router

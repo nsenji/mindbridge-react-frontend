@@ -5,9 +5,11 @@ import Person from'../../assets/person.png'
 import { MdPendingActions } from "react-icons/md";
 import { GoThumbsup } from "react-icons/go";
 import Chart from 'react-apexcharts'
-
-
+import { useContext } from 'react';
+import { AuthContext } from '../../Services/authprovider';
 export default function DashBoard(){
+
+    const { authUser } = useContext(AuthContext)
     const [chartData, setChartData] = useState({
         series: [80, 10],
             options: {
@@ -39,19 +41,19 @@ export default function DashBoard(){
                     <img src={Person}/>
                     <div className='title'>
                         <h4>Doctor</h4>
-                        <h5>Ntabaazi Vincent</h5>
+                        <h5>{authUser.name}</h5>
                     </div>
                 </div>
                 <div className='generaldetails'>
                     <div className='detailsleft'>
-                        <span><span className='label'>Speciality: </span><span>Pyschology</span></span>
-                        <span><span className='label'>Employment Status: </span><span>Permanent</span></span>
-                        <span><span className='label'>Gender: </span><span>Male</span></span>
+                        <span><span className='label'>Speciality: </span><span>{authUser.pro_title}</span></span>
+                        <span><span className='label'>Employment Status: </span><span>{authUser.employment_status}</span></span>
+                        <span><span className='label'>Gender: </span><span>{authUser.gender}</span></span>
                     </div>
                     <div className='detailsright'>
-                        <span><span className='label'>Hospital Name: </span><span>Rubaga Hospital</span></span>
-                        <span><span className='label'>Email: </span><span>ianwamai@gmail.com</span></span>
-                        <span><span className='label'>Rate: </span><span>shs20000 / hr</span></span>
+                        <span><span className='label'>Hospital Name: </span><span>{authUser.hospitalName}</span></span>
+                        <span><span className='label'>Email: </span><span>{authUser.email}</span></span>
+                        <span><span className='label'>Rate: </span><span>shs. {authUser.rate} / hr</span></span>
                     </div>
                 </div>
             </div>
