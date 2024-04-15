@@ -1,47 +1,37 @@
-import './History.css'
+import { useEffect } from 'react';
 import DropDown from '../../Components/DropDownMenu/DropDown'
 import PatientHistory from '../../Components/PatientHistory/PatientHistory';
-
-const appointments = [
-    {
-        patientName: "John Doe",
-        time: "10:00 AM",
-        appointmentDate: "2024-04-01",
-        status: "Confirmed"
-    },
-    {
-        patientName: "Jane Smith",
-        time: "11:30 AM",
-        appointmentDate: "2024-04-02",
-        status: "Pending"
-    },
-    {
-        patientName: "Alice Johnson",
-        time: "2:00 PM",
-        appointmentDate: "2024-04-03",
-        status: "Cancelled"
-    },
-    {
-        patientName: "Bob Brown",
-        time: "9:15 AM",
-        appointmentDate: "2024-04-04",
-        status: "Confirmed"
-    },
-    {
-        patientName: "Emily Davis",
-        time: "4:45 PM",
-        appointmentDate: "2024-04-05",
-        status: "Pending"
-    }
-];
+import { useState } from 'react';
+import { Appointments } from '../../Services/api';
+import { useContext } from 'react';
+import { AuthContext } from '../../Services/authprovider';
+import { FaRegCalendarTimes } from 'react-icons/fa';
+import './History.css'
 
 const History = ()=>{
+    const { authUser } = useContext(AuthContext)
+    const [appointments, setAppointments] = useState([])
+    useEffect(()=>{
+        const getDoctorHistory = async ()=>{
+            try{
+                const pastAppointments = await Appointments.getDoctorHistory({doctorID: authUser.doc_ID})
+                setAppointments(pastAppointments.data)
+            } catch (error){
+                console.log(error)
+            }
+        }
+        getDoctorHistory()
+    }, [])
+    function handleChange(text){
+        console.log(text)
+        setAppointments(appointments.filter(app => app.patient.name.toLowerCase().includes(text.toLowerCase()) || app.date.toLowerCase().includes(text.toLowerCase())))
+    }
     return(
         <div className="main">
             <div className='searchbar'>
                 <div className='searchdiv'>
                     <i className="bi bi-search"></i>
-                    <input className='search' placeholder='Search Patient'/>
+                    <input className='search' placeholder='Search by Patient, Date' onChange={(e) => handleChange(e.target.value)}/>
                 </div>
                 <DropDown/>
             </div>
@@ -51,7 +41,7 @@ const History = ()=>{
                 <span>Appointment Date</span>
                 <span>Status</span>
             </div>
-            {appointments.map((app, id) => <PatientHistory key={id} name={app.patientName} time={app.time} appointmentDate={app.appointmentDate} status={app.status}/>)}
+            {appointments.length ? appointments.map((app) => <PatientHistory key={app.selected_apt_ID} name={app.patient.name} time={app.time} appointmentDate={app.date} status={app.status}/>) : <h5 className='noactivity'>No Records <FaRegCalendarTimes /></h5>}
         </div>
     )
 }

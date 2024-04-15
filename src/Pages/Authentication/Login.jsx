@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import './style.css'
-import logo from '../../assets/logo-main.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../Services/authprovider'
 import { useContext } from 'react'
 import Auth from '../../Services/authentication'
+import './style.css'
+import logo from '../../assets/logo-main.png'
 
 export default function Login(){
     const navigate = useNavigate()

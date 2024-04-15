@@ -1,7 +1,7 @@
 import './Appointment.css'
 import { MdOutlineCalendarMonth } from "react-icons/md";
 
-export default function Appointment({id, patientName, date, time, status}){
+export default function Appointment({id, patientName, date, time, status, diagnosis}){
     const today = new Date();
     let currentdate = `${today.getDate().toString()}-${today.getMonth() + 1 > 9 ? today.getMonth() + 1 : `0${today.getMonth() + 1 }`}-${today.getFullYear().toString()}`
     return(
@@ -29,6 +29,7 @@ export default function Appointment({id, patientName, date, time, status}){
                                     <span>{date}</span>
                                     <span>{time}</span>
                                     <span className='status'>{status}</span>
+                                    <span>{diagnosis}</span>
                                 </div>
                                 {currentdate == date ? <button className='btn sendlink'>Start Call</button> : null}
                             </div>

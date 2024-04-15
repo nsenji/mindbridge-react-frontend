@@ -23,4 +23,24 @@ const Schedule = {
     }
 }
 
-export {Schedule}
+const Appointments = {
+    getScheduledAppointments: async (doctor) =>{
+        try{
+            const response = await axios.post(`${BASE_URL}/appointments/getdoctorappointments`, doctor)
+            return response.data
+
+        } catch (error){
+            return error.message
+        }
+    },
+    getDoctorHistory: async (doctor) => {
+        try{
+            const response = await axios.post(`${BASE_URL}/appointments/getdoctorhistory`, doctor)
+            return response.data
+        } catch (error){
+            return error.message
+        }
+    }
+}
+
+export {Schedule, Appointments}
