@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './DashBoard.css'
 import { SlPeople } from "react-icons/sl";
 import Person from'../../assets/person.png'
@@ -7,11 +7,14 @@ import { GoThumbsup } from "react-icons/go";
 import Chart from 'react-apexcharts'
 import { useContext } from 'react';
 import { AuthContext } from '../../Services/authprovider';
+import { Appointments } from '../../Services/api';
 export default function DashBoard(){
-
+    
+    const [completed , setCompleted] = useState(0)
+    const [scheduledApp, setScheduledApp] = useState(0)
     const { authUser } = useContext(AuthContext)
+    
     const [chartData, setChartData] = useState({
-        series: [80, 10],
             options: {
                 chart: {
                     id: 'apexchart'
@@ -33,6 +36,19 @@ export default function DashBoard(){
 
     let datetime = new Date()
     let time = datetime.getHours()
+
+    useEffect(()=>{
+        async function getScheduledAppointments(){
+            const scheduled = await Appointments.getScheduledAppointments({doctorID: authUser.doc_ID})
+            setScheduledApp(scheduled.data.length)
+        }
+        async function getCompletedCases(){
+            const cases = await Appointments.getDoctorHistory({doctorID: authUser.doc_ID})
+            setCompleted(cases.data.length)
+        }
+        getScheduledAppointments()
+        getCompletedCases()
+    }, [])
     return(
         <div className='main'>
             <h1>{time < 12 ? 'Good Morning' : time <= 16 ? 'Good Afternoon' : 'Good Evening'}</h1>
@@ -60,21 +76,21 @@ export default function DashBoard(){
             <div className='info'>
                 <div className='infoleft'>
                     <div className='patients'>
-                        <span className='digit'>90</span>
+                        <span className='digit'>{scheduledApp + completed}</span>
                         <div>
                             <SlPeople size={80}/>
                             <h6>All Patients</h6>
                         </div>
                     </div>
                     <div className='pendingappointments'>
-                        <span className='digit'>10</span>
+                        <span className='digit'>{scheduledApp}</span>
                         <div>
                             <MdPendingActions size={80}/>
                             <h6>Pending</h6>
                         </div>
                     </div>
                     <div className='finishedpatients'>
-                        <span className='digit'>80</span>
+                        <span className='digit'>{completed}</span>
                         <div>
                             <GoThumbsup size={80}/>
                             <h6>Finished</h6>
@@ -83,7 +99,7 @@ export default function DashBoard(){
                 </div>
                 <div className='inforight'>
                     <Chart
-                    series={chartData.series} options={chartData.options} type="donut" 
+                    series={[completed, scheduledApp]} options={chartData.options} type="donut" 
                     />
                 </div>
             </div>

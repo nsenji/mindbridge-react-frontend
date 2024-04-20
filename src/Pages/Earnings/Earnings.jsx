@@ -55,7 +55,7 @@ export default function Earnings(){
                         <input className='search' placeholder='Search Transaction'/>
                     </div>
                 </div>
-                {payments.map(payment => <Transaction transactionId={payment.transactionId} date={payment.date} time={payment.time} amount={payment.amount} />)}
+                {payments.map(payment => <Transaction key={payment.transactionId} transactionId={payment.transactionId} date={payment.date} time={payment.time} amount={payment.amount} />)}
             </div>
         </div>
     )
