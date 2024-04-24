@@ -36,7 +36,7 @@ const Appointments = {
     },
     getDoctorHistory: async (doctor) => {
         try{
-            const response = await axios.post(`${BASE_URL}/appointments/getdoctorhistory`, doctor)
+            const response = await axios.post(`${BASE_URL}/appointments/history`, doctor)
             return response.data
         } catch (error){
             return error.message
@@ -81,5 +81,20 @@ const MeetingConfig = {
         return value;
     }
 }
+const Edit = {
+    editProfilePhoto: async(doctorID, selectedImage) => {
+        const formData = new FormData();
+        formData.append('doctorID', doctorID);
+        formData.append('avatar', selectedImage);
+        console.log({doctorID, selectedImage})
+        const response = await axios.post(`${BASE_URL}/uploads/uploadavatar`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
 
-export {Schedule, Appointments, MeetingConfig, authToken}
+        console.log("Uploaded Successfully", response.data)
+    }
+
+}
+export {Schedule, Appointments, MeetingConfig, authToken, Edit}

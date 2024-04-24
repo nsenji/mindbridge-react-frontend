@@ -20,7 +20,6 @@ export default function Login(){
             const response = await Auth.signIn(user)
             setAuthUser(response.data)
             setAuthenticated(true)
-            console.log(response.data)
             response.data ? navigate('/dashboard') : navigate('/login')
         } catch(error){
             console.log(error)
