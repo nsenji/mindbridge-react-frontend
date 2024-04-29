@@ -13,7 +13,7 @@ export default function DashBoard(){
     
     const [completed , setCompleted] = useState(0)
     const [scheduledApp, setScheduledApp] = useState(0)
-    const { authUser } = useContext(AuthContext)
+    const { authUser, setAuthUser } = useContext(AuthContext)
     
     const [chartData, setChartData] = useState({
             options: {
@@ -53,7 +53,8 @@ export default function DashBoard(){
 
     const [previewSrc, setPreviewSrc] = useState('');
     const [imageResource, setImageResource] = useState(null)
-
+    const [uploadedImage, setUploadedImage] = useState(null)
+    
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setImageResource(file)
@@ -72,7 +73,7 @@ export default function DashBoard(){
        if(imageResource){
         try{
             const uploadImage = await Edit.editProfilePhoto(authUser.doc_ID, imageResource)
-            console.log(uploadImage)
+            setAuthUser({...authUser, avatar: {file_name: uploadImage.data.file_name}})
         } catch (error){
             console.log(error.message)
         }
@@ -83,7 +84,7 @@ export default function DashBoard(){
             <h1>{time < 12 ? 'Good Morning' : time <= 16 ? 'Good Afternoon' : 'Good Evening'}</h1>
             <div className='personaldetails'>
                 <div className='doctordetails'>
-                    <img src= {`http://localhost:3000/uploads/${authUser.doc_ID}.jpeg`}/>
+                    <img src= {authUser.avatar ? `http://localhost:3000/uploads/${authUser.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!authUser.avatar ? "#editdialog" : null} className='displayImage'/>
                     <div className='title'>
                         <h4>Doctor</h4>
                         <h5>{authUser.name}</h5>
@@ -100,7 +101,6 @@ export default function DashBoard(){
                         <span><span className='label'>Email: </span><span>{authUser.email}</span></span>
                         <span><span className='label'>Rate: </span><span>shs. {authUser.rate} / hr</span></span>
                     </div>
-                    <button className='btn btn-secondary py-1 px-3' id='editbutton' data-bs-toggle="modal" data-bs-target="#editdialog">Edit</button>
 
                     {/* Modal */}
                     <div className="modal" tabIndex="-1" role="dialog" id='editdialog' aria-hidden="true">

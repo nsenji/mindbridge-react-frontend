@@ -93,7 +93,7 @@ const Edit = {
           }
         });
 
-        console.log("Uploaded Successfully", response.data)
+       return response.data;
     }
 
 }

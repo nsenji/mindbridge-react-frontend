@@ -32,7 +32,7 @@ const History = ()=>{
     }, [])
     
     return(
-        <div className="main">
+        <div className="historymain">
             <div className='searchbar'>
                 <div className='searchdiv'>
                     <i className="bi bi-search"></i>
