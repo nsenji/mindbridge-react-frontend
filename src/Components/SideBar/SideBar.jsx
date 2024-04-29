@@ -4,7 +4,8 @@ import logo from '../../assets/logo-main.png'
 import { IoIosLogOut } from "react-icons/io";
 import { AuthContext } from '../../Services/authprovider'
 import { useContext } from 'react'
- 
+import { RxDashboard } from "react-icons/rx";
+
 
 function SideBar(){
     const { setAuthUser, setAuthenticated} = useContext(AuthContext)
@@ -21,9 +22,9 @@ function SideBar(){
                 <ul className='links'>
                     <li className='sidebarlink'><NavLink className={({ isActive }) =>
                             isActive
-                            ? "bg-primary"
+                            ? "text-primary"
                             : ""
-                        } to={'/dashboard'} style={{ textDecoration: 'none' }}><i className="bi bi-bag"></i> Dashboard</NavLink>
+                        } to={'/dashboard'} style={{ textDecoration: 'none' }}><RxDashboard/> Dashboard</NavLink>
                     </li>
                     <li className='sidebarlink'>
                         <div className="dropdown dropright">
@@ -52,13 +53,13 @@ function SideBar(){
                     </li>
                     <li className='sidebarlink'><NavLink className={({ isActive }) =>
                             isActive
-                            ? "bg-primary"
+                            ? "text-primary"
                             : ""
                         } to={'/history'} style={{ textDecoration: 'none' }}><i className="bi bi-file-earmark-text"></i> History</NavLink>
                     </li>
                     <li className='sidebarlink'><NavLink className={({ isActive }) =>
                             isActive
-                            ? "bg-primary"
+                            ? "text-primary"
                             : ""
                         } to={'/earnings'} style={{ textDecoration: 'none' }}><i className="bi bi-currency-bitcoin"></i> Earnings</NavLink>
                     </li>

@@ -8,7 +8,7 @@ const Schedule = {
     createSchedule: async (schedule) => {
         try{
             const response = await axios.post(`${BASE_URL}/schedule/createschedule`, schedule)
-            return response.data.message
+            return response.data
         } catch(error){
             return error.message
         }
