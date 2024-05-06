@@ -8,6 +8,7 @@ import DashBoard from './Pages/DashBoard/DashBoard'
 import Earnings from './Pages/Earnings/Earnings'
 import Signup from './Pages/Authentication/Signup'
 import Login from './Pages/Authentication/Login'
+import MeetingRoom from './Pages/Meeting/Meeting'
 import { Navigate } from 'react-router-dom'
 
 const Router = (isAuthenticated) => [
@@ -45,6 +46,10 @@ const Router = (isAuthenticated) => [
     {
       path:'/earnings',
       element:<Earnings/>,
+    },
+    {
+      path: '/meeting-room',
+      element: <MeetingRoom/>
     }
   ]},
 

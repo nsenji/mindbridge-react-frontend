@@ -25,7 +25,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 50%;
-    grid-gap: 15%;
+    grid-gap: 20%;
     display: flex;
     align-items: center;
 }
@@ -41,7 +41,6 @@
     display: grid;
     grid-template-columns: 1fr 0.8fr;
     align-items: center;
-    margin-left: 1.5rem;
 }
 .infoleft{
     display: flex;
@@ -60,4 +59,38 @@
 }
 .digit{
     font-size: 30px;
+}
+
+.addprofileicon{
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+    height: 150px;
+    width: 150px;
+
+}
+.clearbtn{
+    width: 5.8rem;
+}
+
+input[type='file'] {
+    color: transparent;
+}
+
+.main{
+    margin: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.displayImage{
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    margin: 15px;
+}
+.displayImage:hover{
+    cursor: pointer;
+}
+#myFile{
+    display: inline;
 }

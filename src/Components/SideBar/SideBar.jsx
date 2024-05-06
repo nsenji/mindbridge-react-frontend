@@ -4,7 +4,10 @@ import logo from '../../assets/logo-main.png'
 import { IoIosLogOut } from "react-icons/io";
 import { AuthContext } from '../../Services/authprovider'
 import { useContext } from 'react'
- 
+import { RxDashboard } from "react-icons/rx";
+import { IoFileTrayStackedOutline } from "react-icons/io5";
+import { BsCalendar2Week } from "react-icons/bs";
+
 
 function SideBar(){
     const { setAuthUser, setAuthenticated} = useContext(AuthContext)
@@ -21,14 +24,14 @@ function SideBar(){
                 <ul className='links'>
                     <li className='sidebarlink'><NavLink className={({ isActive }) =>
                             isActive
-                            ? "bg-primary"
+                            ? "text-primary"
                             : ""
-                        } to={'/dashboard'} style={{ textDecoration: 'none' }}><i className="bi bi-bag"></i> Dashboard</NavLink>
+                        } to={'/dashboard'} style={{ textDecoration: 'none' }}><RxDashboard/> Dashboard</NavLink>
                     </li>
                     <li className='sidebarlink'>
                         <div className="dropdown dropright">
                             <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i className="bi bi-calendar-event"></i> Appointments
+                            <BsCalendar2Week/> Appointments
                             </a>
                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <ul>
@@ -52,13 +55,13 @@ function SideBar(){
                     </li>
                     <li className='sidebarlink'><NavLink className={({ isActive }) =>
                             isActive
-                            ? "bg-primary"
+                            ? "text-primary"
                             : ""
-                        } to={'/history'} style={{ textDecoration: 'none' }}><i className="bi bi-file-earmark-text"></i> History</NavLink>
+                        } to={'/history'} style={{ textDecoration: 'none' }}><IoFileTrayStackedOutline/> History</NavLink>
                     </li>
                     <li className='sidebarlink'><NavLink className={({ isActive }) =>
                             isActive
-                            ? "bg-primary"
+                            ? "text-primary"
                             : ""
                         } to={'/earnings'} style={{ textDecoration: 'none' }}><i className="bi bi-currency-bitcoin"></i> Earnings</NavLink>
                     </li>

@@ -1,0 +1,172 @@
+.mainView{
+/* border-bottom: 1px #007ffa solid; */
+height: 100%;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+height: 10%;
+background-color: rgb(12, 19, 27);
+padding-left: 20px;
+padding-right: 20px;
+}
+
+.joinButton{
+    height: 40px;
+    width: 80px;
+}
+
+.joinedStyle{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.videoArea{
+    max-height: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+
+}
+
+
+*{
+    box-sizing: border-box;
+}
+
+.react-player{
+    height: 100%;
+    min-width: 700px;
+    position: relative;
+}
+
+.inner-react-player{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20%;
+    height: 20%;
+    max-width: 20%;
+    max-height: 20%;
+    object-fit: fill;
+
+}
+
+
+.enter-call{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(16,23, 32);
+}
+
+.inner-enter-call{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 100px;
+
+
+}
+
+.large-text{
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.small-text{
+    color: white;  
+}
+
+.custom-button {
+    height: 48px; 
+    font-weight: bold;
+    padding: 0 24px;
+    border: none;
+    font-size: 17px;
+    width: 200px;
+    background-color: #007ffa; 
+    color: white;
+    cursor: pointer;
+    border-radius: 4px ;
+    }
+    
+
+
+.padding-bottom{
+    padding-bottom: 50px;
+}
+
+
+.waiting-user{
+    color: white; 
+    margin-top: 30px;
+
+}
+
+
+
+    /* call top NavBar */
+
+.online{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.red-circle {
+    width: 10px; 
+    height: 10px;
+    border-radius: 50%;
+    background-color: red; 
+    margin-right: 8px;
+    }
+
+    .leave-button{
+    height: 28px; 
+    font-weight: bold;
+    border: none;
+    font-size: 14px;
+    width: 70px;
+    background-color: red; 
+    color: white;
+    cursor: pointer;
+    border-radius: 4px ;
+    }
+
+    .toggle-icons-container{
+    display: flex;
+    align-items: center;
+    }
+
+    .toggle-icons{
+    margin-right: 20px;
+    color: grey;
+    font-size: 24px;
+    }
+    
+.meetingIdinput{
+    border-radius: 5px;
+    padding: 0.3rem;
+    border: 1px solid lightgray;
+    margin-right: 0.5rem;
+}
+
+.meetingbtn{
+    color: #fff;
+    padding: 0.3rem;
+    background-color: hsl(223, 100%, 43%);
+}
+.textprimary{
+    color: hsl(223, 100%, 43%);
+    font-weight: 800;
+}
+    
+      

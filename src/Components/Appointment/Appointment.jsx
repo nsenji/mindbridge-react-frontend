@@ -1,9 +1,10 @@
 import './Appointment.css'
 import { MdOutlineCalendarMonth } from "react-icons/md";
-
-export default function Appointment({id, patientName, date, time, status, diagnosis}){
+import { useNavigate } from 'react-router-dom';
+export default function Appointment({id, patientName, date, time, status, diagnosis, patientEmail}){
+    const navigate = useNavigate()
     const today = new Date();
-    let currentdate = `${today.getDate().toString()}-${today.getMonth() + 1 > 9 ? today.getMonth() + 1 : `0${today.getMonth() + 1 }`}-${today.getFullYear().toString()}`
+    let currentdate = `${today.getFullYear().toString()}-${today.getMonth() + 1 > 9 ? today.getMonth() + 1 : `0${today.getMonth() + 1 }-${today.getDate().toString()}`}`
     return(
         <>
             <div className={currentdate == date ? 'todaysappointment': 'appointment'} id={currentdate == date ? `todaysapp`: 'app'} data-bs-toggle="modal" data-bs-target={`#todaysapp${id}`}>
@@ -25,13 +26,13 @@ export default function Appointment({id, patientName, date, time, status, diagno
                             </div>
                             <div className="modal-body">
                                 <div className='modaldetails'>
-                                    <span>{patientName}</span>
-                                    <span>{date}</span>
-                                    <span>{time}</span>
-                                    <span className='status'>{status}</span>
-                                    <span>{diagnosis}</span>
+                                    <span>Name: {patientName}</span>
+                                    <span>Date: {date}</span>
+                                    <span>Time: {time}</span>
+                                    <span className='status'>Status: {status}</span>
+                                    <span>Diagnosis: {diagnosis}</span>
                                 </div>
-                                {currentdate == date ? <button className='btn sendlink'>Start Call</button> : null}
+                                {currentdate == date ? <button onClick={()=>{$('.modal-dialog').modal('hide'), $('body').removeClass('modal-open'), $('.modal-backdrop').remove(), navigate('/meeting-room', {state: {patientEmail}})}} className='btn sendlink'>Start Call</button> : null}
                             </div>
                             </div>
                         </div>

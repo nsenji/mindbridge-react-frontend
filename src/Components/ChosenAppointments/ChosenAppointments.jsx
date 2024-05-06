@@ -26,9 +26,13 @@ const ChosenAppointments = ()=>{
         getschedules()
     }, [])
 
-    async function handleSubmit(){
+    async function handleSubmit(e){
+        e.preventDefault()
        try{
-            await Schedule.createSchedule(datetime)
+            let newScheduledTime = await Schedule.createSchedule(datetime)
+            console.log(newScheduledTime.data)
+            setSchedules([...schedules, newScheduledTime.data])
+            $('#addtime').modal('hide');
        } catch(error){
             return error
        }
@@ -63,7 +67,7 @@ const ChosenAppointments = ()=>{
                             </button>
                         </div>
                         <div className="modal-body">
-                           <form className='d-flex flex-column' onSubmit={handleSubmit}>
+                           <form className='d-flex flex-column' onSubmit={(e)=>handleSubmit(e)}>
                                 <input type='date' className='inputfield' onChange={(e) => setDateTime({...datetime, date: e.target.value})}/>
                                 <input type='time' className='inputfield' onChange={(e) => setDateTime({...datetime, time: e.target.value})}/>
                                 <button type='submit'  className='savebtn'>Save</button>
