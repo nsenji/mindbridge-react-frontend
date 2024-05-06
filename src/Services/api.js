@@ -1,7 +1,7 @@
 
 // Create a schedule
 import axios from "axios";
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://final-project-backend-production-273c.up.railway.app';
 
 const Schedule = {
     createSchedule: async (schedule) => {
