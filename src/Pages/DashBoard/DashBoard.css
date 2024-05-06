@@ -91,3 +91,6 @@ input[type='file'] {
 .displayImage:hover{
     cursor: pointer;
 }
+#myFile{
+    display: inline;
+}

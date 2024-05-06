@@ -74,6 +74,7 @@ export default function DashBoard(){
         try{
             const uploadImage = await Edit.editProfilePhoto(authUser.doc_ID, imageResource)
             setAuthUser({...authUser, avatar: {file_name: uploadImage.data.file_name}})
+            $('#editdialog').modal('hide');
         } catch (error){
             console.log(error.message)
         }
@@ -84,7 +85,7 @@ export default function DashBoard(){
             <h1>{time < 12 ? 'Good Morning' : time <= 16 ? 'Good Afternoon' : 'Good Evening'}</h1>
             <div className='personaldetails'>
                 <div className='doctordetails'>
-                    <img src= {authUser.avatar ? `http://localhost:3000/uploads/${authUser.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!authUser.avatar ? "#editdialog" : null} className='displayImage'/>
+                    <img src= {authUser.avatar ? `https://final-project-backend-production-273c.up.railway.app/uploads/${authUser.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!authUser.avatar ? "#editdialog" : null} className='displayImage'/>
                     <div className='title'>
                         <h4>Doctor</h4>
                         <h5>{authUser.name}</h5>
@@ -113,16 +114,18 @@ export default function DashBoard(){
                                     </button>
                                 </div>
                                 <div className="modal-body d-flex flex-column">
-                                    <div className='d-flex justify-content-between align-items-center'>
-                                        <div>
-                                            {previewSrc ? <img src={previewSrc} alt="preview" className='addprofileicon' /> : <IoIosPersonAdd size={120}/>}
-                                        </div>
-                                        <div className='d-flex flex-column justify-content-center gap-3'>
-                                            <input type="file" id="myFile" name="avatar" accept="image" onChange={handleFileChange} />
-                                            <button className='clearbtn btn btn-danger' onClick={()=>setPreviewSrc('')}>Clear</button>
+                                    <div className='d-flex flex-column mb-4'>
+                                        <div className='align-self-center'>
+                                            <div className='d-flex justify-content-center'>
+                                                {previewSrc ? <img src={previewSrc} alt="preview" className='addprofileicon' /> : <IoIosPersonAdd size={120}/>}
+                                            </div>
+                                            <div className='d-flex justify-content-center'>
+                                                <input type="file" id="myFile" name="avatar" accept="image" onChange={handleFileChange} />
+                                                <button className='clearbtn btn btn-danger' onClick={()=>setPreviewSrc('')}>Clear</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <button className='btn btn-primary w-25 justify-self-center' onClick={(e)=>handleSubmit(e)} disabled={!imageResource}>Submit</button>
+                                    <button className='btn btn-primary w-25 align-self-center image-uploadbtn' onClick={(e)=>handleSubmit(e)} disabled={!imageResource}>Submit</button>
                                 </div>
                             </div>
                         </div>

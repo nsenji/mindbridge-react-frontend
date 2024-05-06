@@ -1,7 +1,7 @@
 
 // Create a schedule
 import axios from "axios";
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://final-project-backend-production-273c.up.railway.app';
 const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiIxMzRiNGM5Zi0xN2U0LTRjNjYtYjM5My02OWYyMWZhMGJkY2EiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcxMzQzMzA5MCwiZXhwIjoxNzE2MDI1MDkwfQ.-vCShwui2sLukx3N0clggQrTqCltP7RxvHK2WqRNoew"
 
 const Schedule = {
@@ -86,7 +86,6 @@ const Edit = {
         const formData = new FormData();
         formData.append('doctorID', doctorID);
         formData.append('avatar', selectedImage);
-        console.log({doctorID, selectedImage})
         const response = await axios.post(`${BASE_URL}/uploads/uploadavatar`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
