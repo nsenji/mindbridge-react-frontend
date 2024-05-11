@@ -5,20 +5,23 @@ import CreatedAppointment from '../CreatedAppointments/CreatedAppointment';
 import { Schedule } from '../../Services/api';
 import { useContext } from 'react';
 import { AuthContext } from '../../Services/authprovider';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const ChosenAppointments = ()=>{
     const { authUser } = useContext(AuthContext)
 
     const [datetime, setDateTime] = useState({date: null, time: null, doctorID: authUser.doc_ID, status: "available"})
     const [schedules, setSchedules] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(()=>{
         const getschedules = async ()=>{
             try{
+                setIsLoading(true)
                 const times = await Schedule.getSchedules({doctorID: authUser.doc_ID})
                 setSchedules(times.data)
-                setLoading(false)
+                setIsLoading(false)
             } catch (error){
                 console.log(error)
             }
@@ -30,17 +33,11 @@ const ChosenAppointments = ()=>{
         e.preventDefault()
        try{
             let newScheduledTime = await Schedule.createSchedule(datetime)
-            console.log(newScheduledTime.data)
             setSchedules([...schedules, newScheduledTime.data])
             $('#addtime').modal('hide');
        } catch(error){
             return error
        }
-    }
-    if(loading){
-        <div className='loader'>
-            <GridLoader size={'150px'} aria-label='Loading Spinner'/>
-        </div>
     }
     return(
         <div>
@@ -52,7 +49,7 @@ const ChosenAppointments = ()=>{
                     <span>Status</span>
                     <span>Action</span>
                 </div> : null }
-                {schedules.length ? schedules.map((app) => app.time ? <CreatedAppointment key={app.apt_schedule_ID} time={app.time} date={app.date} status={app.status}/> : null) : <h4 className='noactivity'>No Activity</h4>}
+                {isLoading ? <Skeleton count={4}/> : schedules.length ? schedules.map((app) => app.time ? <CreatedAppointment key={app.apt_schedule_ID} time={app.time} date={app.date} status={app.status}/> : null) : <h4 className='noactivity'>No Activity</h4>}
             </div>
             <button type="button" className='addbtn' data-bs-toggle="modal" data-bs-target="#addtime">+</button>
 

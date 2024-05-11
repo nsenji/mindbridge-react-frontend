@@ -5,25 +5,28 @@ import { useContext } from 'react'
 import Auth from '../../Services/authentication'
 import './style.css'
 import logo from '../../assets/logo-main.png'
+import FadeLoader from "react-spinners/FadeLoader";
 
 export default function Login(){
     const navigate = useNavigate()
 
     const { setAuthUser, setAuthenticated } = useContext(AuthContext)
-
+    const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState({email: '', password:''})
     const [error, setError] = useState('')
 
     async function handleLogin(e){
         e.preventDefault()
         try{
+            setIsLoading(true)
             const response = await Auth.signIn(user)
             setAuthUser(response.data)
             setAuthenticated(true)
+            setIsLoading(false)
             response.data ? navigate('/dashboard') : navigate('/login')
         } catch(error){
-            console.log(error)
             setError(error.response.data.message)
+            setIsLoading(false)
             setTimeout(()=>{
                 setError('')
             }, 3000)
@@ -47,7 +50,20 @@ export default function Login(){
                         <div className="mb-4">
                             <input type="password" placeholder={'Password'} className="form-control" id="password" autoComplete="current-password" onChange={(e)=> setUser({...user, password: e.target.value})} required/>
                         </div>
-                        <button className="align-self-center submit-btn mb-5" type="submit" style={{width:'50%'}}>Login</button>
+                        {
+                            isLoading 
+                            ?
+                                <div className='d-flex justify-content-center'>
+                                    <FadeLoader
+                                        color={'blue'}
+                                        loading={isLoading}
+                                        size={80}
+                                        aria-label="Loading Spinner"
+                                        data-testid="loader"
+                                    />
+                                </div>
+                            :
+                            <button className="align-self-center submit-btn mb-5" type="submit" style={{width:'50%'}}>Login</button>}
                     </div>
                     <div className='d-flex justify-content-between gap-5'>
                         <Link to={'/signup'}>Create An Account!</Link>
