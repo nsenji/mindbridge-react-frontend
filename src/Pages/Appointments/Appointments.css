@@ -1,5 +1,5 @@
 .active{
-    border-bottom: 5px solid hsl(223, 100%, 43%);
+    border-bottom: 5px solid #0c008a;
 }
 .inactive{
     color: lightgrey;

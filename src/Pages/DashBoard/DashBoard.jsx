@@ -93,7 +93,7 @@ export default function DashBoard(){
                         isLoading 
                         ? 
                         <FadeLoader
-                        color={'blue'}
+                        color={'#0c008a'}
                         loading={isLoading}
                         size={150}
                         aria-label="Loading Spinner"

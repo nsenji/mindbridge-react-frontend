@@ -20,11 +20,11 @@ function SideBar(){
     return (
         <div className='SideBar d-flex flex-column justify-content-between'>
             <div className='d-flex flex-column'>
-                <img className="logo" src={logo} alt='medbridge'/>
+                <img className="logo" src={logo} alt='minddbridge' style={{height:'55px', width:'250px', margin:'1rem'}}/>
                 <ul className='links'>
                     <li className='sidebarlink'><NavLink className={({ isActive }) =>
                             isActive
-                            ? "text-primary"
+                            ? "text-active"
                             : ""
                         } to={'/dashboard'} style={{ textDecoration: 'none' }}><RxDashboard/> Dashboard</NavLink>
                     </li>
@@ -55,13 +55,13 @@ function SideBar(){
                     </li>
                     <li className='sidebarlink'><NavLink className={({ isActive }) =>
                             isActive
-                            ? "text-primary"
+                            ? "text-active"
                             : ""
                         } to={'/history'} style={{ textDecoration: 'none' }}><IoFileTrayStackedOutline/> History</NavLink>
                     </li>
                     <li className='sidebarlink'><NavLink className={({ isActive }) =>
                             isActive
-                            ? "text-primary"
+                            ? "text-active"
                             : ""
                         } to={'/earnings'} style={{ textDecoration: 'none' }}><i className="bi bi-currency-bitcoin"></i> Earnings</NavLink>
                     </li>
