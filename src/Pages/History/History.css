@@ -34,7 +34,7 @@
 .resultsbar{
     display: grid;
     grid-template-columns: 5fr 3fr 3fr 3fr;
-    background-color: hsl(223, 100%, 43%);
+    background-color: #0c008a;
     color: #fff;
     border-radius: 5px;
     padding: 5px;

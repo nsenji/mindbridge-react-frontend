@@ -96,4 +96,10 @@ const Edit = {
     }
 
 }
-export {Schedule, Appointments, MeetingConfig, authToken, Edit}
+const DoctorsEarnings = {
+    getDoctorsEarnings: async(doctor)=>{
+        const response = await axios.post(`${BASE_URL}/payments/getdoctorearnings`, doctor)
+        return response.data
+    }
+}
+export {Schedule, Appointments, MeetingConfig, authToken, Edit, DoctorsEarnings}

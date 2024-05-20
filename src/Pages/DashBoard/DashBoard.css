@@ -21,10 +21,10 @@
 }
 
 .generaldetails{
-    font-size: 14px;
+    font-size: 18px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 50%;
+    width: 70%;
     grid-gap: 20%;
     display: flex;
     align-items: center;
@@ -93,4 +93,7 @@ input[type='file'] {
 }
 #myFile{
     display: inline;
+}
+.info{
+    height: 60%;
 }

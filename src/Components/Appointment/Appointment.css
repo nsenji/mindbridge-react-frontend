@@ -42,9 +42,9 @@
     align-self:flex-end;
     color: #fff;
     padding: 5px;
-    background-color: hsl(223, 100%, 43%);
+    background-color: #0c008a;
 }
 .sendlink:hover{
-    background-color: hsl(223, 76%, 23%);
+    background-color: #0c0557;
     color: #fff;
 }

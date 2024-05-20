@@ -91,7 +91,7 @@ padding-right: 20px;
     border: none;
     font-size: 17px;
     width: 200px;
-    background-color: #007ffa; 
+    background-color: #0c008a; 
     color: white;
     cursor: pointer;
     border-radius: 4px ;
@@ -162,10 +162,10 @@ padding-right: 20px;
 .meetingbtn{
     color: #fff;
     padding: 0.3rem;
-    background-color: hsl(223, 100%, 43%);
+    background-color: #0c008a;
 }
 .textprimary{
-    color: hsl(223, 100%, 43%);
+    color: #0c008a;
     font-weight: 800;
 }
     

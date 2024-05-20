@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IoIosPersonAdd } from "react-icons/io";
+import { TbFolderCancel } from "react-icons/tb";
 import './DashBoard.css'
 import { SlPeople } from "react-icons/sl";
 import Person from'../../assets/person.png'
@@ -9,8 +10,10 @@ import Chart from 'react-apexcharts'
 import { useContext } from 'react';
 import { AuthContext } from '../../Services/authprovider';
 import { Appointments, Edit } from '../../Services/api';
+import FadeLoader from "react-spinners/FadeLoader";
+
 export default function DashBoard(){
-    
+    const [isLoading, setIsLoading] = useState(false)
     const [completed , setCompleted] = useState(0)
     const [scheduledApp, setScheduledApp] = useState(0)
     const { authUser, setAuthUser } = useContext(AuthContext)
@@ -52,8 +55,7 @@ export default function DashBoard(){
     }, [])
 
     const [previewSrc, setPreviewSrc] = useState('');
-    const [imageResource, setImageResource] = useState(null)
-    const [uploadedImage, setUploadedImage] = useState(null)
+    const [imageResource, setImageResource] = useState(null);
     
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -72,8 +74,10 @@ export default function DashBoard(){
         e.preventDefault()
        if(imageResource){
         try{
+            setIsLoading(true)
             const uploadImage = await Edit.editProfilePhoto(authUser.doc_ID, imageResource)
             setAuthUser({...authUser, avatar: {file_name: uploadImage.data.file_name}})
+            setIsLoading(false)
             $('#editdialog').modal('hide');
         } catch (error){
             console.log(error.message)
@@ -85,10 +89,22 @@ export default function DashBoard(){
             <h1>{time < 12 ? 'Good Morning' : time <= 16 ? 'Good Afternoon' : 'Good Evening'}</h1>
             <div className='personaldetails'>
                 <div className='doctordetails'>
-                    <img src= {authUser.avatar ? `https://final-project-backend-production-273c.up.railway.app/uploads/${authUser.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!authUser.avatar ? "#editdialog" : null} className='displayImage'/>
+                    {
+                        isLoading 
+                        ? 
+                        <FadeLoader
+                        color={'#0c008a'}
+                        loading={isLoading}
+                        size={150}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                      />
+                      :
+                      <img src= {authUser.avatar ? `https://final-project-backend-production-273c.up.railway.app/uploads/${authUser.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!authUser.avatar ? "#editdialog" : null} className='displayImage'/>
+                    }
                     <div className='title'>
                         <h4>Doctor</h4>
-                        <h5>{authUser.name}</h5>
+                        <h4>{authUser.name}</h4>
                     </div>
                 </div>
                 <div className='generaldetails'>
@@ -156,10 +172,15 @@ export default function DashBoard(){
                         </div>
                     </div>
                 </div>
-                <div className='inforight'>
-                    <Chart
-                    series={[completed, scheduledApp]} options={chartData.options} type="donut" 
-                    />
+                <div className='d-flex justify-content-center align-items-center inforight'>
+                    {
+                        completed == 0 && scheduledApp == 0 ?
+                        <h5><TbFolderCancel size={30}/> No Data to Display!</h5>
+                        : 
+                        <Chart
+                        series={[completed, scheduledApp]} options={chartData.options} type="donut" 
+                        />
+                    }
                 </div>
             </div>
         </div>

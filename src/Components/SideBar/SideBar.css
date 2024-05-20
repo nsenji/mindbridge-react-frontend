@@ -8,8 +8,8 @@ a{
     border-right: 1px solid lightgray;
     height: 100vh;
 }
-.text-primary{
-    color: hsl(223, 62%, 32%);
+.text-active{
+    color: #0c008a;
     font-weight: 700;
 }
 
