@@ -100,7 +100,7 @@ export default function DashBoard(){
                         data-testid="loader"
                       />
                       :
-                      <img src= {authUser.avatar ? `https://final-project-backend-production-273c.up.railway.app/uploads/${authUser.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!authUser.avatar ? "#editdialog" : null} className='displayImage'/>
+                      <img src= {authUser.avatar ? `http://localhost:3000/uploads/${authUser.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!authUser.avatar ? "#editdialog" : null} className='displayImage'/>
                     }
                     <div className='title'>
                         <h4>Doctor</h4>
