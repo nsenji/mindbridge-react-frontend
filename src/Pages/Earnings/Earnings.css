@@ -3,11 +3,11 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    border: 1px solid lightgrey;
+    border: 1px solid #B6D0E2;
     border-radius: 5px;
 }
 .paymentshistory{
-    border: 1px solid lightgray;
+    border: 1px solid #B6D0E2;
     border-radius: 5px;
     padding: 10px;
 }

@@ -6,4 +6,10 @@ body{
     margin: 0;
     padding: 0;
 }
-  
+
+/* Mobile */
+@media screen and (max-width: 767px) { 
+    .SideBar{
+        display: none;
+    }
+}

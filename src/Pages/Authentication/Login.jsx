@@ -37,12 +37,13 @@ export default function Login(){
     return(
         <div className="signup">
             <div className='loginleft'>
-            <img src={logo} style={{height:'42px', width:'190px'}} className='logo-image'/>
+                <img src={logo} style={{height:'42px', width:'190px'}} className='logo-image'/>
             </div>
             <form className='loginform' onSubmit={handleLogin}>
+            <img src={logo} style={{height:'55px', width:'250px'}} className='align-self-center'/>
+            <h1 className='smallheading'>Let's Solve Mental Health</h1>
                 <div className='d-flex flex-column login'>
                     {error && <span className='text-danger align-self-center'>{error}</span>}
-                    <img src={logo} style={{height:'55px', width:'250px'}} className='align-self-center'/>
                     <div className='d-flex justify-content-center flex-column'>
                         <div className="mb-2">
                             <input placeholder={'Email'} type="email" className="form-control" autoComplete='username' id="email" aria-describedby="email" onChange={(e)=> setUser({...user, email: e.target.value})} required/>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { CiCircleChevLeft } from "react-icons/ci";
 import { IoIosPersonAdd } from "react-icons/io";
 import { TbFolderCancel } from "react-icons/tb";
 import './DashBoard.css'
@@ -86,7 +87,7 @@ export default function DashBoard(){
     }
     return(
         <div className='main'>
-            <h1>{time < 12 ? 'Good Morning' : time <= 16 ? 'Good Afternoon' : 'Good Evening'}</h1>
+            <h1 className='greeting'><CiCircleChevLeft /> {time < 12 ? 'Good Morning' : time <= 16 ? 'Good Afternoon' : 'Good Evening'}</h1>
             <div className='personaldetails'>
                 <div className='doctordetails'>
                     {
@@ -100,11 +101,10 @@ export default function DashBoard(){
                         data-testid="loader"
                       />
                       :
-                      <img src= {authUser.avatar ? `http://localhost:3000/uploads/${authUser.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!authUser.avatar ? "#editdialog" : null} className='displayImage'/>
+                      <img src= {authUser.avatar ? `http://192.168.0.153:3000/uploads/${authUser.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!authUser.avatar ? "#editdialog" : null} className='displayImage'/>
                     }
                     <div className='title'>
-                        <h4>Doctor</h4>
-                        <h4>{authUser.name}</h4>
+                        <h4 style={{fontWeight: '700'}}>{authUser.name}</h4>
                     </div>
                 </div>
                 <div className='generaldetails'>
@@ -153,21 +153,21 @@ export default function DashBoard(){
                     <div className='patients'>
                         <span className='digit'>{scheduledApp + completed}</span>
                         <div>
-                            <SlPeople size={80}/>
+                            <SlPeople size={80} color={'#B6D0E2'}/>
                             <h6>All Patients</h6>
                         </div>
                     </div>
                     <div className='pendingappointments'>
                         <span className='digit'>{scheduledApp}</span>
                         <div>
-                            <MdPendingActions size={80}/>
+                            <MdPendingActions size={80} color={'#B6D0E2'}/>
                             <h6>Pending</h6>
                         </div>
                     </div>
                     <div className='finishedpatients'>
                         <span className='digit'>{completed}</span>
                         <div>
-                            <GoThumbsup size={80}/>
+                            <GoThumbsup size={80} color={'#B6D0E2'}/>
                             <h6>Finished</h6>
                         </div>
                     </div>
@@ -178,7 +178,7 @@ export default function DashBoard(){
                         <h5><TbFolderCancel size={30}/> No Data to Display!</h5>
                         : 
                         <Chart
-                        series={[completed, scheduledApp]} options={chartData.options} type="donut" 
+                        series={[completed, scheduledApp]} options={chartData.options} type="donut"
                         />
                     }
                 </div>

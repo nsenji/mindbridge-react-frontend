@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = "http://192.168.0.153:3000"
 
 const Auth = {
     signUp: async (doctor) => {

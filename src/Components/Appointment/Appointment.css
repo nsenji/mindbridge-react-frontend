@@ -1,7 +1,7 @@
 .appointment{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    border: 1px solid lightgrey;
+    border: 1px solid #B6D0E2;
     width: 95%;
     padding: 5px;
     border-radius: 5px;
