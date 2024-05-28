@@ -8,6 +8,9 @@ import logo from '../../assets/logo-main.png'
 import FadeLoader from "react-spinners/FadeLoader";
 
 export default function Login(){
+
+    const seeResults = import.meta.env.VITE_BASE_URL;
+    console.log(seeResults);
     const navigate = useNavigate()
 
     const { setAuthUser, setAuthenticated } = useContext(AuthContext)

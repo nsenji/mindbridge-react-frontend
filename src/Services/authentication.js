@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://final-project-backend-production-273c.up.railway.app"
+const BASE_URL = 'http://192.168.43.145:3000'
 
 const Auth = {
     signUp: async (doctor) => {
