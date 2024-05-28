@@ -1,8 +1,8 @@
 
 // Create a schedule
 import axios from "axios";
-const BASE_URL = 'http://192.168.43.145:3000';
-const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiIxMzRiNGM5Zi0xN2U0LTRjNjYtYjM5My02OWYyMWZhMGJkY2EiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcxMzQzMzA5MCwiZXhwIjoxNzE2MDI1MDkwfQ.-vCShwui2sLukx3N0clggQrTqCltP7RxvHK2WqRNoew"
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const authToken = import.meta.env.VITE_VIDEOSDK_TOKEN
 
 const Schedule = {
     createSchedule: async (schedule) => {
