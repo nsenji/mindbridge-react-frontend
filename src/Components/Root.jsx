@@ -6,7 +6,7 @@ const Root = ()=>{
     return(
     <div className="root">
         <SideBar/>
-        <Outlet/>
+        <Outlet className="outlet"/>
     </div>
     )
 }

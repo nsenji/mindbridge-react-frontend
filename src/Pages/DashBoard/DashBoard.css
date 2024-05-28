@@ -14,6 +14,7 @@
     flex-direction: column;
     justify-content: center;
     align-items:flex-start;
+    color: #0c008a;
 }
 
 .divider{
@@ -21,7 +22,7 @@
 }
 
 .generaldetails{
-    font-size: 18px;
+    font-size: 16px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 70%;
@@ -71,7 +72,10 @@
 .clearbtn{
     width: 5.8rem;
 }
-
+.greeting{
+    color: #0c008a;
+    font-weight: 700;
+}
 input[type='file'] {
     color: transparent;
 }

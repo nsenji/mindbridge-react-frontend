@@ -5,8 +5,10 @@ a{
     margin-bottom: 20px;
 }
 .SideBar{
-    border-right: 1px solid lightgray;
-    height: 100vh;
+    margin: 10px;
+    background-color: #B6D0E2;
+    border-radius: 20px;
+    height: 97vh;
 }
 .text-active{
     color: #0c008a;
@@ -29,4 +31,8 @@ a{
 
 .logoutbtn{
     width: 65%;
+}
+
+@media only screen and (max-width: 768px) {
+    
 }

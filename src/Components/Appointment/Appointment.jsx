@@ -7,7 +7,7 @@ export default function Appointment({id, patientName, date, time, status, diagno
     let currentdate = `${today.getFullYear().toString()}-${today.getMonth() + 1 > 9 ? today.getMonth() + 1 : `0${today.getMonth() + 1 }-${today.getDate().toString()}`}`
     return(
         <>
-            <div className={currentdate == date ? 'todaysappointment': 'appointment'} id={currentdate == date ? `todaysapp`: 'app'} data-bs-toggle="modal" data-bs-target={`#todaysapp${id}`}>
+            <div className={currentdate == date ? 'todaysappointment': 'appointment'} id={currentdate == date ? `todaysapp`: 'app'} data-bs-toggle="modal" data-bs-target={currentdate == date ? `#todaysapp${id}` : `#app${id}`}>
                 <span>{patientName}</span>
                 <span>{date}</span>
                 <span>{time}</span>
@@ -15,7 +15,7 @@ export default function Appointment({id, patientName, date, time, status, diagno
             </div>
 
             {/* Modal */}
-            <div className="modal" tabIndex="-1" role="dialog" id={`todaysapp${id}`} aria-labelledby="todaysapp" aria-hidden="true">
+            <div className="modal" tabIndex="-1" role="dialog" id={currentdate == date ? `todaysapp${id}` : `app${id}`} aria-labelledby="todaysapp" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                             <div className="modal-content">
                             <div className="modal-header">

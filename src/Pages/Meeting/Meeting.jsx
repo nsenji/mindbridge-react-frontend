@@ -67,19 +67,11 @@ function JoinScreen({ getMeetingAndToken }) {
     await getMeetingAndToken(meetingId);
   };
   return (
-    <div className="d-flex justify-content-center mt-5">
+    <div className="d-flex justify-content-center align-items-center mt-5">
       <div className="d-flex flex-column">
-        <h4 className="text-primary"> Join the call</h4>
+        <h4 className="text-active"> Join the call</h4>
         <span>The patient shall be sent the Call ID and they will join you shortly.</span>
         <div className="d-flex justify-content-center align-items-center m-4">
-          <input className="meetingIdinput"
-            type="text"
-            placeholder="Enter Meeting Id"
-            onChange={(e) => {
-              setMeetingId(e.target.value);
-            }}
-          />
-          <button className="btn meetingbtn" onClick={onClick}>Join</button>
         </div>
         <button className="btn meetingbtn align-self-center" onClick={onClick}>Create Meeting</button>
       </div>

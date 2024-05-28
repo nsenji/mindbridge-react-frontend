@@ -18,7 +18,7 @@ function SideBar(){
         navigate('/login')
     }
     return (
-        <div className='SideBar d-flex flex-column justify-content-between'>
+        <div className='d-flex flex-column justify-content-between SideBar'>
             <div className='d-flex flex-column'>
                 <img className="logo" src={logo} alt='minddbridge' style={{height:'55px', width:'250px', margin:'1rem'}}/>
                 <ul className='links'>

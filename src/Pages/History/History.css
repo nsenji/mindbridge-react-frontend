@@ -13,7 +13,7 @@
 .searchdiv{
     display: flex;
     align-items: center;
-    border: 1px solid lightgrey;
+    border: 1px solid #B6D0E2;
     border-radius: 5px;
     width: 87%;
 }

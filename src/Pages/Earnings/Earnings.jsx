@@ -34,11 +34,11 @@ export default function Earnings(){
     }, [])
     return(
         <div className='m-3'>
-            <h2 className='mb-3'>Earnings</h2>
+            <h2 className='mb-3' style={{'fontWeight':700, 'color': '#0c008a'}}>Earnings</h2>
             <h5>Summary</h5>
             <div className='d-flex gap-3 mb-5'>
                 <div className='totalearnings p-2'>
-                    <CiBadgeDollar size={80}/>
+                    <CiBadgeDollar size={80} color='#B6D0E2'/>
                     <span>Total Earnings</span>
                     <span>shs. {isLoading ? 
                         <Skeleton/>
@@ -46,7 +46,7 @@ export default function Earnings(){
                     </span>
                 </div>
                 <div className='rate p-2'>
-                    <FaMoneyBillTrendUp size={80}/>
+                    <FaMoneyBillTrendUp size={80} color='#B6D0E2'/>
                     <span>My Rate</span>
                     <span>shs. {authUser.rate}</span>
                 </div>

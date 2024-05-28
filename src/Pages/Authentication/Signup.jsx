@@ -46,14 +46,14 @@ export default function Signup(){
     return (
         <div className="signup">
             <div className='signupleft'>
-            <img src={logo} style={{height:'75px', width:'190px'}} className='logo-image'/>
+            <img src={logo} style={{height:'42px', width:'190px'}} className='logo-image'/>
                 <div>
                     <p>Creating a better world starting with mental health.</p>
                     <p>Create an Account with Us!</p>
                 </div>
             </div>
             <form className='signupform' onSubmit={handleSubmit}>
-                <img src={logo} style={{height:'100px', width:'250px'}} className='align-self-center'/>
+                <img src={logo} style={{height:'50px', width:'220px'}} className='align-self-center'/>
                 {error && <span className='text-danger align-self-center'>{error}</span>}
                 <div className="mb-2">
                     <input placeholder={'Full Name'} type="text" className="form-control" id="name" aria-describedby="name" value={details.name} onChange={(e)=>setDetails({...details, name: e.target.value})} required/>
