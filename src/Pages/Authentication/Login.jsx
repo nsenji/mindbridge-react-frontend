@@ -11,7 +11,7 @@ export default function Login(){
 
    
     const navigate = useNavigate()
-
+    const value = import.meta.env.VITE_BASE_URL
     const { setAuthUser, setAuthenticated } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState({email: '', password:''})
