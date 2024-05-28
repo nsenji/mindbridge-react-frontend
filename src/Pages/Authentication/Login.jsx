@@ -6,12 +6,11 @@ import Auth from '../../Services/authentication'
 import './style.css'
 import logo from '../../assets/logo-main.png'
 import FadeLoader from "react-spinners/FadeLoader";
-
+import localforage from 'localforage'
 export default function Login(){
 
    
     const navigate = useNavigate()
-    const value = import.meta.env.VITE_BASE_URL
     const { setAuthUser, setAuthenticated } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState({email: '', password:''})
@@ -21,7 +20,9 @@ export default function Login(){
         e.preventDefault()
         try{
             setIsLoading(true)
-            const response = await Auth.signIn(user)
+            const response = await Auth.signIn(user)  
+            localforage.setItem('currentUser', JSON.stringify(response.data))
+            localforage.setItem('myToken', response.data.jwtToken)
             setAuthUser(response.data)
             setAuthenticated(true)
             setIsLoading(false)
