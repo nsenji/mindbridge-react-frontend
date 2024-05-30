@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../../Services/authprovider'
-import { useContext } from 'react'
+// import { AuthContext } from '../../Services/authprovider'
+// import { useContext } from 'react'
 import Auth from '../../Services/authentication'
 import './style.css'
 import logo from '../../assets/logo-main.png'
@@ -11,7 +11,7 @@ export default function Login(){
 
    
     const navigate = useNavigate()
-    const { setAuthUser, setAuthenticated } = useContext(AuthContext)
+    // const { setAuthUser, setAuthenticated } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState({email: '', password:''})
     const [error, setError] = useState('')
@@ -20,11 +20,10 @@ export default function Login(){
         e.preventDefault()
         try{
             setIsLoading(true)
-            const response = await Auth.signIn(user)  
-            localforage.setItem('currentUser', JSON.stringify(response.data))
-            localforage.setItem('myToken', response.data.jwtToken)
-            setAuthUser(response.data)
-            setAuthenticated(true)
+            const response = await Auth.signIn(user)
+            localforage.setItem('currentUserToken', JSON.stringify(response.data))
+            // setAuthUser(response.data)
+            // setAuthenticated(true)
             setIsLoading(false)
             response.data ? navigate('/dashboard') : navigate('/login')
         } catch(error){

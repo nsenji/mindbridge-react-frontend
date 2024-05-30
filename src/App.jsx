@@ -1,8 +1,5 @@
 import './App.css'
 import FadeLoader from "react-spinners/FadeLoader";
-
-import { useContext, useEffect } from 'react'
-import { AuthContext } from './Services/authprovider'
 import { useRoutes } from 'react-router-dom'
 import Router from './router'
 import isValidToken from './utils/isValidToken'
@@ -11,14 +8,21 @@ function App() {
 
   const { isLoading, error, data } = useQuery("getToken", isValidToken, { enabled: true })
 
+  if (data) {
+    var [tokenValid,_] = data;
+  }
+  
+  if (error){
+    console.log(error);
+  }
+  
+  const routing = useRoutes(Router(tokenValid))
 
-
-  const { isAuthenticated } = useContext(AuthContext)
-  const routing = useRoutes(Router(isAuthenticated, data))
+  // const { isAuthenticated } = useContext(AuthContext)
   return (
     <>
       {isLoading ?
-        <div className='d-flex justify-content-center'>
+        <div className='border border-red-500 flex justify-center items-center h-screen'>
           <FadeLoader
             color={'#0c008a'}
             loading={isLoading}
@@ -27,6 +31,8 @@ function App() {
             data-testid="loader"
           />
         </div>
+        : error? 
+        <h1>there is a terrible error </h1>
         : routing}
     </>
   )

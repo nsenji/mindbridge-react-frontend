@@ -11,10 +11,10 @@ import Login from './Pages/Authentication/Login'
 import MeetingRoom from './Pages/Meeting/Meeting'
 import { Navigate } from 'react-router-dom'
 
-const Router = (isAuthenticated, data) => [
+const Router = (isAuthenticated) => [
   {
     path:'/',
-    element: isAuthenticated || data ? <Root/> : <Navigate to={'/login'}/> ,
+    element: isAuthenticated ? (console.log("this should work fine"), <Root/> ): (console.log("yeah you aint authed guy"),<Navigate to={'/login'}/>) ,
     children: [
     {
     index: true,

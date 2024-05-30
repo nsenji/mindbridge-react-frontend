@@ -12,12 +12,24 @@ import { useContext } from 'react';
 import { AuthContext } from '../../Services/authprovider';
 import { Appointments, Edit } from '../../Services/api';
 import FadeLoader from "react-spinners/FadeLoader";
+import { useQuery } from 'react-query'
 
 export default function DashBoard(){
     const [isLoading, setIsLoading] = useState(false)
     const [completed , setCompleted] = useState(0)
     const [scheduledApp, setScheduledApp] = useState(0)
     const { authUser, setAuthUser } = useContext(AuthContext)
+
+
+    const { isLoading1 , error, data } = useQuery("getToken", isValidToken, { enabled: true })
+
+    if (data) {
+        var [_,userData] = data;
+      }
+
+    if(error){
+        console.log(error);
+    }
     
     const [chartData, setChartData] = useState({
             options: {
@@ -53,7 +65,7 @@ export default function DashBoard(){
         }
         getScheduledAppointments()
         getCompletedCases()
-    }, [])
+    }, [data])
 
     const [previewSrc, setPreviewSrc] = useState('');
     const [imageResource, setImageResource] = useState(null);
