@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useContext } from 'react';
-import { AuthContext } from '../../Services/authprovider';
+
 import { TbFolderCancel } from "react-icons/tb";
 import Transaction from '../../Components/Transaction/Transaction';
 import { CiBadgeDollar } from "react-icons/ci";
@@ -10,28 +9,39 @@ import { DoctorsEarnings } from '../../Services/api';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import './Earnings.css'
+import { useQuery } from 'react-query'
+import isValidToken from '../../utils/isValidToken';
 
 export default function Earnings(){
-    const { authUser } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
     const [earnings, setEarnings] = useState([])
     const [targetValue, setTargetValue] = useState("")
     const [earnings_2, setEarnings_2] = useState([])
+
+
+    const { isLoading1, error, data } = useQuery("getToken", isValidToken, { enabled: true })
+    
+    if(data){
+        var [_, userData] = data;
+
+        useEffect(()=>{
+            async function fetchDoctorsEarnings(){
+             setIsLoading(true)
+             let response = await DoctorsEarnings.getDoctorsEarnings({doctorID: userData.doc_ID})
+             setEarnings(response.data)
+             setIsLoading(false)
+            }
+            fetchDoctorsEarnings()
+         }, [])
+
+    }
 
     useEffect(()=>{
         return  setEarnings_2(earnings.filter(earning => earning.date.toLowerCase().includes(targetValue.toLowerCase()) || earning.payment_ID.toLowerCase().includes(targetValue.toLowerCase())))
      
      }, [targetValue])
 
-    useEffect(()=>{
-       async function fetchDoctorsEarnings(){
-        setIsLoading(true)
-        let response = await DoctorsEarnings.getDoctorsEarnings({doctorID: authUser.doc_ID})
-        setEarnings(response.data)
-        setIsLoading(false)
-       }
-       fetchDoctorsEarnings()
-    }, [])
+    
     return(
         <div className='m-3'>
             <h2 className='mb-3' style={{'fontWeight':700, 'color': '#0c008a'}}>Earnings</h2>
@@ -48,7 +58,7 @@ export default function Earnings(){
                 <div className='rate p-2'>
                     <FaMoneyBillTrendUp size={80} color='#B6D0E2'/>
                     <span>My Rate</span>
-                    <span>shs. {authUser.rate}</span>
+                    <span>shs. {isLoading1? 0: userData.rate}</span>
                 </div>
             </div>
             <h5>Payments History</h5>

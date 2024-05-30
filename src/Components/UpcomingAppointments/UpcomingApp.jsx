@@ -3,30 +3,40 @@ import Appointment from '../Appointment/Appointment'
 import { FaRegCalendarTimes } from "react-icons/fa";
 import { useEffect, useState, useContext } from 'react';
 import { Appointments } from '../../Services/api';
-import { AuthContext } from '../../Services/authprovider';
 import Skeleton from 'react-loading-skeleton';
+import { useQuery } from 'react-query'
+import isValidToken from '../../utils/isValidToken';
 
 export default function UpcomingApp(){
 
-    const { authUser } = useContext(AuthContext)
+    const { isLoading1, error, data } = useQuery("getToken", isValidToken, { enabled: true })
+    
+    if(data){
+        var [_, userData] = data;
+
+        useEffect(()=>{
+            const getAppointments = async ()=>{
+            try{
+                setIsLoading(true)
+                let scheduledAppointments = await Appointments.getScheduledAppointments({doctorID: userData.doc_ID})
+                setAppointments(scheduledAppointments.data)
+                setIsLoading(false)
+            }catch(error){
+                console.log(error)
+                }
+            }
+            getAppointments()
+        }, [])
+
+    }
+
+
     const [isLoading, setIsLoading] = useState(false)
 
     const today = new Date();
     let currentdate = `${today.getFullYear().toString()}-${today.getMonth() + 1 > 9 ? today.getMonth() + 1 : `0${today.getMonth() + 1 }-${today.getDate().toString()}`}`
     const [appointments, setAppointments] = useState([])
-    useEffect(()=>{
-        const getAppointments = async ()=>{
-        try{
-            setIsLoading(true)
-            let scheduledAppointments = await Appointments.getScheduledAppointments({doctorID: authUser.doc_ID})
-            setAppointments(scheduledAppointments.data)
-            setIsLoading(false)
-        }catch(error){
-            console.log(error)
-            }
-        }
-        getAppointments()
-    }, [])
+   
     const appointmentsToday = []
     const upcomingAppointments = []
     appointments.forEach(app => app.date == currentdate ? appointmentsToday.push(app) : upcomingAppointments.push(app))

@@ -3,37 +3,47 @@ import DropDown from '../../Components/DropDownMenu/DropDown'
 import PatientHistory from '../../Components/PatientHistory/PatientHistory';
 import { useState } from 'react';
 import { Appointments } from '../../Services/api';
-import { useContext } from 'react';
-import { AuthContext } from '../../Services/authprovider';
+
 import { FaRegCalendarTimes } from 'react-icons/fa';
 import Skeleton from 'react-loading-skeleton';
 import './History.css'
+import { useQuery } from 'react-query'
+import isValidToken from '../../utils/isValidToken';
 
 const History = ()=>{
-    const { authUser } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
     const [appointments, setAppointments] = useState([])
     const [appointments_2, setAppointments_2] = useState([])
     const [targetValue, setTargetValue] = useState("")
+
+    const { isLoading1, error, data } = useQuery("getToken", isValidToken, { enabled: true })
+
+    if(data){
+        var [_, userData] = data;
+
+        useEffect(()=>{
+            const getDoctorHistory = async ()=>{
+                try{
+                    setIsLoading(true)
+                    const pastAppointments = await Appointments.getDoctorHistory({doctorID: userData.doc_ID})
+                    setAppointments(pastAppointments.data)
+                    setIsLoading(false)
+                } catch (error){
+                    console.log(error)
+                }
+            }
+            getDoctorHistory()
+        }, [])
+
+    }
+
 
     useEffect(()=>{
        return  setAppointments_2(appointments.filter(app => app.patient.name.toLowerCase().includes(targetValue.toLowerCase()) || app.date.toLowerCase().includes(targetValue.toLowerCase())))
     
     }, [targetValue])
 
-    useEffect(()=>{
-        const getDoctorHistory = async ()=>{
-            try{
-                setIsLoading(true)
-                const pastAppointments = await Appointments.getDoctorHistory({doctorID: authUser.doc_ID})
-                setAppointments(pastAppointments.data)
-                setIsLoading(false)
-            } catch (error){
-                console.log(error)
-            }
-        }
-        getDoctorHistory()
-    }, [])
+    
     
     return(
         <div className="historymain">

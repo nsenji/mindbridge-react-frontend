@@ -20,7 +20,6 @@ export default function DashBoard() {
     const [isLoading, setIsLoading] = useState(false)
     const [completed, setCompleted] = useState(0)
     const [scheduledApp, setScheduledApp] = useState(0)
-    // const { authUser, setAuthUser } = useContext(AuthContext)
 
 
     const { isLoading1, error, data } = useQuery("getToken", isValidToken, { enabled: true })
@@ -69,18 +68,6 @@ export default function DashBoard() {
     let datetime = new Date()
     let time = datetime.getHours()
 
-    // useEffect(()=>{
-    //     async function getScheduledAppointments(){
-    //         const scheduled = await Appointments.getScheduledAppointments({doctorID: authUser.doc_ID})
-    //         setScheduledApp(scheduled.data.length)
-    //     }
-    //     async function getCompletedCases(){
-    //         const cases = await Appointments.getDoctorHistory({doctorID: authUser.doc_ID})
-    //         setCompleted(cases.data.length)
-    //     }
-    //     getScheduledAppointments()
-    //     getCompletedCases()
-    // }, [data])
 
     const [previewSrc, setPreviewSrc] = useState('');
     const [imageResource, setImageResource] = useState(null);

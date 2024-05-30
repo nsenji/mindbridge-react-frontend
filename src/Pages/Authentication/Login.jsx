@@ -25,7 +25,7 @@ export default function Login(){
             // setAuthUser(response.data)
             // setAuthenticated(true)
             setIsLoading(false)
-            response.data ? navigate('/dashboard') : navigate('/login')
+            response.data ? navigate('/') : navigate('/login')
         } catch(error){
             setError(error.response.data.message)
             setIsLoading(false)

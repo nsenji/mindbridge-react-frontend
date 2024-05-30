@@ -3,32 +3,41 @@ import './ChosenAppointments.css'
 import { GridLoader } from 'react-spinners';
 import CreatedAppointment from '../CreatedAppointments/CreatedAppointment';
 import { Schedule } from '../../Services/api';
-import { useContext } from 'react';
-import { AuthContext } from '../../Services/authprovider';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useQuery } from 'react-query'
+import isValidToken from '../../utils/isValidToken';
 
 const ChosenAppointments = ()=>{
-    const { authUser } = useContext(AuthContext)
 
-    const [datetime, setDateTime] = useState({date: null, time: null, doctorID: authUser.doc_ID, status: "available"})
+    const { isLoading1, error, data } = useQuery("getToken", isValidToken, { enabled: true })
+
+    if(data){
+        var [_, userData] = data;
+
+        useEffect(()=>{
+            const getschedules = async ()=>{
+                try{
+                    setIsLoading(true)
+                    const times = await Schedule.getSchedules({doctorID: userData.doc_ID})
+                    setSchedules(times.data)
+                    setIsLoading(false)
+                } catch (error){
+                    console.log(error)
+                }
+            }
+            getschedules()
+        }, [])
+    
+
+    }
+
+
+    const [datetime, setDateTime] = useState({date: null, time: null, doctorID: userData.doc_ID, status: "available"})
     const [schedules, setSchedules] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    useEffect(()=>{
-        const getschedules = async ()=>{
-            try{
-                setIsLoading(true)
-                const times = await Schedule.getSchedules({doctorID: authUser.doc_ID})
-                setSchedules(times.data)
-                setIsLoading(false)
-            } catch (error){
-                console.log(error)
-            }
-        }
-        getschedules()
-    }, [])
-
+   
     async function handleSubmit(e){
         e.preventDefault()
        try{

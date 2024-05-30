@@ -2,19 +2,16 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import './SideBar.css'
 import logo from '../../assets/logo-main.png'
 import { IoIosLogOut } from "react-icons/io";
-import { AuthContext } from '../../Services/authprovider'
-import { useContext } from 'react'
+
 import { RxDashboard } from "react-icons/rx";
 import { IoFileTrayStackedOutline } from "react-icons/io5";
 import { BsCalendar2Week } from "react-icons/bs";
 
 
 function SideBar(){
-    const { setAuthUser, setAuthenticated} = useContext(AuthContext)
     const navigate = useNavigate()
     function handleLogout(){
-        setAuthUser(null)
-        setAuthenticated(null)
+     
         navigate('/login')
     }
     return (
