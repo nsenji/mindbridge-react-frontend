@@ -8,7 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { useQuery } from 'react-query'
 import isValidToken from '../../utils/isValidToken';
 
-const ChosenAppointments = ()=>{
+const AppointmentSchedule = ()=>{
 
     const { isLoading1, error, data } = useQuery("getToken", isValidToken, { enabled: true })
 
@@ -49,8 +49,8 @@ const ChosenAppointments = ()=>{
        }
     }
     return(
-        <div>
-            <div className='availabletimes'>
+        <div className='flex flex-grow h-screen overflow-y-auto'>
+            <div className=''>
                 {schedules.length ? 
                 <div className='appointmenttimes'>
                     <span>Time</span>
@@ -86,5 +86,5 @@ const ChosenAppointments = ()=>{
     )
 }
 
-export default ChosenAppointments
+export default AppointmentSchedule
 

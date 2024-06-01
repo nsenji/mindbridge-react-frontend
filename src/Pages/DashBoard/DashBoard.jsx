@@ -149,7 +149,7 @@ export default function DashBoard() {
                                 </div>
 
                                 {/* Modal */}
-                                <div className="modal" tabIndex="-1" role="dialog" id='editdialog' aria-hidden="true">
+                                {/* <div className="modal" tabIndex="-1" role="dialog" id='editdialog' aria-hidden="true">
                                     <div className="modal-dialog" role="document">
                                         <div className="modal-content">
                                             <div className="modal-header">
@@ -174,7 +174,7 @@ export default function DashBoard() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className='info'>

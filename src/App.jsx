@@ -1,4 +1,3 @@
-import './App.css'
 import FadeLoader from "react-spinners/FadeLoader";
 import { useRoutes } from 'react-router-dom'
 import Router from './router'
@@ -10,6 +9,7 @@ function App() {
 
   if (data) {
     var [tokenValid,_] = data;
+    console.log(`data has now come and token is ${tokenValid}` )
   }
   
   if (error){
@@ -22,7 +22,7 @@ function App() {
   return (
     <>
       {isLoading ?
-        <div className='border border-red-500 flex justify-center items-center h-screen'>
+        <div className='flex justify-center items-center h-screen'>
           <FadeLoader
             color={'#0c008a'}
             loading={isLoading}

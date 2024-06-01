@@ -1,4 +1,4 @@
-body{
+/* body{
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
@@ -8,8 +8,8 @@ body{
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) { 
+/* @media screen and (max-width: 767px) { 
     .SideBar{
         display: none;
     }
-}
+}  */

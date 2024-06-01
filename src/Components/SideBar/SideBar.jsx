@@ -1,70 +1,69 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import './SideBar.css'
 import logo from '../../assets/logo-main.png'
 import { IoIosLogOut } from "react-icons/io";
-
 import { RxDashboard } from "react-icons/rx";
+import { RiInputCursorMove } from 'react-icons/ri';
+import { RiUser2Line } from 'react-icons/ri';
 import { IoFileTrayStackedOutline } from "react-icons/io5";
 import { BsCalendar2Week } from "react-icons/bs";
+import localforage from 'localforage'
 
 
-function SideBar(){
+function SideBar() {
     const navigate = useNavigate()
-    function handleLogout(){
-     
+    function handleLogout() {
+        localforage.setItem('currentUserToken',null)
         navigate('/login')
     }
     return (
-        <div className='d-flex flex-column justify-content-between SideBar'>
-            <div className='d-flex flex-column'>
-                <img className="logo" src={logo} alt='minddbridge' style={{height:'55px', width:'250px', margin:'1rem'}}/>
+        <div className='bg-light-blue w-[18%] m-2 flex flex-col items-center rounded-xl  min-w-[235px]'>
+            <div className='flex flex-col items-center flex-grow '>
+                <img className="h-[40px] w-[190px] mt-9 mb-9" src={logo} alt='minddbridge' />
                 <ul className='links'>
-                    <li className='sidebarlink'><NavLink className={({ isActive }) =>
+                    <li className='mb-3'>
+                        <NavLink className={({ isActive }) =>
                             isActive
-                            ? "text-active"
-                            : ""
-                        } to={'/dashboard'} style={{ textDecoration: 'none' }}><RxDashboard/> Dashboard</NavLink>
+                                ? "flex items-center w-[210px] p-1.5 font-semibold bg-dark-blue rounded-lg text-white"
+                                : "flex items-center w-[210px] p-1.5"
+                        } to={'/dashboard'} ><RxDashboard className='mr-3 ml-2 size-5' /> Dashboard</NavLink>
                     </li>
-                    <li className='sidebarlink'>
-                        <div className="dropdown dropright">
-                            <a className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <BsCalendar2Week/> Appointments
-                            </a>
-                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <ul>
-                                    <li>
-                                        <NavLink className={({ isActive }) =>
-                                            isActive
-                                            ? ""
-                                            : ""
-                                        } to={'/appointments/selected'} style={{ textDecoration: 'none' }}><i className="bi bi-file-earmark-text"></i> Appointments</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink className={({ isActive }) =>
-                                            isActive
-                                            ? ""
-                                            : ""
-                                        } to={'/appointments/chosen'} style={{ textDecoration: 'none' }}><i className="bi bi-file-earmark-text"></i> Available Times</NavLink>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li className='sidebarlink'><NavLink className={({ isActive }) =>
+                    <li className='mb-3'>
+                        <NavLink className={({ isActive }) =>
                             isActive
-                            ? "text-active"
-                            : ""
-                        } to={'/history'} style={{ textDecoration: 'none' }}><IoFileTrayStackedOutline/> History</NavLink>
+                                ? "flex items-center w-[210px] p-1.5 font-semibold bg-dark-blue rounded-lg text-white"
+                                : "flex items-center w-[210px] p-1.5"
+                        } to={'/schedule'} ><BsCalendar2Week className='mr-3 ml-2 size-4' /> Schedule</NavLink>
                     </li>
-                    <li className='sidebarlink'><NavLink className={({ isActive }) =>
+
+                    <li className='mb-3'>
+                        <NavLink className={({ isActive }) =>
                             isActive
-                            ? "text-active"
-                            : ""
-                        } to={'/earnings'} style={{ textDecoration: 'none' }}><i className="bi bi-currency-bitcoin"></i> Earnings</NavLink>
+                                ? "flex items-center w-[210px] p-1.5 font-semibold bg-dark-blue rounded-lg text-white"
+                                : "flex items-center w-[210px] p-1.5"
+                        } to={'/history'} ><IoFileTrayStackedOutline className='mr-3 ml-2 size-5' /> History</NavLink>
                     </li>
+                    <li className='mb-3'>
+                        <NavLink className={({ isActive }) =>
+                            isActive
+                                ? "flex items-center w-[210px] p-1.5 font-semibold bg-dark-blue rounded-lg text-white"
+                                : "flex items-center w-[210px] p-1.5"
+                        } to={'/earnings'} ><RiInputCursorMove className='mr-3 ml-2 size-4' /> Earnings</NavLink>
+                    </li>
+
+                    <li className='mb-3'>
+                        <NavLink className={({ isActive }) =>
+                            isActive
+                                ? "flex items-center w-[210px] p-1.5 font-semibold bg-dark-blue rounded-lg text-white"
+                                : "flex items-center w-[210px] p-1.5"
+                        } to={'/profile'} ><RiUser2Line className='mr-3 ml-2 size-4' /> Profile</NavLink>
+                    </li>
+
                 </ul>
             </div>
-            <button onClick={handleLogout} className='btn logoutbtn mb-5'><IoIosLogOut /> Logout</button>
+            <div className='h-[13%] ml-1'>
+                <hr className="border-t border-white  mt-4"></hr>
+                <button onClick={handleLogout} className='flex items-center w-[210px] p-1.5 mt-2 hover:font-semibold hover:bg-hover-blue hover:rounded-lg hover:text-white'><IoIosLogOut className='mr-3 ml-2 size-4' /> Logout</button>
+            </div>
         </div>
     )
 }
