@@ -14,13 +14,13 @@ import { FaVideo } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa6";
 import { FaMicrophoneSlash } from "react-icons/fa";
 import useSendMail from "../../Services/useSendMail";
-import { AuthContext } from "../../Services/authprovider";
-import { useContext } from "react";
+// import { AuthContext } from "../../Services/authprovider";
+// import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 
 function MeetingRoom() {
   const location = useLocation()
-  const { authUser } = useContext(AuthContext)
+  // const { authUser } = useContext(AuthContext)
   
   const [meetingId, setMeetingId] = useState(null);
 

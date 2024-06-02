@@ -62,7 +62,7 @@ function SideBar() {
             </div>
             <div className='h-[13%] ml-1'>
                 <hr className="border-t border-white  mt-4"></hr>
-                <button onClick={handleLogout} className='flex items-center w-[210px] p-1.5 mt-2 hover:font-semibold hover:bg-hover-blue hover:rounded-lg hover:text-white'><IoIosLogOut className='mr-3 ml-2 size-4' /> Logout</button>
+                <button onClick={handleLogout} className='flex items-center w-[210px] p-1.5 mt-2 hover:font-semibold hover:bg-dark-blue hover:rounded-lg hover:text-white'><IoIosLogOut className='mr-3 ml-2 size-4' /> Logout</button>
             </div>
         </div>
     )

@@ -22,7 +22,6 @@ const Router = (isAuthenticated) => [
         element: <DashBoard />
       },
       {
-        index: true,
         path: '/dashboard',
         element: <DashBoard />,
       },
@@ -31,21 +30,7 @@ const Router = (isAuthenticated) => [
         element: <AppointmentSchedule />,
         
       },
-      // {
-      //   path: '/appointments',
-      //   element: <Appointments />,
-      //   children: [
-      //     {
-      //       index: true,
-      //       path: '/appointments/chosen',
-      //       element: <ChosenAppointments />
-      //     },
-      //     {
-      //       path: '/appointments/selected',
-      //       element: <UpcomingApp />
-      //     }
-      //   ]
-      // },
+      
       {
         path: '/history',
         element: <History />

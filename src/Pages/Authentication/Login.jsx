@@ -1,17 +1,13 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-// import { AuthContext } from '../../Services/authprovider'
-// import { useContext } from 'react'
 import Auth from '../../Services/authentication'
 import './style.css'
 import logo from '../../assets/logo-main.png'
 import FadeLoader from "react-spinners/FadeLoader";
 import localforage from 'localforage'
+
 export default function Login() {
 
-
-    const navigate = useNavigate()
-    // const { setAuthUser, setAuthenticated } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState({ email: '', password: '' })
     const [error, setError] = useState('')
@@ -23,8 +19,7 @@ export default function Login() {
             const response = await Auth.signIn(user)
             localforage.setItem('currentUserToken', JSON.stringify(response.data)).then((value) => {
                 if (value) {
-                    console.log(value)
-                    navigate('/dashboard')
+                    window.location.href = "/dashboard"
                 }
             })
         } catch (error) {

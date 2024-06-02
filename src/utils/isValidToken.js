@@ -3,9 +3,6 @@ import { jwtDecode } from "jwt-decode";
 
 export default async function isValidToken() {
     const token = await localforage.getItem("currentUserToken");
-    console.log(typeof token)
-    console.log(token)
-
     if(token == null){
         return [false, {}];
     }
