@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import { CiCircleChevLeft } from "react-icons/ci";
 import { IoIosPersonAdd } from "react-icons/io";
 import { TbFolderCancel } from "react-icons/tb";
-import './DashBoard.css'
 import { SlPeople } from "react-icons/sl";
 import Person from '../../assets/person.png'
 import { MdPendingActions } from "react-icons/md";
 import { GoThumbsup } from "react-icons/go";
 import Chart from 'react-apexcharts'
-
+import TableRowWidget from '../../componentTest/tableRow';
 import { Appointments, Edit } from '../../Services/api';
 import FadeLoader from "react-spinners/FadeLoader";
 import { useQuery } from 'react-query'
@@ -16,17 +15,20 @@ import isValidToken from '../../utils/isValidToken';
 
 
 export default function DashBoard() {
-    const [isLoading, setIsLoading] = useState(false)
-    const [completed, setCompleted] = useState(0)
-    const [scheduledApp, setScheduledApp] = useState(0)
 
+    const [scheduledApp, setScheduledApp] = useState(0)
+    const [completed, setCompleted] = useState(0)
+
+    const { isLoading1, error, data, refetch } = useQuery({ queryKey: ["getToken2"], queryFn: isValidToken, refetchOnMount: true })
+
+
+    const [isLoading, setIsLoading] = useState(false)
     const [previewSrc, setPreviewSrc] = useState('');
     const [imageResource, setImageResource] = useState(null);
 
-    const { isLoading1, error, data } = useQuery("getToken2", isValidToken, { enabled: true })
 
     useEffect(() => {
-        if(data){
+        if (data) {
             var [_, userData] = data;
 
             async function getScheduledAppointments() {
@@ -46,105 +48,140 @@ export default function DashBoard() {
         var [_, userData] = data;
 
         let datetime = new Date()
-        let time = datetime.getHours()  
-        const handleFileChange = (event) => {
-            const file = event.target.files[0];
-            setImageResource(file)
-            if (file && file.type.substr(0, 5) === "image") {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    setPreviewSrc(reader.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                setPreviewSrc('');
-            }
-        };
-        async function handleSubmit(e) {
-            e.preventDefault()
-            if (imageResource) {
-                try {
-                    setIsLoading(true)
-                    const uploadImage = await Edit.editProfilePhoto(userData.doc_ID, imageResource)
-                    setAuthUser({ ...userData, avatar: { file_name: uploadImage.data.file_name } })
-                    setIsLoading(false)
-                    $('#editdialog').modal('hide');
-                } catch (error) {
-                    console.log(error.message)
-                }
-            }
-        }
-
-       
-
-        return (<div className='main'>
-            <h1 className='greeting'><CiCircleChevLeft /> {time < 12 ? 'Good Morning' : time <= 16 ? 'Good Afternoon' : 'Good Evening'}</h1>
-            <div className='personaldetails'>
-                <div className='doctordetails'>
-                    {
-                        isLoading
-                            ?
-                            <FadeLoader
-                                color={'#0c008a'}
-                                loading={isLoading}
-                                size={150}
-                                aria-label="Loading Spinner"
-                                data-testid="loader"
-                            />
-                            :
-                            <img src={userData.avatar ? `http://192.168.0.153:3000/uploads/${userData.avatar.file_name}` : Person} data-bs-toggle="modal" data-bs-target={!userData.avatar ? "#editdialog" : null} className='displayImage' />
-                    }
-                    <div className='title'>
-                        <h4 style={{ fontWeight: '700' }}>{userData.name}</h4>
-                    </div>
-                </div>
-                <div className='generaldetails'>
-                    <div className='detailsleft'>
-                        <span><span className='label'>Speciality: </span><span>{userData.pro_title}</span></span>
-                        <span><span className='label'>Employment Status: </span><span>{userData.employment_status}</span></span>
-                        <span><span className='label'>Gender: </span><span>{userData.gender}</span></span>
-                    </div>
-                    <div className='detailsright'>
-                        <span><span className='label'>Hospital Name: </span><span>{userData.hospitalName}</span></span>
-                        <span><span className='label'>Email: </span><span>{userData.email}</span></span>
-                        <span><span className='label'>Rate: </span><span>shs. {userData.rate} / hr</span></span>
-                    </div>
+        let time = datetime.getHours()
 
 
-                </div>
-            </div>
-            <div className='info'>
-                <div className='infoleft'>
-                    <div className='patients'>
-                        <span className='digit'>{scheduledApp + completed}</span>
-                        <div>
-                            <SlPeople size={80} color={'#B6D0E2'} />
-                            <h6>All Patients</h6>
+
+        return (
+            <div className='flex flex-col flex-grow  my-2 mr-2'>
+                <div className='h-[8%]  flex items-center justify-between'>
+                    <div className='flex items-center ml-2'>
+                        <CiCircleChevLeft className='' />
+                        <div className='font-semibold text-medium ml-2'>
+                            {time < 12 ? 'Good Morning' : time <= 16 ? 'Good Afternoon' : 'Good Evening'}
                         </div>
                     </div>
-                    <div className='pendingappointments'>
-                        <span className='digit'>{scheduledApp}</span>
-                        <div>
-                            <MdPendingActions size={80} color={'#B6D0E2'} />
-                            <h6>Pending</h6>
-                        </div>
-                    </div>
-                    <div className='finishedpatients'>
-                        <span className='digit'>{completed}</span>
-                        <div>
-                            <GoThumbsup size={80} color={'#B6D0E2'} />
-                            <h6>Finished</h6>
-                        </div>
+
+                    <div className='flex items-center mr-5'>
+                        <img src={Person} alt="" className='h-[40px] w-[40px]' />
+                        <p className='ml-1 font-semibold'>Dr. {userData.name}</p>
                     </div>
                 </div>
-                
-            </div>
-        </div>)
+                <div className='mt-3 h-[100px]  flex items-center'>
+                    <div className='h-[80px] w-[200px] m-3 p-2 bg-red-container rounded-lg'>
+                        <div className='flex  items-center'>
+                            <div className='h-[35px] w-[35px] border flex items-center justify-center rounded-full bg-red-container-inner'>
+                                <MdPendingActions size={20} color={'#ffffff'} />
+                            </div>
+                            <p className='ml-2 font-bold text-xl'>11</p>
+                        </div>
+                        <div>
+                            <p className='text-sm font-semibold text-gray-500 ml-1 mt-2'>Pending Appointments</p>
+                        </div>
+                    </div>
+                    <div className='h-[80px] w-[200px] m-3 p-2 bg-green-container rounded-lg'>
+                        <div className='flex  items-center'>
+                            <div className='h-[35px] w-[35px] border flex items-center justify-center rounded-full bg-green-container-inner'>
+                                <GoThumbsup size={20} color={'#ffffff'} />
+                            </div>
+                            <p className='ml-2 font-bold text-xl'>23</p>
+                        </div>
+                        <div>
+                            <p className='text-sm font-semibold text-gray-500 ml-1 mt-2'>Done Appointments</p>
+                        </div>
+                    </div>
+                    <div className='h-[80px] w-[200px] m-3 p-2 bg-light-blue rounded-lg'>
+                        <div className='flex  items-center'>
+                            <div className='h-[35px] w-[35px] border flex items-center justify-center rounded-full bg-dark-blue'>
+                                <MdPendingActions size={20} color={'#ffffff'} />
+                            </div>
+                            <p className='ml-2 font-bold text-lg'>Shs. 1200000</p>
+                        </div>
+                        <div>
+                            <p className='text-sm font-semibold text-gray-500 ml-1 mt-2'>Total Earnings</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div className='mt-4 overflow-y-auto flex-grow h-full border mx-3 rounded-lg'>
+                    <div className='h-[40px] flex px-3 sticky top-[0px] bg-custom-color bg-dark-blue mb-1'>
+                        <div className='w-[40%] flex items-center'>
+                            <p className='text-white mr-4 ml-3 text-md'>Appointments</p>
+                        </div>
+                        <div className='flex-grow justify-evenly flex items-center mx-2'>
+                            <div className=' w-full max-w-[33.3%] hidden md:block'>
+                                <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap'>Date </p>
+                            </div>
+                            <div className=' w-full hidden justify-center max-w-[33.3%] md:flex'>
+                                <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap mr-5'>Time</p>
+                            </div>
+                            <div className=' w-full flex justify-center max-w-[33.3%] '>
+                                <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap'>Action</p>
+                            </div>
+                        </div>
+
+                    </div>
+                   
+                    <table className='w-full'>
+                        <tbody className=''>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                            <tr className=''>
+                                <TableRowWidget />
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>)
     }
 
     if (error) {
         console.log(error);
-        return <h1>there is a terrible error {error.message} </h1>  
+        return <h1>there is a terrible error {error.message} </h1>
 
     }
 

@@ -16,7 +16,7 @@ function SideBar() {
         navigate('/login')
     }
     return (
-        <div className='bg-light-blue w-[18%] m-2 flex flex-col items-center rounded-xl  min-w-[235px]'>
+        <div className='bg-light-blue w-[18%] m-2 flex flex-col items-center rounded-xl  min-w-[235px] max-w-[235px]'>
             <div className='flex flex-col items-center flex-grow '>
                 <img className="h-[40px] w-[190px] mt-9 mb-9" src={logo} alt='minddbridge' />
                 <ul className='links'>
