@@ -9,7 +9,7 @@ import isValidToken from '../../utils/isValidToken';
 
 export default function UpcomingApp(){
 
-    const { isLoading1, error, data } = useQuery("getToken4", isValidToken, { enabled: true })
+    const { isLoading1, error, data } = useQuery("getToken2", isValidToken, { enabled: true })
     
     if(data){
         var [_, userData] = data;

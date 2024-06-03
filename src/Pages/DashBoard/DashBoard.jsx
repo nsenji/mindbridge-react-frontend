@@ -12,14 +12,16 @@ import { Appointments, Edit } from '../../Services/api';
 import FadeLoader from "react-spinners/FadeLoader";
 import { useQuery } from 'react-query'
 import isValidToken from '../../utils/isValidToken';
+import moment from 'moment';
 
 
 export default function DashBoard() {
+    const { isLoading1, error, data, refetch } = useQuery({ queryKey: ["getToken2"], queryFn: isValidToken, refetchOnMount: true })
 
     const [scheduledApp, setScheduledApp] = useState(0)
     const [completed, setCompleted] = useState(0)
+    const [appointments, setAppointments] = useState([])
 
-    const { isLoading1, error, data, refetch } = useQuery({ queryKey: ["getToken2"], queryFn: isValidToken, refetchOnMount: true })
 
 
     const [isLoading, setIsLoading] = useState(false)
@@ -34,6 +36,8 @@ export default function DashBoard() {
             async function getScheduledAppointments() {
                 const scheduled = await Appointments.getScheduledAppointments({ doctorID: userData.doc_ID })
                 setScheduledApp(scheduled.data.length)
+                setAppointments(scheduled.data)
+
             }
             async function getCompletedCases() {
                 const cases = await Appointments.getDoctorHistory({ doctorID: userData.doc_ID })
@@ -49,8 +53,8 @@ export default function DashBoard() {
 
         let datetime = new Date()
         let time = datetime.getHours()
-
-
+        const momentInstance = moment();
+        const currentdate = momentInstance.format("ddd, D MMM YYYY");
 
         return (
             <div className='flex flex-col flex-grow  my-2 mr-2'>
@@ -73,7 +77,7 @@ export default function DashBoard() {
                             <div className='h-[35px] w-[35px] border flex items-center justify-center rounded-full bg-red-container-inner'>
                                 <MdPendingActions size={20} color={'#ffffff'} />
                             </div>
-                            <p className='ml-2 font-bold text-xl'>11</p>
+                            <p className='ml-2 font-bold text-xl'>{scheduledApp}</p>
                         </div>
                         <div>
                             <p className='text-sm font-semibold text-gray-500 ml-1 mt-2'>Pending Appointments</p>
@@ -84,7 +88,7 @@ export default function DashBoard() {
                             <div className='h-[35px] w-[35px] border flex items-center justify-center rounded-full bg-green-container-inner'>
                                 <GoThumbsup size={20} color={'#ffffff'} />
                             </div>
-                            <p className='ml-2 font-bold text-xl'>23</p>
+                            <p className='ml-2 font-bold text-xl'>{completed}</p>
                         </div>
                         <div>
                             <p className='text-sm font-semibold text-gray-500 ml-1 mt-2'>Done Appointments</p>
@@ -121,57 +125,17 @@ export default function DashBoard() {
                         </div>
 
                     </div>
-                   
+
                     <table className='w-full'>
                         <tbody className=''>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
-                            <tr className=''>
-                                <TableRowWidget />
-                            </tr>
+                            {appointments.map((value) =>
+                                <tr className='' key={value.selected_apt_ID} >
+                                    <td>
+                                        <TableRowWidget id={value.selected_apt_ID} appointment={value} isToday={currentdate.toLowerCase() == value.date.toLowerCase() } />
+                                    </td>
+                                </tr>
+                            )}
+
                         </tbody>
 
                     </table>
@@ -189,7 +153,7 @@ export default function DashBoard() {
         return <div className='flex justify-center items-center h-screen'>
             <FadeLoader
                 color={'#0c008a'}
-                loading={isLoading}
+                loading={isLoading1}
                 size={80}
                 aria-label="Loading Spinner"
                 data-testid="loader"
