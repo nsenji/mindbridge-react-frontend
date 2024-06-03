@@ -11,7 +11,6 @@ import MeetingRoom from './routes/Meeting'
 import { Navigate } from 'react-router-dom'
 import Profile from './Components/profile/profile'
 import DashBoard from './routes/DashBoard'
-import CreateRoom from './routes/createRoom'
 const Router = (isAuthenticated) => [
   {
     path: '/',
@@ -42,10 +41,6 @@ const Router = (isAuthenticated) => [
       {
         path: '/profile',
         element: <Profile />,
-      },
-      {
-        path:'/create-room',
-        element: <CreateRoom/>
       },
       {
         path: '/meeting-room',

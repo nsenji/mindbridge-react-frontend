@@ -15,17 +15,16 @@ import useSendMail from "../Services/useSendMail";
 // import { AuthContext } from "../../Services/authprovider";
 // import { useContext } from "react";
 import { useLocation } from "react-router-dom";
-import MeetingView from "./createRoom";
 
 function MeetingRoom() {
   const location = useLocation()
   // const { authUser } = useContext(AuthContext)
-  
+
   const [meetingId, setMeetingId] = useState(null);
 
-const {email} = location.state;
+  const { email } = location.state;
 
-  const [response] = useSendMail(meetingId,email );
+  const [response] = useSendMail(meetingId, email);
 
   console.log(email);
 
@@ -39,10 +38,13 @@ const {email} = location.state;
   //This will set Meeting Id to null when meeting is left or ended
   const onMeetingLeave = () => {
     setMeetingId(null);
+    document.getElementById("sidebar").style.display = 'flex';
+
   };
 
-  return authToken && meetingId ? (
-    <MeetingProvider
+  if (authToken && meetingId) {
+
+    return <MeetingProvider
       config={{
         meetingId,
         micEnabled: true,
@@ -53,28 +55,89 @@ const {email} = location.state;
     >
       <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
     </MeetingProvider>
-  ) : (
-    <JoinScreen getMeetingAndToken={getMeetingAndToken} />
-  );
+
+  } else {
+    getMeetingAndToken(meetingId)
+  }
+
 }
 
 
+// function JoinScreen({ getMeetingAndToken }) {
+//   const [meetingId, setMeetingId] = useState(null);
+//   const onClick = async () => {
+//     await getMeetingAndToken(meetingId);
+//   };
+//   return (
+//     <div className="d-flex justify-content-center align-items-center mt-5">
+//       <div className="d-flex flex-column">
+//         <h4 className="text-active"> Join the call</h4>
+//         <span>The patient shall be sent the Call ID and they will join you shortly.</span>
+//         <div className="d-flex justify-content-center align-items-center m-4">
+//         </div>
+//         <button className="btn meetingbtn align-self-center" onClick={onClick}>Create Meeting</button>
+//       </div>
+//     </div>
+//   );
+// }
 
-function JoinScreen({ getMeetingAndToken }) {
-  const [meetingId, setMeetingId] = useState(null);
-  const onClick = async () => {
-    await getMeetingAndToken(meetingId);
+function MeetingView(props) {
+  const [joined, setJoined] = useState(null);
+  //Get the method which will be used to join the meeting.
+  //We will also get the participants list to display all participants
+  const { join, participants, localParticipant } = useMeeting({
+    //callback for when meeting is joined successfully
+    onMeetingJoined: () => {
+      document.getElementById("sidebar").style.display = 'none';
+
+      setJoined("JOINED");
+    },
+    //callback for when meeting is left
+    onMeetingLeft: () => {
+
+      props.onMeetingLeave();
+    },
+  });
+  const joinMeeting = () => {
+    setJoined("JOINING");
+    join();
   };
+
+
   return (
-    <div className="d-flex justify-content-center align-items-center mt-5">
-      <div className="d-flex flex-column">
-        <h4 className="text-active"> Join the call</h4>
-        <span>The patient shall be sent the Call ID and they will join you shortly.</span>
-        <div className="d-flex justify-content-center align-items-center m-4">
+    <div className="flex flex-grow">
+      {joined && joined == "JOINED" ? (
+        <div className="flex flex-col h-full w-full m-1 bg-black rounded-lg">
+          <div className="flex justify-between items-center h-[10%] bg-[#0c131b] pl-5 pr-3 rounded-t-lg ">
+            <div className="online">
+              <div className="red-circle"></div>
+              <h3 className="small-text">Online </h3>
+            </div>
+            <Controls />
+          </div>
+          <div className="max-h-[90%] h-[90%] flex flex-row justify-center items-start w-full">
+            <ParticipantView
+              participantId={[...participants.keys()].filter(key => key !== localParticipant.id)[0]}
+              newParticipantId={localParticipant.id}
+            />
+          </div>
         </div>
-        <button className="btn meetingbtn align-self-center" onClick={onClick}>Create Meeting</button>
-      </div>
+      ) : joined && joined == "JOINING" ? (
+        <p>Joining the meeting...</p>
+      ) : (
+        <>
+          <div className="flex items-center justify-center bg-[#101720] w-full my-2 mr-2 rounded-xl">
+            <div className="inner-enter-call">
+              <p className="large-text">Call room created </p>
+              <p className="small-text">Room ID : {props.meetingId}</p>
+              <p className="small-text padding-bottom">Patient will be notified and join the call shortly</p>
+              <CallCustomButton content={"Join now"} onClick={joinMeeting} />
+            </div>
+          </div>
+        </>
+      )}
     </div>
+
   );
 }
 
@@ -85,7 +148,7 @@ function Controls() {
   const [camON, switchOFFCam] = useState(true);
 
   return (
-    <div className="toggle-icons-container">
+    <div className="flex items-center mr-2">
       {camON ? <FaVideo onClick={() => { toggleWebcam(); switchOFFCam(false) }} className="toggle-icons" />
         : <FaVideoSlash onClick={() => { toggleWebcam(); switchOFFCam(true) }} className="toggle-icons" />
       }
@@ -232,12 +295,12 @@ function ParticipantView2({ newParticipantId }) {
   );
 }
 
-function CustomButton(props) {
-    return (
-        <button onClick={props.onClick} type="button" className="custom-button">
-            {props.content}
-        </button>
-    );
+function CallCustomButton(props) {
+  return (
+    <button onClick={props.onClick} type="button" className="custom-button">
+      {props.content}
+    </button>
+  );
 }
 
 

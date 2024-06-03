@@ -6,25 +6,13 @@ import CustomButton from './customButton';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useSendMail from '../Services/useSendMail';
-import MeetingView from '../routes/createRoom';
 import { MeetingConfig, authToken } from '../Services/api';
 
 export default function TableRowWidget({ appointment, isToday }) {
     const navigate = useNavigate();
-    const [meetingId, setMeetingId] = useState(null);
-    const [response] = useSendMail(meetingId, appointment.patient.email);
-
-    useEffect(() => {
-        if (authToken && meetingId) {
-         navigate("/create-room", {state:{meetingId:meetingId, authToken:authToken}})
-        }
-
-    }, [meetingId])
-
 
     async function handleButtonClick() {
-        const neWmeetingId = await MeetingConfig.createMeeting({ token: authToken });
-        setMeetingId(neWmeetingId);
+        navigate("/meeting-room", {state:{email:appointment.patient.email}})
     }
 
     return (
@@ -34,7 +22,7 @@ export default function TableRowWidget({ appointment, isToday }) {
                     <RiUser2Line className='h-[23px] w-[23px] ' color='#082063' />
 
                     <div className='flex flex-col ml-3 justify-center'>
-                        <p className='text-black font-normal text-md overflow-hidden text-ellipsis whitespace-nowrap max-w-[220px]'>{appointment.patient.name}</p>
+                        <p className='text-black font-semibold text-md overflow-hidden text-ellipsis whitespace-nowrap max-w-[220px]'>{appointment.patient.name}</p>
                     </div>
                 </div>
             </div>

@@ -53,31 +53,19 @@ body {
 
 /* design for the meeting room stuff */
 
-.mainView{
-  /* border-bottom: 1px #007ffa solid; */
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 10%;
-  background-color: rgb(12, 19, 27);
-  padding-left: 20px;
-  padding-right: 20px;
-  }
-  
+
   .joinButton{
       height: 40px;
       width: 80px;
   }
   
-  .joinedStyle{
+  /* .joinedStyle{
       display: flex;
       flex-direction: column;
       height: 100vh;
-  }
+  } */
   
-  .videoArea{
+  /* .videoArea{
       max-height: 90%;
       height: 90%;
       display: flex;
@@ -85,7 +73,7 @@ body {
       justify-content: center;
       align-items: start;
   
-  }
+  } */
   
   
   *{
@@ -107,6 +95,7 @@ body {
       max-width: 20%;
       max-height: 20%;
       object-fit: fill;
+      margin-bottom: 10px;
   
   }
   
@@ -115,8 +104,6 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      width: 100vw;
       background-color: rgb(16,23, 32);
   }
   
