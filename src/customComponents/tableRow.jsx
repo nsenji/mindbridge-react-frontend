@@ -2,12 +2,31 @@ import Person from '../assets/person.png'
 import { FaPlay } from 'react-icons/fa';
 import { MdPendingActions } from "react-icons/md";
 import { RiUser2Line } from 'react-icons/ri';
-import CustomButton from '../utils/customButton';
-
-
-
+import CustomButton from './customButton';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import useSendMail from '../Services/useSendMail';
+import MeetingView from '../routes/createRoom';
+import { MeetingConfig, authToken } from '../Services/api';
 
 export default function TableRowWidget({ appointment, isToday }) {
+    const navigate = useNavigate();
+    const [meetingId, setMeetingId] = useState(null);
+    const [response] = useSendMail(meetingId, appointment.patient.email);
+
+    useEffect(() => {
+        if (authToken && meetingId) {
+         navigate("/create-room", {state:{meetingId:meetingId, authToken:authToken}})
+        }
+
+    }, [meetingId])
+
+
+    async function handleButtonClick() {
+        const neWmeetingId = await MeetingConfig.createMeeting({ token: authToken });
+        setMeetingId(neWmeetingId);
+    }
+
     return (
         <div className='h-[56px] flex px-3 group hover:bg-hover-light-blue rounded-md mb-3'>
             <div className='w-[40%] flex items-center'>
@@ -30,7 +49,7 @@ export default function TableRowWidget({ appointment, isToday }) {
                     <p className='text-gray-500 text-sm max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap mr-5'>{appointment.time}</p>
                 </div>
                 <div className=' w-full items-center flex justify-center'>
-                    <CustomButton classname={`border border-dark-blue  w-[90px] ${isToday && 'group-hover:bg-dark-blue group-hover:text-white'}`} content={"Start Call"} isDisabled={!isToday} />
+                    <CustomButton classname={`border border-dark-blue  w-[90px] ${isToday && 'group-hover:bg-dark-blue group-hover:text-white'}`} content={"Start Call"} isDisabled={!isToday} handleButtonClick={handleButtonClick} />
                     <div className='hidden group-hover:block'>
                         <CustomButton />
                     </div>

@@ -3,17 +3,16 @@ import { CiCircleChevLeft } from "react-icons/ci";
 import { IoIosPersonAdd } from "react-icons/io";
 import { TbFolderCancel } from "react-icons/tb";
 import { SlPeople } from "react-icons/sl";
-import Person from '../../assets/person.png'
 import { MdPendingActions } from "react-icons/md";
 import { GoThumbsup } from "react-icons/go";
 import Chart from 'react-apexcharts'
-import TableRowWidget from '../../componentTest/tableRow';
-import { Appointments, Edit } from '../../Services/api';
+import TableRowWidget from '../customComponents/tableRow';
+import { Appointments, Edit } from '../Services/api';
 import FadeLoader from "react-spinners/FadeLoader";
 import { useQuery } from 'react-query'
-import isValidToken from '../../utils/isValidToken';
+import isValidToken from '../utils/isValidToken';
 import moment from 'moment';
-
+import Person from "../assets/person.png"
 
 export default function DashBoard() {
     const { isLoading1, error, data, refetch } = useQuery({ queryKey: ["getToken2"], queryFn: isValidToken, refetchOnMount: true })
@@ -21,13 +20,6 @@ export default function DashBoard() {
     const [scheduledApp, setScheduledApp] = useState(0)
     const [completed, setCompleted] = useState(0)
     const [appointments, setAppointments] = useState([])
-
-
-
-    const [isLoading, setIsLoading] = useState(false)
-    const [previewSrc, setPreviewSrc] = useState('');
-    const [imageResource, setImageResource] = useState(null);
-
 
     useEffect(() => {
         if (data) {

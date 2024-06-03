@@ -5,18 +5,17 @@ import {
   useMeeting,
   useParticipant,
 } from "@videosdk.live/react-sdk";
-import { MeetingConfig, authToken } from "../../Services/api";
+import { MeetingConfig, authToken } from "../Services/api";
 import ReactPlayer from "react-player";
-
-import "./Meeting.css"
 import { FaVideoSlash } from "react-icons/fa6";
 import { FaVideo } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa6";
 import { FaMicrophoneSlash } from "react-icons/fa";
-import useSendMail from "../../Services/useSendMail";
+import useSendMail from "../Services/useSendMail";
 // import { AuthContext } from "../../Services/authprovider";
 // import { useContext } from "react";
 import { useLocation } from "react-router-dom";
+import MeetingView from "./createRoom";
 
 function MeetingRoom() {
   const location = useLocation()
@@ -24,11 +23,11 @@ function MeetingRoom() {
   
   const [meetingId, setMeetingId] = useState(null);
 
-  const userEmail = location.state.patientEmail;
+const {email} = location.state;
 
-  const [response] = useSendMail(meetingId,userEmail );
+  const [response] = useSendMail(meetingId,email );
 
-  console.log(response);
+  console.log(email);
 
   //Getting the meeting id by calling the api we just wrote
   const getMeetingAndToken = async (id) => {
@@ -78,71 +77,6 @@ function JoinScreen({ getMeetingAndToken }) {
     </div>
   );
 }
-
-
-
-function MeetingView(props) {
-  const [joined, setJoined] = useState(null);
-  //Get the method which will be used to join the meeting.
-  //We will also get the participants list to display all participants
-  const { join, participants, localParticipant } = useMeeting({
-    //callback for when meeting is joined successfully
-    onMeetingJoined: () => {
-      setJoined("JOINED");
-    },
-    //callback for when meeting is left
-    onMeetingLeft: () => {
-      props.onMeetingLeave();
-    },
-  });
-  const joinMeeting = () => {
-    setJoined("JOINING");
-    join();
-  };
-
-
-  return (
-    <div className="">
-      <div className="">
-        {joined && joined == "JOINED" ? (
-          <div className="joinedStyle">
-            <div className="mainView">
-              <div className="online">
-                <div className="red-circle"></div>
-                <h3 className="small-text">Online </h3>
-
-              </div>
-              <Controls />
-            </div>
-            <div className="videoArea">
-              <ParticipantView
-                participantId={[...participants.keys()].filter(key => key !== localParticipant.id)[0]}
-                newParticipantId={localParticipant.id}
-              />
-            </div>
-          </div>
-        ) : joined && joined == "JOINING" ? (
-          <p>Joining the meeting...</p>
-        ) : (
-          <>
-            <div className="enter-call">
-              <div className="inner-enter-call">
-                <p className="large-text">Call room created </p>
-                <p className="small-text">Room ID : {props.meetingId}</p>
-                <p className="small-text padding-bottom">Patient will be notified and join the call shortly</p>
-                <CustomButton content={"Join now"} onClick={joinMeeting} />
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
-
-
-
-
 
 
 function Controls() {
