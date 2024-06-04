@@ -123,7 +123,7 @@ export default function DashBoard() {
                             {appointments.map((value) =>
                                 <tr className='' key={value.selected_apt_ID} >
                                     <td>
-                                        <TableRowWidget id={value.selected_apt_ID} appointment={value} isToday={currentdate.toLowerCase() == value.date.toLowerCase() } />
+                                        <TableRowWidget id={value.selected_apt_ID} appointment={value} isToday={currentdate.toLowerCase() == value.date.toLowerCase()} />
                                     </td>
                                 </tr>
                             )}

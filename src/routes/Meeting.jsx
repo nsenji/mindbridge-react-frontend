@@ -14,36 +14,43 @@ import { FaMicrophoneSlash } from "react-icons/fa";
 import useSendMail from "../Services/useSendMail";
 // import { AuthContext } from "../../Services/authprovider";
 // import { useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import FadeLoader from "react-spinners/FadeLoader";
+
 
 function MeetingRoom() {
+  const navigate = useNavigate();
   const location = useLocation()
   // const { authUser } = useContext(AuthContext)
 
   const [meetingId, setMeetingId] = useState(null);
-
   const { email } = location.state;
+  // const [response] = useSendMail(meetingId, email);  // work on this email later
 
-  const [response] = useSendMail(meetingId, email);
 
-  console.log(email);
+  useEffect(() => {
 
-  //Getting the meeting id by calling the api we just wrote
-  const getMeetingAndToken = async (id) => {
-    const meetingId =
-      id == null ? await MeetingConfig.createMeeting({ token: authToken }) : id;
-    setMeetingId(meetingId);
-  };
+    //Getting the meeting id by calling the api we just wrote
+    const getMeetingAndToken = async (id) => {
+      const meetingId =
+        id == null ? await MeetingConfig.createMeeting({ token: authToken }) : id;
+      setMeetingId(meetingId);
+    };
+
+    getMeetingAndToken();
+
+  }, [])
+
 
   //This will set Meeting Id to null when meeting is left or ended
   const onMeetingLeave = () => {
     setMeetingId(null);
     document.getElementById("sidebar").style.display = 'flex';
+    navigate("/dashboard")
 
   };
 
   if (authToken && meetingId) {
-
     return <MeetingProvider
       config={{
         meetingId,
@@ -57,29 +64,21 @@ function MeetingRoom() {
     </MeetingProvider>
 
   } else {
-    getMeetingAndToken(meetingId)
+    return <div className='flex items-center justify-center w-full'>
+      <FadeLoader
+        color={'#0c008a'}
+        loading={true}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    </div>
   }
 
 }
 
 
-// function JoinScreen({ getMeetingAndToken }) {
-//   const [meetingId, setMeetingId] = useState(null);
-//   const onClick = async () => {
-//     await getMeetingAndToken(meetingId);
-//   };
-//   return (
-//     <div className="d-flex justify-content-center align-items-center mt-5">
-//       <div className="d-flex flex-column">
-//         <h4 className="text-active"> Join the call</h4>
-//         <span>The patient shall be sent the Call ID and they will join you shortly.</span>
-//         <div className="d-flex justify-content-center align-items-center m-4">
-//         </div>
-//         <button className="btn meetingbtn align-self-center" onClick={onClick}>Create Meeting</button>
-//       </div>
-//     </div>
-//   );
-// }
+
 
 function MeetingView(props) {
   const [joined, setJoined] = useState(null);
@@ -89,12 +88,10 @@ function MeetingView(props) {
     //callback for when meeting is joined successfully
     onMeetingJoined: () => {
       document.getElementById("sidebar").style.display = 'none';
-
       setJoined("JOINED");
     },
     //callback for when meeting is left
     onMeetingLeft: () => {
-
       props.onMeetingLeave();
     },
   });
@@ -122,8 +119,6 @@ function MeetingView(props) {
             />
           </div>
         </div>
-      ) : joined && joined == "JOINING" ? (
-        <p>Joining the meeting...</p>
       ) : (
         <>
           <div className="flex items-center justify-center bg-[#101720] w-full my-2 mr-2 rounded-xl">
@@ -131,7 +126,7 @@ function MeetingView(props) {
               <p className="large-text">Call room created </p>
               <p className="small-text">Room ID : {props.meetingId}</p>
               <p className="small-text padding-bottom">Patient will be notified and join the call shortly</p>
-              <CallCustomButton content={"Join now"} onClick={joinMeeting} />
+              <CallCustomButton content={"Join now"} onClick={joinMeeting} isButtonLoading={joined && joined == "JOINING"} />
             </div>
           </div>
         </>
@@ -155,7 +150,7 @@ function Controls() {
       {micON ? <FaMicrophone onClick={() => { toggleMic(); switchOFFMic(false) }} className="toggle-icons" />
         : <FaMicrophoneSlash onClick={() => { toggleMic(); switchOFFMic(true) }} className="toggle-icons" />
       }
-      <button className="leave-button" onClick={() => leave()}>Leave</button>
+      <button className="leave-button" onClick={() => leave()}>End Call</button>
 
 
     </div>
@@ -297,11 +292,16 @@ function ParticipantView2({ newParticipantId }) {
 
 function CallCustomButton(props) {
   return (
-    <button onClick={props.onClick} type="button" className="custom-button">
-      {props.content}
+    <button onClick={props.onClick} type="button" className="h-12 font-bold px-6 border-none text-lg bg-[#0c008a] text-white cursor-pointer rounded w-[200px]">
+      {props.isButtonLoading ?
+        <div className='inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]'>
+          
+        </div>
+        : props.content}
     </button>
   );
 }
 
-
 export default MeetingRoom;
+
+

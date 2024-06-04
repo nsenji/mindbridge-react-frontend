@@ -9,6 +9,7 @@ import useSendMail from '../Services/useSendMail';
 import { MeetingConfig, authToken } from '../Services/api';
 
 export default function TableRowWidget({ appointment, isToday }) {
+
     const navigate = useNavigate();
 
     async function handleButtonClick() {
@@ -37,7 +38,7 @@ export default function TableRowWidget({ appointment, isToday }) {
                     <p className='text-gray-500 text-sm max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap mr-5'>{appointment.time}</p>
                 </div>
                 <div className=' w-full items-center flex justify-center'>
-                    <CustomButton classname={`border border-dark-blue  w-[90px] ${isToday && 'group-hover:bg-dark-blue group-hover:text-white'}`} content={"Start Call"} isDisabled={!isToday} handleButtonClick={handleButtonClick} />
+                    <CustomButton classname={`border border-dark-blue  w-[90px] ${isToday && 'group-hover:bg-dark-blue group-hover:text-white'}`} content={"Start Call"} isDisabled={!isToday} handleButtonClick={handleButtonClick}  />
                     <div className='hidden group-hover:block'>
                         <CustomButton />
                     </div>
