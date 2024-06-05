@@ -9,6 +9,7 @@ import { BsCalendar2Week } from "react-icons/bs";
 import localforage from 'localforage'
 
 
+
 function SideBar() {
     const navigate = useNavigate()
     function handleLogout() {
@@ -25,14 +26,14 @@ function SideBar() {
                             isActive
                                 ? "flex items-center w-[210px] p-1.5 font-semibold bg-dark-blue rounded-lg text-white"
                                 : "flex items-center w-[210px] p-1.5"
-                        } to={'/dashboard'} ><RxDashboard className='mr-3 ml-2 size-5' /> Dashboard</NavLink>
+                        } to={'/dashboard'} ><RxDashboard className='mr-3 ml-2 size-5' /> Appointments</NavLink>
                     </li>
                     <li className='mb-3'>
                         <NavLink className={({ isActive }) =>
                             isActive
                                 ? "flex items-center w-[210px] p-1.5 font-semibold bg-dark-blue rounded-lg text-white"
                                 : "flex items-center w-[210px] p-1.5"
-                        } to={'/schedule'} ><BsCalendar2Week className='mr-3 ml-2 size-4' /> Schedule</NavLink>
+                        } to={'/schedule'} ><BsCalendar2Week className='mr-3 ml-2 size-5' /> Schedule</NavLink>
                     </li>
 
                     <li className='mb-3'>
@@ -47,7 +48,7 @@ function SideBar() {
                             isActive
                                 ? "flex items-center w-[210px] p-1.5 font-semibold bg-dark-blue rounded-lg text-white"
                                 : "flex items-center w-[210px] p-1.5"
-                        } to={'/earnings'} ><RiInputCursorMove className='mr-3 ml-2 size-4' /> Earnings</NavLink>
+                        } to={'/earnings'} ><RiInputCursorMove className='mr-3 ml-2 size-5' /> Earnings</NavLink>
                     </li>
 
                     <li className='mb-3'>
@@ -55,7 +56,7 @@ function SideBar() {
                             isActive
                                 ? "flex items-center w-[210px] p-1.5 font-semibold bg-dark-blue rounded-lg text-white"
                                 : "flex items-center w-[210px] p-1.5"
-                        } to={'/profile'} ><RiUser2Line className='mr-3 ml-2 size-4' /> Profile</NavLink>
+                        } to={'/profile'} ><RiUser2Line className='mr-3 ml-2 size-5' /> Profile</NavLink>
                     </li>
 
                 </ul>

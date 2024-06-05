@@ -13,12 +13,12 @@ export default function TableRowWidget({ appointment, isToday }) {
     const navigate = useNavigate();
 
     async function handleButtonClick() {
-        navigate("/meeting-room", {state:{email:appointment.patient.email}})
+        navigate("/call-room", {state:{email:appointment.patient.email}})
     }
 
     return (
         <div className='h-[56px] flex px-3 group hover:bg-hover-light-blue rounded-md mb-3'>
-            <div className='w-[40%] flex items-center'>
+            <div className='w-[30%] flex items-center'>
                 <div className="flex">
                     <RiUser2Line className='h-[23px] w-[23px] ' color='#082063' />
 

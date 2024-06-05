@@ -11,6 +11,9 @@ import MeetingRoom from './routes/Meeting'
 import { Navigate } from 'react-router-dom'
 import Profile from './Components/profile/profile'
 import DashBoard from './routes/DashBoard'
+import ScheduleRoute from "./routes/ScheduleRoute.jsx"
+
+
 const Router = (isAuthenticated) => [
   {
     path: '/',
@@ -26,7 +29,7 @@ const Router = (isAuthenticated) => [
       },
       {
         path: '/schedule',
-        element: <AppointmentSchedule />,
+        element: <ScheduleRoute />,
         
       },
       
@@ -43,7 +46,7 @@ const Router = (isAuthenticated) => [
         element: <Profile />,
       },
       {
-        path: '/meeting-room',
+        path: '/call-room',
         element: <MeetingRoom />
       }
     ]

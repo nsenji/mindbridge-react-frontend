@@ -101,15 +101,15 @@ export default function DashBoard() {
                 </div>
                 <div className='mt-4 overflow-y-auto flex-grow h-full border mx-3 rounded-lg'>
                     <div className='h-[40px] flex px-3 sticky top-[0px] bg-custom-color bg-dark-blue mb-1'>
-                        <div className='w-[40%] flex items-center'>
+                        <div className='w-[30%] flex items-center'>
                             <p className='text-white mr-4 ml-3 text-md'>Appointments</p>
                         </div>
                         <div className='flex-grow justify-evenly flex items-center mx-2'>
                             <div className=' w-full max-w-[33.3%] hidden md:block'>
-                                <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap'>Date </p>
+                                <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap ml-5'>Date </p>
                             </div>
                             <div className=' w-full hidden justify-center max-w-[33.3%] md:flex'>
-                                <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap mr-5'>Time</p>
+                                <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap mr-5'>Time (24h)</p>
                             </div>
                             <div className=' w-full flex justify-center max-w-[33.3%] '>
                                 <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap'>Action</p>
