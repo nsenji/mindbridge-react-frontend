@@ -12,7 +12,7 @@ import moment from 'moment';
 
 
 
-export default function ScheduleTableRowWidget({ schedule}) {
+export default function ScheduleTableRowWidget({ schedule,}) {
 
     const navigate = useNavigate();
 
@@ -40,11 +40,11 @@ export default function ScheduleTableRowWidget({ schedule}) {
             <div className='flex-grow justify-evenly flex items-center mx-2'>
                 <div className=' w-full max-w-[33.3%] hidden md:block'>
                     <div className='flex items-center'>
-                        <p className='text-gray-500 text-sm max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap'>{schedule.time}  </p>
+                        <p className='text-gray-500 text-sm max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap ml-4'>{schedule.time}  </p>
                     </div>
                 </div>
                 <div className=' w-full hidden justify-start max-w-[33.3%] md:flex'>
-                    <p className='text-green-600 text-sm max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap mr-5'>{schedule.status}</p>
+                    <p className='text-green-600 text-sm max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap mr-5 ml-1'>{schedule.status}</p>
                 </div>
                 <div className=' w-full items-center flex justify-center'>
                     <CustomButton classname={`border border-dark-blue  w-[80px] mr-1 hover:bg-dark-blue hover:text-white`} content={"Edit"} isDisabled={false} handleButtonClick={handleEdit}  />
