@@ -74,14 +74,14 @@ const ScheduleRoute = () => {
           <div className='flex flex-col flex-grow  my-2 mr-2'>
                 <div className='h-[8%]  flex items-center justify-between'>
                     <div className='flex items-center '>
-                        <p className='font-semibold text-medium ml-3'>Appointment Schedule</p>
+                        <p className='font-semibold text-lg ml-3'>Appointment Schedule</p>
                     </div>
 
                     <div className='flex items-center mr-5'>
                         <CustomButton content={"Create schedule"} classname={"bg-dark-blue text-white w-[150px]"}/>
                     </div>
                 </div>
-                <div className='mt-8 overflow-y-auto flex-grow h-full border mx-3 rounded-lg'>
+                <div className='mt-6 overflow-y-auto flex-grow h-full border mx-3 rounded-lg'>
                     <div className='h-[40px] flex px-3 sticky top-[0px] bg-custom-color bg-dark-blue mb-1'>
                         <div className='w-[30%] flex items-center'>
                             <p className='text-white mr-4 ml-3 text-md'>Date</p>
