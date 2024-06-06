@@ -101,15 +101,16 @@ export default function Profile() {
                     </div>
                 </div>
             <div className=' flex h-[50%]'>
-                <div className='w-[27%] border border-light-blue rounded-lg h-full hidden flex-col items-center shadow-md md:flex'>
+                <div className='w-[25%]  rounded-lg h-full hidden flex-col items-center  md:flex'>
                 <div className="relative inline-block">
   <img src={userData.avatar ? `${BASE_URL}/uploads/${userData.avatar.file_name}` : Person} alt="User Avatar" className='' />
   <AddIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent rounded-full shadow-md" />
-</div>                <div className=' flex justify-center items-center text-center w-[170px]'>
+</div>                
+<div className=' flex justify-center items-center text-center w-[170px]'>
                     <p className='font-semibold text-xl'>Dr. {userData.name}</p>
                 </div>
                 </div>
-                <div className='border border-light-blue rounded-lg flex flex-col flex-grow ml-2 shadow-md'>
+                <div className=' rounded-lg flex flex-col flex-grow ml-2'>
                     <div className='h-[40px] flex items-center ml-3 mt-3'>
                         <p className='font-semibold'>Professional Profile</p>
                     </div>
