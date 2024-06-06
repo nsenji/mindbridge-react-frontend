@@ -92,7 +92,7 @@ export default function Profile() {
         <div className='flex flex-col flex-grow  my-2 mr-2'>
             <div className='h-[8%]  flex items-center justify-between mb-5'>
                     <div className='flex items-center '>
-                        <p className='font-semibold text-lg ml-1'>Profile</p>
+                        <p className='font-semibold text-lg ml-3'>Profile</p>
                     </div>
 
                     <div className='flex items-center mr-5'>
