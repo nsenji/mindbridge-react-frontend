@@ -9,7 +9,7 @@ import Signup from './Pages/Authentication/Signup'
 import Login from './Pages/Authentication/Login'
 import MeetingRoom from './routes/Meeting'
 import { Navigate } from 'react-router-dom'
-import Profile from './Components/profile/profile'
+import Profile from './routes/profile.jsx'
 import DashBoard from './routes/DashBoard'
 import ScheduleRoute from "./routes/ScheduleRoute.jsx"
 

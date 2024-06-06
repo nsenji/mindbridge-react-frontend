@@ -13,6 +13,9 @@ import { useQuery } from 'react-query'
 import isValidToken from '../utils/isValidToken';
 import moment from 'moment';
 import Person from "../assets/person.png"
+import { DoctorsEarnings } from '../Services/api';
+
+
 
 export default function DashBoard() {
     const { isLoading1, error, data, refetch } = useQuery({ queryKey: ["getToken2"], queryFn: isValidToken, refetchOnMount: true })
@@ -20,6 +23,8 @@ export default function DashBoard() {
     const [scheduledApp, setScheduledApp] = useState(0)
     const [completed, setCompleted] = useState(0)
     const [appointments, setAppointments] = useState([])
+    const [earnings, setEarnings] = useState([])
+
 
     useEffect(() => {
         if (data) {
@@ -35,6 +40,11 @@ export default function DashBoard() {
                 const cases = await Appointments.getDoctorHistory({ doctorID: userData.doc_ID })
                 setCompleted(cases.data.length)
             }
+            async function fetchDoctorsEarnings() {
+                let response = await DoctorsEarnings.getDoctorsEarnings({ doctorID: userData.doc_ID })
+                setEarnings(response.data)
+            }
+            fetchDoctorsEarnings()
             getScheduledAppointments()
             getCompletedCases()
         }
@@ -91,7 +101,7 @@ export default function DashBoard() {
                             <div className='h-[35px] w-[35px] border flex items-center justify-center rounded-full bg-dark-blue'>
                                 <MdPendingActions size={20} color={'#ffffff'} />
                             </div>
-                            <p className='ml-2 font-bold text-lg'>Shs. 1200000</p>
+                            <p className='ml-2 font-bold text-lg'>Shs. {earnings.reduce((accumulator, earning)=>{ return accumulator + earning.amount}, 0)}</p>
                         </div>
                         <div>
                             <p className='text-sm font-semibold text-gray-500 ml-1 mt-2'>Total Earnings</p>

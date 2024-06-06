@@ -17,7 +17,8 @@ export default {
         'green-container-inner':"#126e1f"
       },
       colors:{
-        'dark-blue':"#082063"
+        'dark-blue':"#082063",
+        'light-blue':'#d6dfee'
       }
     },
   },
