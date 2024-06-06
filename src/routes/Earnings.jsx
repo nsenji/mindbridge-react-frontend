@@ -1,57 +1,54 @@
-import { useEffect } from 'react';
-import DropDown from '../../Components/DropDownMenu/DropDown'
-import PatientHistory from '../../Components/PatientHistory/PatientHistory';
 import { useState } from 'react';
-import { Appointments } from '../../Services/api';
-import { Search } from '@mui/icons-material';
-import { FaRegCalendarTimes } from 'react-icons/fa';
-import Skeleton from 'react-loading-skeleton';
-import './History.css'
+import { TbFolderCancel } from "react-icons/tb";
+import Transaction from '../Components/Transaction/Transaction';
+import { CiBadgeDollar } from "react-icons/ci";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { useEffect } from 'react';
+import { DoctorsEarnings } from '../Services/api';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import { useQuery } from 'react-query'
-import isValidToken from '../../utils/isValidToken';
-import HistoryTableRowWidget from '../../customComponents/historyTableRow';
+import isValidToken from '../utils/isValidToken';
+import { Search } from '@mui/icons-material';
+import EarningsTableRowWidget from '../customComponents/earningsTableRow';
 
-const History = () => {
-    const [appointments, setAppointments] = useState([])
-    const [appointments_2, setAppointments_2] = useState([])
+
+export default function Earnings(){
+    const [earnings, setEarnings] = useState([])
     const [targetValue, setTargetValue] = useState("")
+    const [earnings_2, setEarnings_2] = useState([])
+
 
     const { isLoading, error, data } = useQuery("getToken", isValidToken, { enabled: true })
-
-    if (data) {
+    
+    if(data){
         var [_, userData] = data;
 
-        useEffect(() => {
-            const getDoctorHistory = async () => {
-                try {
-                    const pastAppointments = await Appointments.getDoctorHistory({ doctorID: userData.doc_ID })
-                    setAppointments(pastAppointments.data)
-                } catch (error) {
-                    console.log(error)
-                }
+        useEffect(()=>{
+            async function fetchDoctorsEarnings(){
+             let response = await DoctorsEarnings.getDoctorsEarnings({doctorID: userData.doc_ID})
+             setEarnings(response.data)
             }
-            getDoctorHistory()
-        }, [])
+            fetchDoctorsEarnings()
+         }, [])
 
     }
 
+    useEffect(()=>{
+        return  setEarnings_2(earnings.filter(earning => earning.date.toLowerCase().includes(targetValue.toLowerCase()) || earning.patient.name.toLowerCase().includes(targetValue.toLowerCase())))
+     
+     }, [targetValue])
 
-    useEffect(() => {
-        return setAppointments_2(appointments.filter(app => app.patient.name.toLowerCase().includes(targetValue.toLowerCase()) || app.date.toLowerCase().includes(targetValue.toLowerCase())))
-
-    }, [targetValue])
-
-
-
-    return (
-        <div className="flex flex-col flex-grow  my-2 mr-2">
+    
+    return(
+        <div className='flex flex-col flex-grow  my-2 mr-2'>
             <div className='flex items-center px-3 mt-1'>
                 <div className='relative flex items-center w-full'>
                     <Search className="absolute left-3 text-gray-500" />
                     <input type='text' className='w-[300px] pl-10 pr-3 py-2 border border-dark-blue rounded-md focus:outline-none focus:ring-2 bg-white focus:ring-blue-500 focus:border-blue-500' placeholder='Search patient or date' onChange={(e) => setTargetValue(e.target.value)} />
                 </div>
-                <div className='w-[120px] border p-2 flex justify-center rounded border-dark-blue'>
-                    <p className='font-semibold'>{appointments.length} Records</p>
+                <div className=' border p-2 flex justify-center rounded border-dark-blue'>
+                    <p className='font-semibold whitespace-nowrap'>Total : Shs {earnings.reduce((accumulator, earning)=>{ return accumulator + earning.amount}, 0)}</p>
                 </div>
 
             </div>
@@ -68,7 +65,7 @@ const History = () => {
                             <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap '>Time (24h)</p>
                         </div>
                         <div className=' w-full flex justify-center max-w-[33.3%] '>
-                            <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap'>Status</p>
+                            <p className='text-white text-md max-h-[20px] overflow-hidden text-ellipsis whitespace-nowrap'>Amount (Shs)</p>
                         </div>
                     </div>
 
@@ -76,13 +73,13 @@ const History = () => {
 
                 <table className='w-full'>
                     <tbody className=''>
-                        {targetValue.length === 0 ? appointments.map((app) => <tr className='' key={app.selected_apt_ID} >
+                        {targetValue.length === 0 ? earnings.map((app) => <tr className='' key={app.payment_ID} >
                             <td>
-                                <HistoryTableRowWidget history={app} />
+                                <EarningsTableRowWidget earnings={app} />
                             </td>
-                        </tr>) : appointments_2.map((app) => <tr className='' key={app.selected_apt_ID} >
+                        </tr>) : earnings_2.map((app) => <tr className='' key={app.payment_ID} >
                             <td>
-                                <HistoryTableRowWidget history={app} />
+                                <EarningsTableRowWidget earnings={app} />
                             </td>
                         </tr>)}
 
@@ -91,9 +88,7 @@ const History = () => {
                 </table>
             </div>
 
+          
         </div>
     )
 }
-export default History
-
-
