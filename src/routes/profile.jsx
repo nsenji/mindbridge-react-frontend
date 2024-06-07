@@ -95,9 +95,9 @@ export default function Profile() {
 
         return (
             <div className="flex flex-col flex-grow  my-2 mr-2">
-                <div className="h-[8%]  flex items-center justify-between mb-5">
+                <div className="h-[8%]  flex items-center justify-between mb-3 ">
                     <div className="flex items-center ">
-                        <p className="font-semibold text-lg ml-3">Profile</p>
+                        <p className="font-semibold text-lg ml-4">Profile</p>
                     </div>
 
                     <div className="flex items-center mr-5">
@@ -110,9 +110,9 @@ export default function Profile() {
                         />
                     </div>
                 </div>
-                <div className=" flex h-[50%]">
-                    <div className="w-[25%]  rounded-lg h-full hidden flex-col items-center  md:flex">
-                        <div className="relative inline-block">
+                <div className="flex-grow flex flex-col  rounded-lg">
+                    <div className="w-[420px] rounded-md h-[40%] hidden items-center md:flex ml-4 mr-5 border border-light-blue ">
+                        <div className="relative inline-block ml-1">
                             <img
                                 src={
                                     userData.avatar
@@ -120,19 +120,28 @@ export default function Profile() {
                                         : Person
                                 }
                                 alt="User Avatar"
-                                className=""
+                                className="w-[200px] min-w-[200px]"
                             />
                             <AddIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent rounded-full shadow-md" />
                         </div>
-                        <div className=" flex justify-center items-center text-center w-[170px]">
-                            <p className="font-semibold text-xl">Dr. {userData.name}</p>
+                        <div className="flex flex-col justify-start items-start  ">
+
+                            <p className="font-semibold text-xl text-dark-blue ">Dr. {userData.name}</p>
+                            <p className="text-sm text-nowrap">{userData.email}</p>
+
+                            <div className=" border py-2 px-4 flex justify-center rounded border-dark-blue mt-5">
+                                <p className="font-semibold whitespace-nowrap">
+                                {scheduledApp + completed} Patients
+                                </p>
+                            </div>
+
                         </div>
                     </div>
                     <div className=" rounded-lg flex flex-col flex-grow ml-2">
-                        <div className="h-[40px] flex items-center ml-3 mt-3">
+                        <div className="h-[40px] flex items-center ml-3 mt-6">
                             <p className="font-semibold">Professional Profile</p>
                         </div>
-                        <div className="flex flex-grow justify-evenly mt-3">
+                        <div className="flex flex-grow justify-evenly mt-3 mr-3">
                             <div className=" flex flex-col  w-full md:w-[50%]">
                                 <div className="h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center">
                                     <p className="text-sm ml-2">Title</p>

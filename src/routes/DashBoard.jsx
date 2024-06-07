@@ -116,8 +116,7 @@ export default function DashBoard() {
                 <MdPendingActions size={20} color={"#ffffff"} />
               </div>
               <p className="ml-2 font-bold text-lg">
-                Shs.{" "}
-                {earnings.reduce((accumulator, earning) => {
+                Shs. {earnings.reduce((accumulator, earning) => {
                   return accumulator + earning.amount;
                 }, 0)}
               </p>
