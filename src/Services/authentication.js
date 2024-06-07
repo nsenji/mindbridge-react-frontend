@@ -1,4 +1,6 @@
 import axios from "axios";
+import localforage from "localforage";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Auth = {
@@ -35,7 +37,11 @@ const Auth = {
     };
 
     let response = await axios.request(reqOptions);
-    return response.data;
+    const value = await localforage.setItem(
+      "currentUserToken",
+      JSON.stringify(response.data),
+    );
+    return value;
   },
 };
 

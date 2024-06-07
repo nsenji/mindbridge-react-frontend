@@ -93,15 +93,19 @@ const Edit = {
     const formData = new FormData();
     formData.append("doctorID", doctorID);
     formData.append("avatar", selectedImage);
-    const response = await axios.post(
-      `${BASE_URL}/uploads/uploadavatar`,
-      formData,
-      {
+    console.log("i have reached the back function");
+
+    const response = await axios
+      .post(`${BASE_URL}/uploads/uploadavatar`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      },
-    );
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+
+    console.log("i and the data is returning too " + response.data);
 
     return response.data;
   },
