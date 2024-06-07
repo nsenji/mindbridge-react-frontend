@@ -15,7 +15,9 @@ export default function Login() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      Auth.signIn(user)
+      const response = await Auth.signIn(user);
+      localforage
+        .setItem("currentUserToken", JSON.stringify(response.data))
         .then((value) => {
           if (value) {
             window.location.href = "/dashboard";

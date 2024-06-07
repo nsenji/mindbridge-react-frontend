@@ -13,19 +13,21 @@ import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";
 import AddIcon from "@mui/icons-material/Add";
 import CustomButton from "../customComponents/customButton";
+import localforage from "localforage";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function Profile() {
   const [scheduledApp, setScheduledApp] = useState(0);
   const [completed, setCompleted] = useState(0);
+  const [localImagePresent, setLocalImagePresent] = useState(true);
+  const [localImage, setLocalImage] = useState(null);
 
   const { isLoading1, error, data, refetch } = useQuery({
     queryKey: ["getToken"],
     queryFn: isValidToken,
     cacheTime: 40,
     staleTime: 40,
-
   });
 
   useEffect(() => {
@@ -49,6 +51,28 @@ export default function Profile() {
     }
   }, [data]);
 
+  // For handling the temporary image display when user sets profile image
+  useEffect(() => {
+    if (data) {
+      var [_, userData] = data;
+
+      // Retrieve the image file from LocalForage
+      localforage
+        .getItem(`avatar${userData.doc_ID}`)
+        .then((imageFile) => {
+          if (imageFile) {
+            // Create a URL for the image file
+            const imageUrl = URL.createObjectURL(imageFile);
+            setLocalImage(imageUrl);
+          } else {
+            setLocalImagePresent(false);
+            console.log("error getting url for image");
+          }
+        })
+        .catch((error) => console.error("Error retrieving image file:", error));
+    }
+  }, [localImagePresent]);
+
   if (data) {
     var [_, userData] = data;
 
@@ -62,19 +86,19 @@ export default function Profile() {
         try {
           const value = await Edit.editProfilePhoto(userData.doc_ID, file);
           if (value) {
-            
-           await refetch();
+            localforage
+              .setItem(`avatar${userData.doc_ID}`, file)
+              .then((value) => {
+                setLocalImagePresent(true);
+              });
           } else {
-            console.log(
-              "server error",
-            );
+            console.log("server error");
           }
         } catch (error) {
           console.log(error.message);
         }
       }
     };
-
 
     const handleEditProfile = () => {
       console.log("not implemented");
@@ -98,10 +122,16 @@ export default function Profile() {
           </div>
         </div>
         <div className="flex-grow flex flex-col  rounded-lg">
-          <div className="w-[430px] rounded-md h-[40%] hidden items-center md:flex ml-4 mr-5 border border-light-blue ">
+          <div className="w-[430px] rounded-lg h-[40%] hidden items-center md:flex ml-4 mr-5 border border-light-blue ">
             {userData.avatar ? (
               <img
                 src={`${BASE_URL}/uploads/${userData.avatar.file_name}`}
+                alt="User Avatar"
+                className="min-h-[150px] min-w-[150px] h-[150px] w-[150px] rounded-full m-6"
+              />
+            ) : localImage ? (
+              <img
+                src={localImage}
                 alt="User Avatar"
                 className="min-h-[150px] min-w-[150px] h-[150px] w-[150px] rounded-full m-6"
               />
