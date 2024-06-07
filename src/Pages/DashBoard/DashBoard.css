@@ -1,103 +1,105 @@
-.personaldetails{
-    display: flex;
-    align-items:stretch;
-    gap: 5%;
-    margin-bottom: 3rem;
+.personaldetails {
+  display: flex;
+  align-items: stretch;
+  gap: 5%;
+  margin-bottom: 3rem;
 }
 
-.doctordetails{
-    display: flex;
+.doctordetails {
+  display: flex;
 }
 
-.title{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items:flex-start;
-    color: #0c008a;
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: #0c008a;
 }
 
-.divider{
-    border: 1px solid lightgrey;
+.divider {
+  border: 1px solid lightgrey;
 }
 
-.generaldetails{
-    font-size: 16px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 70%;
-    grid-gap: 20%;
-    display: flex;
-    align-items: center;
+.generaldetails {
+  font-size: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 70%;
+  grid-gap: 20%;
+  display: flex;
+  align-items: center;
 }
 
-.detailsleft, .detailsright{
-    display: flex;
-    flex-direction: column;
+.detailsleft,
+.detailsright {
+  display: flex;
+  flex-direction: column;
 }
-.label{
-    color: grey;
+.label {
+  color: grey;
 }
-.info{
-    display: grid;
-    grid-template-columns: 1fr 0.8fr;
-    align-items: center;
+.info {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  align-items: center;
 }
-.infoleft{
-    display: flex;
-    gap: 10px;
-    height: 70%;
-}
-
-.patients, .pendingappointments, .finishedpatients{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 33%;
-    border: 1px solid lightgrey;
-    border-radius: 20px;
-    padding: 10px;
-}
-.digit{
-    font-size: 30px;
+.infoleft {
+  display: flex;
+  gap: 10px;
+  height: 70%;
 }
 
-.addprofileicon{
-    border-radius: 50%;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-    height: 150px;
-    width: 150px;
-
+.patients,
+.pendingappointments,
+.finishedpatients {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 33%;
+  border: 1px solid lightgrey;
+  border-radius: 20px;
+  padding: 10px;
 }
-.clearbtn{
-    width: 5.8rem;
-}
-.greeting{
-    color: #0c008a;
-    font-weight: 700;
-}
-input[type='file'] {
-    color: transparent;
+.digit {
+  font-size: 30px;
 }
 
-.main{
-    margin: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.addprofileicon {
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  height: 150px;
+  width: 150px;
 }
-.displayImage{
-    border-radius: 50%;
-    height: 200px;
-    width: 200px;
-    margin: 15px;
+.clearbtn {
+  width: 5.8rem;
 }
-.displayImage:hover{
-    cursor: pointer;
+.greeting {
+  color: #0c008a;
+  font-weight: 700;
 }
-#myFile{
-    display: inline;
+input[type="file"] {
+  color: transparent;
 }
-.info{
-    height: 60%;
+
+.main {
+  margin: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.displayImage {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  margin: 15px;
+}
+.displayImage:hover {
+  cursor: pointer;
+}
+#myFile {
+  display: inline;
+}
+.info {
+  height: 60%;
 }

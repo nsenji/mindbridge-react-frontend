@@ -17,68 +17,63 @@ import useSendMail from "../Services/useSendMail";
 import { useLocation, useNavigate } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader";
 
-
 function MeetingRoom() {
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   // const { authUser } = useContext(AuthContext)
 
   const [meetingId, setMeetingId] = useState(null);
   const { email } = location.state;
   // const [response] = useSendMail(meetingId, email);  // work on this email later
 
-
   useEffect(() => {
-
     //Getting the meeting id by calling the api we just wrote
     const getMeetingAndToken = async (id) => {
       const meetingId =
-        id == null ? await MeetingConfig.createMeeting({ token: authToken }) : id;
+        id == null
+          ? await MeetingConfig.createMeeting({ token: authToken })
+          : id;
       setMeetingId(meetingId);
     };
 
     getMeetingAndToken();
-
-  }, [])
-
+  }, []);
 
   //This will set Meeting Id to null when meeting is left or ended
   const onMeetingLeave = () => {
     setMeetingId(null);
-    document.getElementById("sidebar").style.display = 'flex';
-    navigate("/dashboard")
-
+    document.getElementById("sidebar").style.display = "flex";
+    navigate("/dashboard");
   };
 
   if (authToken && meetingId) {
-    return <MeetingProvider
-      config={{
-        meetingId,
-        micEnabled: true,
-        webcamEnabled: true,
-        name: "C.V. Raman",
-      }}
-      token={authToken}
-    >
-      <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
-    </MeetingProvider>
-
+    return (
+      <MeetingProvider
+        config={{
+          meetingId,
+          micEnabled: true,
+          webcamEnabled: true,
+          name: "C.V. Raman",
+        }}
+        token={authToken}
+      >
+        <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
+      </MeetingProvider>
+    );
   } else {
-    return <div className='flex items-center justify-center w-full'>
-      <FadeLoader
-        color={'#0c008a'}
-        loading={true}
-        size={50}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-    </div>
+    return (
+      <div className="flex items-center justify-center w-full">
+        <FadeLoader
+          color={"#0c008a"}
+          loading={true}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
   }
-
 }
-
-
-
 
 function MeetingView(props) {
   const [joined, setJoined] = useState(null);
@@ -87,7 +82,7 @@ function MeetingView(props) {
   const { join, participants, localParticipant } = useMeeting({
     //callback for when meeting is joined successfully
     onMeetingJoined: () => {
-      document.getElementById("sidebar").style.display = 'none';
+      document.getElementById("sidebar").style.display = "none";
       setJoined("JOINED");
     },
     //callback for when meeting is left
@@ -99,7 +94,6 @@ function MeetingView(props) {
     setJoined("JOINING");
     join();
   };
-
 
   return (
     <div className="flex flex-grow">
@@ -114,7 +108,11 @@ function MeetingView(props) {
           </div>
           <div className="max-h-[90%] h-[90%] flex flex-row justify-center items-start w-full">
             <ParticipantView
-              participantId={[...participants.keys()].filter(key => key !== localParticipant.id)[0]}
+              participantId={
+                [...participants.keys()].filter(
+                  (key) => key !== localParticipant.id,
+                )[0]
+              }
               newParticipantId={localParticipant.id}
             />
           </div>
@@ -125,17 +123,21 @@ function MeetingView(props) {
             <div className="inner-enter-call">
               <p className="large-text">Call room created </p>
               <p className="small-text">Room ID : {props.meetingId}</p>
-              <p className="small-text padding-bottom">Patient will be notified and join the call shortly</p>
-              <CallCustomButton content={"Join now"} onClick={joinMeeting} isButtonLoading={joined && joined == "JOINING"} />
+              <p className="small-text padding-bottom">
+                Patient will be notified and join the call shortly
+              </p>
+              <CallCustomButton
+                content={"Join now"}
+                onClick={joinMeeting}
+                isButtonLoading={joined && joined == "JOINING"}
+              />
             </div>
           </div>
         </>
       )}
     </div>
-
   );
 }
-
 
 function Controls() {
   const { leave, toggleMic, toggleWebcam } = useMeeting();
@@ -144,28 +146,52 @@ function Controls() {
 
   return (
     <div className="flex items-center mr-2">
-      {camON ? <FaVideo onClick={() => { toggleWebcam(); switchOFFCam(false) }} className="toggle-icons" />
-        : <FaVideoSlash onClick={() => { toggleWebcam(); switchOFFCam(true) }} className="toggle-icons" />
-      }
-      {micON ? <FaMicrophone onClick={() => { toggleMic(); switchOFFMic(false) }} className="toggle-icons" />
-        : <FaMicrophoneSlash onClick={() => { toggleMic(); switchOFFMic(true) }} className="toggle-icons" />
-      }
-      <button className="leave-button" onClick={() => leave()}>End Call</button>
-
-
+      {camON ? (
+        <FaVideo
+          onClick={() => {
+            toggleWebcam();
+            switchOFFCam(false);
+          }}
+          className="toggle-icons"
+        />
+      ) : (
+        <FaVideoSlash
+          onClick={() => {
+            toggleWebcam();
+            switchOFFCam(true);
+          }}
+          className="toggle-icons"
+        />
+      )}
+      {micON ? (
+        <FaMicrophone
+          onClick={() => {
+            toggleMic();
+            switchOFFMic(false);
+          }}
+          className="toggle-icons"
+        />
+      ) : (
+        <FaMicrophoneSlash
+          onClick={() => {
+            toggleMic();
+            switchOFFMic(true);
+          }}
+          className="toggle-icons"
+        />
+      )}
+      <button className="leave-button" onClick={() => leave()}>
+        End Call
+      </button>
     </div>
   );
 }
 
-
 function ParticipantView(props) {
   const micRef = useRef(null);
 
-
-
   const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
     useParticipant(props.participantId);
-
 
   const videoStream = useMemo(() => {
     if (webcamOn && webcamStream) {
@@ -185,7 +211,7 @@ function ParticipantView(props) {
         micRef.current
           .play()
           .catch((error) =>
-            console.error("videoElem.current.play() failed", error)
+            console.error("videoElem.current.play() failed", error),
           );
       } else {
         micRef.current.srcObject = null;
@@ -198,7 +224,7 @@ function ParticipantView(props) {
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
       {webcamOn ? (
         <div className="react-player">
-          <ReactPlayer            //
+          <ReactPlayer //
             playsinline // extremely crucial prop
             pip={false}
             light={false}
@@ -215,11 +241,11 @@ function ParticipantView(props) {
             }}
           />
         </div>
-      ) :
+      ) : (
         <div className="waiting-user">
           Waiting for the patient to join the call...
         </div>
-      }
+      )}
       <div className="">
         <ParticipantView2 newParticipantId={props.newParticipantId} />
       </div>
@@ -227,13 +253,10 @@ function ParticipantView(props) {
   );
 }
 
-
-
 function ParticipantView2({ newParticipantId }) {
   const micRef = useRef(null);
   const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
     useParticipant(newParticipantId);
-
 
   const videoStream = useMemo(() => {
     if (webcamOn && webcamStream) {
@@ -253,7 +276,7 @@ function ParticipantView2({ newParticipantId }) {
         micRef.current
           .play()
           .catch((error) =>
-            console.error("videoElem.current.play() failed", error)
+            console.error("videoElem.current.play() failed", error),
           );
       } else {
         micRef.current.srcObject = null;
@@ -269,7 +292,7 @@ function ParticipantView2({ newParticipantId }) {
       </p> */}
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
       {webcamOn && (
-        <ReactPlayer            //
+        <ReactPlayer //
           playsinline // extremely crucial prop
           pip={false}
           light={false}
@@ -292,16 +315,18 @@ function ParticipantView2({ newParticipantId }) {
 
 function CallCustomButton(props) {
   return (
-    <button onClick={props.onClick} type="button" className="h-12 font-bold px-6 border-none text-lg bg-[#0c008a] text-white cursor-pointer rounded w-[200px]">
-      {props.isButtonLoading ?
-        <div className='inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]'>
-          
-        </div>
-        : props.content}
+    <button
+      onClick={props.onClick}
+      type="button"
+      className="h-12 font-bold px-6 border-none text-lg bg-[#0c008a] text-white cursor-pointer rounded w-[200px]"
+    >
+      {props.isButtonLoading ? (
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+      ) : (
+        props.content
+      )}
     </button>
   );
 }
 
 export default MeetingRoom;
-
-

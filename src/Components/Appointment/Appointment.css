@@ -1,50 +1,49 @@
-.appointment{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    border: 1px solid #B6D0E2;
-    width: 95%;
-    padding: 5px;
-    border-radius: 5px;
-    margin-bottom: 7px;
-    transition: transform 0.5s ease; /* Smooth transition for transform property */
+.appointment {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border: 1px solid #b6d0e2;
+  width: 95%;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 7px;
+  transition: transform 0.5s ease; /* Smooth transition for transform property */
 }
-.appointment:hover{
-    transform: translateY(5px); /* Move div 10px up */
+.appointment:hover {
+  transform: translateY(5px); /* Move div 10px up */
+}
+.todaysappointment {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid lightgrey;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.5s ease; /* Smooth transition for transform property */
+}
+.todaysappointment:hover {
+  transform: translateX(10px); /* Move div 10px up */
+}
 
+.status {
+  color: green;
+  font-weight: 600;
 }
-.todaysappointment{
-    display: flex;
-    flex-direction: column;
-    border: 1px solid lightgrey;
-    border-radius: 20px;
-    padding: 10px;
-    cursor: pointer;
-    transition: transform 0.5s ease; /* Smooth transition for transform property */
+.modal-body {
+  display: flex;
+  flex-direction: column;
 }
-.todaysappointment:hover{
-    transform: translateX(10px); /* Move div 10px up */
+.modaldetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 2rem;
 }
-
-.status{
-    color: green;
-    font-weight: 600;
+.sendlink {
+  align-self: flex-end;
+  color: #fff;
+  padding: 5px;
+  background-color: #0c008a;
 }
-.modal-body{
-    display: flex;
-    flex-direction: column;
-}
-.modaldetails{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    margin-bottom: 2rem;
-}
-.sendlink{
-    align-self:flex-end;
-    color: #fff;
-    padding: 5px;
-    background-color: #0c008a;
-}
-.sendlink:hover{
-    background-color: #0c0557;
-    color: #fff;
+.sendlink:hover {
+  background-color: #0c0557;
+  color: #fff;
 }

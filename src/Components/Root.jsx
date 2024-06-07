@@ -1,13 +1,13 @@
-import SideBar from "./SideBar/SideBar"
-import { Outlet } from "react-router-dom"
+import SideBar from "./SideBar/SideBar";
+import { Outlet } from "react-router-dom";
 
 const Root = () => {
-    return (
-        <div className="flex w-full h-screen">
-            <SideBar />
-            <Outlet />
-        </div>
-    )
-}
+  return (
+    <div className="flex w-full h-screen">
+      <SideBar />
+      <Outlet />
+    </div>
+  );
+};
 
-export default Root
+export default Root;

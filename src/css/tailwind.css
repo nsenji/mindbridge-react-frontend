@@ -3,34 +3,31 @@
 @tailwind utilities;
 
 @layer base {
-
-    * {
-      box-sizing: border-box;
-    }
-  
-    /* width */
-    ::-webkit-scrollbar {
-      width: 7px;
-    }
-  
-    /* Track */
-    ::-webkit-scrollbar-track {
-      @apply bg-transparent rounded-lg;
-    }
-  
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      @apply bg-light-blue hover:bg-zinc-200 rounded-sm;
-    }
-  
-  
+  * {
+    box-sizing: border-box;
   }
 
+  /* width */
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-lg;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-light-blue hover:bg-zinc-200 rounded-sm;
+  }
+}
+
 body {
-    font-family: "Poppins";
-    padding: 0;
-    margin: 0;
-    font-weight: 300;
+  font-family: "Poppins";
+  padding: 0;
+  margin: 0;
+  font-weight: 300;
 }
 
 .flickering-light {
@@ -50,22 +47,20 @@ body {
   }
 }
 
-
 /* design for the meeting room stuff */
 
+.joinButton {
+  height: 40px;
+  width: 80px;
+}
 
-  .joinButton{
-      height: 40px;
-      width: 80px;
-  }
-  
-  /* .joinedStyle{
+/* .joinedStyle{
       display: flex;
       flex-direction: column;
       height: 100vh;
   } */
-  
-  /* .videoArea{
+
+/* .videoArea{
       max-height: 90%;
       height: 90%;
       display: flex;
@@ -74,144 +69,131 @@ body {
       align-items: start;
   
   } */
-  
-  
-  *{
-      box-sizing: border-box;
-  }
-  
-  .react-player{
-      height: 100%;
-      min-width: 700px;
-      position: relative;
-  }
-  
-  .inner-react-player{
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 20%;
-      height: 20%;
-      max-width: 20%;
-      max-height: 20%;
-      object-fit: fill;
-      margin-bottom: 10px;
-  
-  }
-  
-  
-  .enter-call{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: rgb(16,23, 32);
-  }
-  
-  .inner-enter-call{
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      margin-bottom: 100px;
-  
-  
-  }
-  
-  .large-text{
-      color: white;
-      font-size: xx-large;
-      font-weight: bold;
-  }
-  
-  .small-text{
-      color: white;  
-  }
-  
-  .custom-button {
-      height: 48px; 
-      font-weight: bold;
-      padding: 0 24px;
-      border: none;
-      font-size: 17px;
-      width: 200px;
-      background-color: #0c008a; 
-      color: white;
-      cursor: pointer;
-      border-radius: 4px ;
-      }
-      
-  
-  
-  .padding-bottom{
-      padding-bottom: 50px;
-  }
-  
-  
-  .waiting-user{
-      color: white; 
-      margin-top: 30px;
-  
-  }
-  
-  
-  
-      /* call top NavBar */
-  
-  .online{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      
-  }
-  
-  .red-circle {
-      width: 10px; 
-      height: 10px;
-      border-radius: 50%;
-      background-color: red; 
-      margin-right: 8px;
-      }
-  
-      .leave-button{
-      height: 28px; 
-      font-weight: bold;
-      border: none;
-      font-size: 14px;
-      width: 75px;
-      background-color: red; 
-      color: white;
-      cursor: pointer;
-      border-radius: 4px ;
-      }
-  
-      .toggle-icons-container{
-      display: flex;
-      align-items: center;
-      }
-  
-      .toggle-icons{
-      margin-right: 20px;
-      color: grey;
-      font-size: 24px;
-      }
-      
-  .meetingIdinput{
-      border-radius: 5px;
-      padding: 0.3rem;
-      border: 1px solid lightgray;
-      margin-right: 0.5rem;
-  }
-  
-  .meetingbtn{
-      color: #fff;
-      padding: 0.3rem;
-      background-color: #0c008a;
-  }
-  .textprimary{
-      color: #0c008a;
-      font-weight: 800;
-  }
-      
 
-  input {
-    color-scheme: dark;
-  }
+* {
+  box-sizing: border-box;
+}
+
+.react-player {
+  height: 100%;
+  min-width: 700px;
+  position: relative;
+}
+
+.inner-react-player {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20%;
+  height: 20%;
+  max-width: 20%;
+  max-height: 20%;
+  object-fit: fill;
+  margin-bottom: 10px;
+}
+
+.enter-call {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(16, 23, 32);
+}
+
+.inner-enter-call {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 100px;
+}
+
+.large-text {
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.small-text {
+  color: white;
+}
+
+.custom-button {
+  height: 48px;
+  font-weight: bold;
+  padding: 0 24px;
+  border: none;
+  font-size: 17px;
+  width: 200px;
+  background-color: #0c008a;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.padding-bottom {
+  padding-bottom: 50px;
+}
+
+.waiting-user {
+  color: white;
+  margin-top: 30px;
+}
+
+/* call top NavBar */
+
+.online {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.red-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+  margin-right: 8px;
+}
+
+.leave-button {
+  height: 28px;
+  font-weight: bold;
+  border: none;
+  font-size: 14px;
+  width: 75px;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.toggle-icons-container {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-icons {
+  margin-right: 20px;
+  color: grey;
+  font-size: 24px;
+}
+
+.meetingIdinput {
+  border-radius: 5px;
+  padding: 0.3rem;
+  border: 1px solid lightgray;
+  margin-right: 0.5rem;
+}
+
+.meetingbtn {
+  color: #fff;
+  padding: 0.3rem;
+  background-color: #0c008a;
+}
+.textprimary {
+  color: #0c008a;
+  font-weight: 800;
+}
+
+input {
+  color-scheme: dark;
+}

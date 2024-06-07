@@ -1,135 +1,144 @@
-.signup{
-    position: relative;
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-   gap: 0;
-   height: 100vh;
+.signup {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  height: 100vh;
 }
-.signupleft{
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 24px;
-    align-items: center;
-    color: #fff;
-    background-image: url(../../assets/counselling.jpeg);
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-position: center;
+.signupleft {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 24px;
+  align-items: center;
+  color: #fff;
+  background-image: url(../../assets/counselling.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
-.signupform{
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    border-left: 1px solid lightgrey;
-    border-radius: 20px;
-    padding: 1rem;
-    margin-left: -1.5rem; /* Move the form to the left */
-    background-color: rgba(255, 255, 255, 1); /* Add a semi-transparent white background */
+.signupform {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid lightgrey;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-left: -1.5rem; /* Move the form to the left */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    1
+  ); /* Add a semi-transparent white background */
 }
-.center{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-radius: 5px;
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
 }
-.response{
-    height: 100vh;
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.response {
+  height: 100vh;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.submit-btn{
-    background-color: #0c008a;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
+.submit-btn {
+  background-color: #0c008a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
 }
-.submit-btn-disabled{
-    background-color: hsl(223, 31%, 47%);
-    color: lightgray;
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
+.submit-btn-disabled {
+  background-color: hsl(223, 31%, 47%);
+  color: lightgray;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
 }
-.logo-image{
-    position: absolute;
-    top: 0; 
-    left: 0; 
-}
-
-.smallheading{
-    display: block;
-    text-align: center;
-    font-size: 45px;
-    font-weight: 700;
-    color: #0c008a;
+.logo-image {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.loginleft{
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 24px;
-    align-items: center;
-    color: #fff;
-    background-image: url(../../assets/counselling.jpeg);
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-position: center;
-}
-.loginform{
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    border-left: 1px solid lightgrey;
-    border-radius: 20px;
-    padding: 1rem;
-    margin-left: -1.5rem; /* Move the form to the left */
-    background-color: rgba(255, 255, 255, 1); /* Add a semi-transparent white background */
+.smallheading {
+  display: block;
+  text-align: center;
+  font-size: 45px;
+  font-weight: 700;
+  color: #0c008a;
 }
 
-.login{
-    display: flex;
-    border: 1px solid lightgray;
-    border-radius: 20px;
-    padding: 5rem;
+.loginleft {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 24px;
+  align-items: center;
+  color: #fff;
+  background-image: url(../../assets/counselling.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.loginform {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  border-left: 1px solid lightgrey;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-left: -1.5rem; /* Move the form to the left */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    1
+  ); /* Add a semi-transparent white background */
+}
+
+.login {
+  display: flex;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  padding: 5rem;
 }
 
 @media only screen and (max-width: 768px) {
-    .loginleft{
-        display: none;
-    }
-    .logo-image{
-        width: 50px;
-    }
-    .loginform{
-        display: flex;
-        flex-direction: column;
-        width: 100vw;
-        padding: 0;
-        gap: 0;
-        margin:0;
-    }
-    .login{
-        padding: 3rem;
-        border: none;
-    }
-    .form-control{
-        padding: 0.8rem;
-    }
-    
+  .loginleft {
+    display: none;
+  }
+  .logo-image {
+    width: 50px;
+  }
+  .loginform {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    padding: 0;
+    gap: 0;
+    margin: 0;
+  }
+  .login {
+    padding: 3rem;
+    border: none;
+  }
+  .form-control {
+    padding: 0.8rem;
+  }
 }

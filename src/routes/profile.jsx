@@ -1,223 +1,216 @@
-
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { CiCircleChevLeft } from "react-icons/ci";
 import { IoIosPersonAdd } from "react-icons/io";
 import { TbFolderCancel } from "react-icons/tb";
 import { SlPeople } from "react-icons/sl";
-import Person from '../assets/person.png'
+import Person from "../assets/person.png";
 import { MdPendingActions } from "react-icons/md";
 import { GoThumbsup } from "react-icons/go";
-import Chart from 'react-apexcharts'
-import { Appointments, Edit } from '../Services/api';
+import Chart from "react-apexcharts";
+import { Appointments, Edit } from "../Services/api";
 import FadeLoader from "react-spinners/FadeLoader";
-import { useQuery } from 'react-query'
-import isValidToken from '../utils/isValidToken';
-import AddIcon from '@mui/icons-material/Add';
-import CustomButton from '../customComponents/customButton';
+import { useQuery } from "react-query";
+import isValidToken from "../utils/isValidToken";
+import AddIcon from "@mui/icons-material/Add";
+import CustomButton from "../customComponents/customButton";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-
-
 export default function Profile() {
+  const [scheduledApp, setScheduledApp] = useState(0);
+  const [completed, setCompleted] = useState(0);
 
-    const [scheduledApp, setScheduledApp] = useState(0)
-    const [completed, setCompleted] = useState(0)
+  const { isLoading1, error, data, refetch } = useQuery({
+    queryKey: ["getToken2"],
+    queryFn: isValidToken,
+    refetchOnMount: true,
+  });
 
-    const { isLoading1, error, data , refetch} = useQuery({ queryKey: ["getToken2"], queryFn: isValidToken , refetchOnMount:true})
+  const [isLoading, setIsLoading] = useState(false);
+  const [previewSrc, setPreviewSrc] = useState("");
+  const [imageResource, setImageResource] = useState(null);
 
-
-    const [isLoading, setIsLoading] = useState(false)
-    const [previewSrc, setPreviewSrc] = useState('');
-    const [imageResource, setImageResource] = useState(null);
-    
-
-
-    useEffect(() => {
-        if(data){
-            var [_, userData] = data;
-
-            async function getScheduledAppointments() {
-                const scheduled = await Appointments.getScheduledAppointments({ doctorID: userData.doc_ID })
-                setScheduledApp(scheduled.data.length)
-            }
-            async function getCompletedCases() {
-                const cases = await Appointments.getDoctorHistory({ doctorID: userData.doc_ID })
-                setCompleted(cases.data.length)
-            }
-            getScheduledAppointments()
-            getCompletedCases()
-        }
-    }, [data])
-
+  useEffect(() => {
     if (data) {
-        var [_, userData] = data;
+      var [_, userData] = data;
 
-        let datetime = new Date()
-        let time = datetime.getHours()  
-        const handleFileChange = (event) => {
-            const file = event.target.files[0];
-            setImageResource(file)
-            if (file && file.type.substr(0, 5) === "image") {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    setPreviewSrc(reader.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                setPreviewSrc('');
-            }
+      async function getScheduledAppointments() {
+        const scheduled = await Appointments.getScheduledAppointments({
+          doctorID: userData.doc_ID,
+        });
+        setScheduledApp(scheduled.data.length);
+      }
+      async function getCompletedCases() {
+        const cases = await Appointments.getDoctorHistory({
+          doctorID: userData.doc_ID,
+        });
+        setCompleted(cases.data.length);
+      }
+      getScheduledAppointments();
+      getCompletedCases();
+    }
+  }, [data]);
+
+  if (data) {
+    var [_, userData] = data;
+
+    let datetime = new Date();
+    let time = datetime.getHours();
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      setImageResource(file);
+      if (file && file.type.substr(0, 5) === "image") {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreviewSrc(reader.result);
         };
-        async function handleSubmit(e) {
-            e.preventDefault()
-            if (imageResource) {
-                try {
-                    setIsLoading(true)
-                    const uploadImage = await Edit.editProfilePhoto(userData.doc_ID, imageResource)
-                    setAuthUser({ ...userData, avatar: { file_name: uploadImage.data.file_name } })
-                    setIsLoading(false)
-                } catch (error) {
-                    console.log(error.message)
-                }
-            }
+        reader.readAsDataURL(file);
+      } else {
+        setPreviewSrc("");
+      }
+    };
+    async function handleSubmit(e) {
+      e.preventDefault();
+      if (imageResource) {
+        try {
+          setIsLoading(true);
+          const uploadImage = await Edit.editProfilePhoto(
+            userData.doc_ID,
+            imageResource,
+          );
+          setAuthUser({
+            ...userData,
+            avatar: { file_name: uploadImage.data.file_name },
+          });
+          setIsLoading(false);
+        } catch (error) {
+          console.log(error.message);
         }
-
-        const handleClickOpen = ()=>{
-            console.log("not implemented")
-        }
-
-       
-
-        return (
-        <div className='flex flex-col flex-grow  my-2 mr-2'>
-            <div className='h-[8%]  flex items-center justify-between mb-5'>
-                    <div className='flex items-center '>
-                        <p className='font-semibold text-lg ml-3'>Profile</p>
-                    </div>
-
-                    <div className='flex items-center mr-5'>
-                        <CustomButton content={"Edit"} classname={"hover:bg-dark-blue hover:text-white w-[100px] border border-dark-blue"} handleButtonClick={handleClickOpen} />
-
-                    </div>
-                </div>
-            <div className=' flex h-[50%]'>
-                <div className='w-[25%]  rounded-lg h-full hidden flex-col items-center  md:flex'>
-                <div className="relative inline-block">
-  <img src={userData.avatar ? `${BASE_URL}/uploads/${userData.avatar.file_name}` : Person} alt="User Avatar" className='' />
-  <AddIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent rounded-full shadow-md" />
-</div>                
-<div className=' flex justify-center items-center text-center w-[170px]'>
-                    <p className='font-semibold text-xl'>Dr. {userData.name}</p>
-                </div>
-                </div>
-                <div className=' rounded-lg flex flex-col flex-grow ml-2'>
-                    <div className='h-[40px] flex items-center ml-3 mt-3'>
-                        <p className='font-semibold'>Professional Profile</p>
-                    </div>
-                    <div className='flex flex-grow justify-evenly mt-3'>
-                        <div className=' flex flex-col  w-full md:w-[50%]'>
-                            <div className='h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center'>
-                                <p className='text-sm ml-2'>
-                                Title
-                                </p>
-                                <p className='font-semibold mr-2 text-nowrap'>
-                                {userData.pro_title}
-                                </p>
-                            </div>
-                            <div className='h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center'>
-                            <p className='text-sm ml-1'>
-                            Work Status
-                                </p>
-                                <p className='font-semibold mr-2 text-nowrap'>
-                                {userData.employment_status}
-                                </p>
-                            </div>
-                            <div className='h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center'>
-                            <p className='text-sm ml-2'>
-                            Specialty
-                                </p>
-                                <p className='font-semibold mr-2 text-nowrap'>
-                                {userData.med_specialty}
-                                </p>
-                            </div>
-                            <div className='h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center'>
-                                <p className='text-sm ml-2'>
-                                Hospital
-                                </p>
-                                <p className='font-semibold mr-2 text-nowrap trancate'>
-                                {userData.hospitalName}
-                                </p>
-                            </div>
-                           
-                        
-                        </div>
-                        <div className=' flex-col w-[50%] hidden md:flex'>
-                        <div className='h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center '>
-                            <p className='text-sm ml-2 text-nowrap'>
-                            Rate
-                                </p>
-                                <p className='font-semibold mr-2 text-nowrap'>
-                                {userData.rate}
-                                </p>
-                            </div>
-                            <div className='h-[40px] border border-light-blue mx-2 rounded-md mt-2 flex justify-between items-center'>
-                            <p className='text-sm ml-2'>
-                            Email
-                                </p>
-                                <p className='font-semibold mr-2 text-nowrap'>
-                                {userData.email}
-                                </p>
-                            </div>
-                            <div className='h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center'>
-                            <p className='text-sm ml-2'>
-                            Gender
-                                </p>
-                                <p className='font-semibold mr-2 text-nowrap'>
-                                {userData.gender}
-                                </p>
-                            </div>
-                            <div className='h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center'>
-                            <p className='text-sm ml-2'>
-                            Languages
-                                </p>
-                                <p className='font-semibold mr-2 text-nowrap'>
-                                {userData.languages_spoken}
-                                </p>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>)
+      }
     }
 
-    if (error) {
-        console.log(error);
-        return <h1>there is a terrible error {error.message} </h1>  
+    const handleClickOpen = () => {
+      console.log("not implemented");
+    };
 
-    }
+    return (
+      <div className="flex flex-col flex-grow  my-2 mr-2">
+        <div className="h-[8%]  flex items-center justify-between mb-5">
+          <div className="flex items-center ">
+            <p className="font-semibold text-lg ml-3">Profile</p>
+          </div>
 
-    if (isLoading1) {
-        return <div className='flex justify-center items-center h-screen'>
-            <FadeLoader
-                color={'#0c008a'}
-                loading={isLoading}
-                size={80}
-                aria-label="Loading Spinner"
-                data-testid="loader"
+          <div className="flex items-center mr-5">
+            <CustomButton
+              content={"Edit"}
+              classname={
+                "hover:bg-dark-blue hover:text-white w-[100px] border border-dark-blue"
+              }
+              handleButtonClick={handleClickOpen}
             />
+          </div>
         </div>
-    }
+        <div className=" flex h-[50%]">
+          <div className="w-[25%]  rounded-lg h-full hidden flex-col items-center  md:flex">
+            <div className="relative inline-block">
+              <img
+                src={
+                  userData.avatar
+                    ? `${BASE_URL}/uploads/${userData.avatar.file_name}`
+                    : Person
+                }
+                alt="User Avatar"
+                className=""
+              />
+              <AddIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent rounded-full shadow-md" />
+            </div>
+            <div className=" flex justify-center items-center text-center w-[170px]">
+              <p className="font-semibold text-xl">Dr. {userData.name}</p>
+            </div>
+          </div>
+          <div className=" rounded-lg flex flex-col flex-grow ml-2">
+            <div className="h-[40px] flex items-center ml-3 mt-3">
+              <p className="font-semibold">Professional Profile</p>
+            </div>
+            <div className="flex flex-grow justify-evenly mt-3">
+              <div className=" flex flex-col  w-full md:w-[50%]">
+                <div className="h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center">
+                  <p className="text-sm ml-2">Title</p>
+                  <p className="font-semibold mr-2 text-nowrap">
+                    {userData.pro_title}
+                  </p>
+                </div>
+                <div className="h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center">
+                  <p className="text-sm ml-1">Work Status</p>
+                  <p className="font-semibold mr-2 text-nowrap">
+                    {userData.employment_status}
+                  </p>
+                </div>
+                <div className="h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center">
+                  <p className="text-sm ml-2">Specialty</p>
+                  <p className="font-semibold mr-2 text-nowrap">
+                    {userData.med_specialty}
+                  </p>
+                </div>
+                <div className="h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center">
+                  <p className="text-sm ml-2">Hospital</p>
+                  <p className="font-semibold mr-2 text-nowrap trancate">
+                    {userData.hospitalName}
+                  </p>
+                </div>
+              </div>
+              <div className=" flex-col w-[50%] hidden md:flex">
+                <div className="h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center ">
+                  <p className="text-sm ml-2 text-nowrap">Rate</p>
+                  <p className="font-semibold mr-2 text-nowrap">
+                    {userData.rate}
+                  </p>
+                </div>
+                <div className="h-[40px] border border-light-blue mx-2 rounded-md mt-2 flex justify-between items-center">
+                  <p className="text-sm ml-2">Email</p>
+                  <p className="font-semibold mr-2 text-nowrap">
+                    {userData.email}
+                  </p>
+                </div>
+                <div className="h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center">
+                  <p className="text-sm ml-2">Gender</p>
+                  <p className="font-semibold mr-2 text-nowrap">
+                    {userData.gender}
+                  </p>
+                </div>
+                <div className="h-[40px] border border-light-blue mx-2 rounded mt-2 flex justify-between items-center">
+                  <p className="text-sm ml-2">Languages</p>
+                  <p className="font-semibold mr-2 text-nowrap">
+                    {userData.languages_spoken}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
+  if (error) {
+    console.log(error);
+    return <h1>there is a terrible error {error.message} </h1>;
+  }
 
-
-
+  if (isLoading1) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <FadeLoader
+          color={"#0c008a"}
+          loading={isLoading}
+          size={80}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
+  }
 }
-
-
-
 
 // <h1 className='greeting'><CiCircleChevLeft /> {time < 12 ? 'Good Morning' : time <= 16 ? 'Good Afternoon' : 'Good Evening'}</h1>
 //             <div className='personaldetails'>
@@ -251,7 +244,6 @@ export default function Profile() {
 //                         <span><span className='label'>Rate: </span><span>shs. {userData.rate} / hr</span></span>
 //                     </div>
 
-
 //                 </div>
 //             </div>
 //             <div className='info'>
@@ -278,5 +270,5 @@ export default function Profile() {
 //                         </div>
 //                     </div>
 //                 </div>
-                
+
 //             </div>
