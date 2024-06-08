@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Auth from "../../Services/authentication";
-import "./style.css";
 import logo from "../../assets/logo-main.png";
 import FadeLoader from "react-spinners/FadeLoader";
 import localforage from "localforage";

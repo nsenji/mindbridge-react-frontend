@@ -14,6 +14,7 @@ import isValidToken from "../utils/isValidToken";
 import moment from "moment";
 import Person from "../assets/person.png";
 import { DoctorsEarnings } from "../Services/api";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function DashBoard() {
   const { isLoading1, error, data, refetch } = useQuery({
@@ -79,7 +80,16 @@ export default function DashBoard() {
           </div>
 
           <div className="flex items-center mr-5">
-            <img src={Person} alt="" className="h-[40px] w-[40px]" />
+            {userData.avatar ? (
+              <img
+                src={`${BASE_URL}/uploads/${userData.avatar.file_name}`}
+                alt="User Avatar"
+                className="min-h-[40px] min-w-[40px] h-[40px] w-[40px] rounded-full mr-2"
+              />
+            ) : (
+              <img src={Person} alt="" className="h-[40px] w-[40px]" />
+            )}
+
             <p className="ml-1 font-semibold">Dr. {userData.name}</p>
           </div>
         </div>
@@ -116,7 +126,8 @@ export default function DashBoard() {
                 <MdPendingActions size={20} color={"#ffffff"} />
               </div>
               <p className="ml-2 font-bold text-lg">
-                Shs. {earnings.reduce((accumulator, earning) => {
+                Shs.{" "}
+                {earnings.reduce((accumulator, earning) => {
                   return accumulator + earning.amount;
                 }, 0)}
               </p>

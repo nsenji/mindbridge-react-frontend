@@ -12,6 +12,8 @@ import { Navigate } from "react-router-dom";
 import Profile from "./routes/profile.jsx";
 import DashBoard from "./routes/DashBoard";
 import ScheduleRoute from "./routes/ScheduleRoute.jsx";
+import LoginTest from "./routes/login-test.jsx"
+import SignUpTest from "./routes/signup-test.jsx";
 
 const Router = (isAuthenticated) => [
   {
@@ -47,8 +49,15 @@ const Router = (isAuthenticated) => [
         path: "/call-room",
         element: <MeetingRoom />,
       },
+     
+    //  { path:"/signup-test",
+    //   element: },
     ],
   },
+  { path:"/login-test",
+    element: <LoginTest/>},
+  { path:"/signup-test",
+    element: <SignUpTest/>},
 
   {
     path: "/signup",
