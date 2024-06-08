@@ -66,7 +66,6 @@ export default function Profile() {
             setLocalImage(imageUrl);
           } else {
             setLocalImagePresent(false);
-            console.log("error getting url for image");
           }
         })
         .catch((error) => console.error("Error retrieving image file:", error));

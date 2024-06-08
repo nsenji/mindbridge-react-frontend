@@ -1,7 +1,7 @@
 
 import NavBar from "../customComponents/navBar"
-import MainBody from "../customComponents/mainBody"
-function LoginTest() {
+import MainBody from "../customComponents/loginMainBody"
+function Login() {
 
   return (
     <div className="flex flex-col ">
@@ -11,4 +11,4 @@ function LoginTest() {
   )
 }
 
-export default LoginTest
+export default Login

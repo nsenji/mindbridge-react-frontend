@@ -1,4 +1,4 @@
-import FormField from "./formField"
+import FormField from "./loginFormField"
 
 export default function MainBody() {
     return (

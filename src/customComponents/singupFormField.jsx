@@ -3,6 +3,7 @@ import CustomButton from "./customButton";
 import Auth from "../Services/authentication";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function SignUpFormField() {
   const [details, setDetails] = useState({
@@ -28,13 +29,12 @@ export default function SignUpFormField() {
       setIsLoading(true);
       let response = await Auth.signUp(details);
       if (response) {
-        navigate("/login-test");
+        navigate("/login");
       }
     } catch (error) {
+      toast.error(error.response.data.message);
       console.log(error.message);
-      setTimeout(() => {
-        setError("");
-      }, 3000);
+      setIsLoading(false);
     }
   }
   return (
@@ -263,6 +263,7 @@ export default function SignUpFormField() {
                   "w-80 h-12 bg-dark-blue text-white mt-8 mb-4 text-[16px]"
                 }
               />
+              <ToastContainer position="top-center" />
             </div>
           </div>
         </form>
@@ -271,7 +272,7 @@ export default function SignUpFormField() {
       <div className="flex justify-center mb-11">
         <p className="text-black mr-2">Already have an account?</p>
         <Link
-          to={"/login-test"}
+          to={"/login"}
           className="text-gray-500 font-medium text-center hover:text-dark-blue hover:font-semibold"
         >
           Log in to MindBridge

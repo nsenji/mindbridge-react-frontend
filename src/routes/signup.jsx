@@ -1,7 +1,7 @@
 
 import NavBar from "../customComponents/navBar"
 import SignUpMainBody from "../customComponents/signupMainBody"
-function SignUpTest() {
+function SignUp() {
 
   return (
     <div className="flex flex-col ">
@@ -11,4 +11,4 @@ function SignUpTest() {
   )
 }
 
-export default SignUpTest
+export default SignUp
