@@ -6,7 +6,7 @@ import { SlPeople } from "react-icons/sl";
 import { MdPendingActions } from "react-icons/md";
 import { GoThumbsup } from "react-icons/go";
 import Chart from "react-apexcharts";
-import TableRowWidget from "../customComponents/tableRow";
+import TableRowWidget from "../components/tableRow";
 import { Appointments, Edit } from "../Services/api";
 import FadeLoader from "react-spinners/FadeLoader";
 import { useQuery } from "react-query";

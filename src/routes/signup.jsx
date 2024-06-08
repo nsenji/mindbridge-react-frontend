@@ -1,6 +1,6 @@
 
-import NavBar from "../customComponents/navBar"
-import SignUpMainBody from "../customComponents/signupMainBody"
+import NavBar from "../components/navBar"
+import SignUpMainBody from "../components/signupMainBody"
 function SignUp() {
 
   return (

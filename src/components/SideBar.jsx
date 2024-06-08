@@ -1,5 +1,4 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo-main.png";
 import { IoIosLogOut } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
 import { RiInputCursorMove } from "react-icons/ri";
@@ -7,6 +6,7 @@ import { RiUser2Line } from "react-icons/ri";
 import { IoFileTrayStackedOutline } from "react-icons/io5";
 import { BsCalendar2Week } from "react-icons/bs";
 import localforage from "localforage";
+import logo from "../assets/logo-main.png"
 
 function SideBar() {
   const navigate = useNavigate();

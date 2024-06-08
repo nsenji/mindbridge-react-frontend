@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { TbFolderCancel } from "react-icons/tb";
-import Transaction from "../Components/Transaction/Transaction";
 import { CiBadgeDollar } from "react-icons/ci";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { useEffect } from "react";
@@ -10,7 +9,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";
 import { Search } from "@mui/icons-material";
-import EarningsTableRowWidget from "../customComponents/earningsTableRow";
+import EarningsTableRowWidget from "../components/earningsTableRow";
 
 export default function Earnings() {
   const [earnings, setEarnings] = useState([]);

@@ -1,9 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import Root from "./Components/Root";
+import Root from "./routes/Root.jsx";
 import History from "./routes/History.jsx";
-import Appointments from "./Pages/Appointments/Appointments";
-import AppointmentSchedule from "./Components/AppointmentSchedule/AppointmentSchedule";
-import UpcomingApp from "./Components/UpcomingAppointments/UpcomingApp";
+
 import Earnings from "./routes/Earnings.jsx";
 import MeetingRoom from "./routes/Meeting";
 import { Navigate } from "react-router-dom";

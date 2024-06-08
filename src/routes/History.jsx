@@ -1,14 +1,12 @@
 import { useEffect } from "react";
-import DropDown from "../Components/DropDownMenu/DropDown";
-import PatientHistory from "../Components/PatientHistory/PatientHistory";
+
 import { useState } from "react";
 import { Appointments } from "../Services/api";
 import { Search } from "@mui/icons-material";
 import { FaRegCalendarTimes } from "react-icons/fa";
-import Skeleton from "react-loading-skeleton";
 import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";
-import HistoryTableRowWidget from "../customComponents/historyTableRow";
+import HistoryTableRowWidget from "../components/historyTableRow";
 
 const History = () => {
   const [appointments, setAppointments] = useState([]);

@@ -1,6 +1,6 @@
 
-import NavBar from "../customComponents/navBar"
-import MainBody from "../customComponents/loginMainBody"
+import NavBar from "../components/navBar"
+import MainBody from "../components/loginMainBody"
 function Login() {
 
   return (

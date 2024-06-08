@@ -12,7 +12,7 @@ import FadeLoader from "react-spinners/FadeLoader";
 import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";
 import AddIcon from "@mui/icons-material/Add";
-import CustomButton from "../customComponents/customButton";
+import CustomButton from "../components/customButton";
 import localforage from "localforage";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
