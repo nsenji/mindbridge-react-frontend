@@ -186,7 +186,6 @@ export default function DashBoard() {
   }
 
   if (error) {
-    console.log(error);
     return <h1>there is a terrible error {error.message} </h1>;
   }
 

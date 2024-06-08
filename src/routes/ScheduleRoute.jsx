@@ -70,7 +70,6 @@ const ScheduleRoute = () => {
   }
 
   if (error) {
-    console.log(error);
     return <h1>there is a terrible error {error.message} </h1>;
   }
 

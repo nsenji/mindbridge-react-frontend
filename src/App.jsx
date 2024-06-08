@@ -26,7 +26,6 @@ function App() {
   }
 
   if (error) {
-    console.log(error.message);
     return <h1>there is a terrible error </h1>;
   }
 

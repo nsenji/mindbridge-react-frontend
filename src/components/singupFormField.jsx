@@ -33,7 +33,6 @@ export default function SignUpFormField() {
       }
     } catch (error) {
       toast.error(error.response.data.message);
-      console.log(error.message);
       setIsLoading(false);
     }
   }

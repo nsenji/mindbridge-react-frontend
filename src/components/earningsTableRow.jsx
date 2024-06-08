@@ -10,7 +10,6 @@ import { MeetingConfig, authToken } from "../Services/api";
 import { BsCalendar2Week } from "react-icons/bs";
 
 export default function EarningsTableRowWidget({ earnings }) {
-  console.log(earnings);
 
   return (
     <div className="h-[56px] flex px-3 group hover:bg-hover-light-blue rounded-md mb-3">
