@@ -8,7 +8,7 @@ export default function NavBar() {
             <Link>
                 <img className='h-[40px] w-[190px]' src={logo} alt="app logo" color='#082063'/>
             </Link>
-            <p className=' font-semibold text-lg text-dark-blue'>
+            <p className=' font-semibold text-lg text-dark-blue mr-2 mb-2'>
                 DOCTOR PORTAL
             </p>
         </nav>
