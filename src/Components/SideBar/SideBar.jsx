@@ -21,9 +21,9 @@ function SideBar() {
     >
       <div className="flex flex-col items-center flex-grow ">
         <img
-          className="h-[40px] w-[190px] mt-9 mb-9"
+          className="h-[40px] w-[190px] mt-9 mb-9 mr-2"
           src={logo}
-          alt="minddbridge"
+          alt="mindbridge"
         />
         <ul className="links">
           <li className="mb-3">
