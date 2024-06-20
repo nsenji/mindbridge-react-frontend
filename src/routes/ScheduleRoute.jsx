@@ -207,6 +207,7 @@ export function CustomizedDialogs({
           >
             <input
               type="date"
+              required
               className="w-[200px] px-3 py-3 border bg-[#353c5e] border-white text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               onChange={(e) =>
                 setDateTime({ ...datetime, date: e.target.value })
@@ -214,6 +215,7 @@ export function CustomizedDialogs({
             />
             <input
               type="time"
+              required
               className="w-[200px] px-3 py-3 border bg-[#353c5e] border-white text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               onChange={(e) =>
                 setDateTime({ ...datetime, time: e.target.value })
