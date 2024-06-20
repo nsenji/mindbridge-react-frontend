@@ -6,10 +6,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "start": "serve -s dist",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "depcheck": "depcheck"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
