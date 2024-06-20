@@ -1,12 +1,4 @@
 import { useEffect, useState } from "react";
-import { CiCircleChevLeft } from "react-icons/ci";
-import { IoIosPersonAdd } from "react-icons/io";
-import { TbFolderCancel } from "react-icons/tb";
-import { SlPeople } from "react-icons/sl";
-import Person from "../assets/person.png";
-import { MdPendingActions } from "react-icons/md";
-import { GoThumbsup } from "react-icons/go";
-import Chart from "react-apexcharts";
 import { Appointments, Edit } from "../Services/api";
 import FadeLoader from "react-spinners/FadeLoader";
 import { useQuery } from "react-query";

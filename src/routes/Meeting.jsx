@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   MeetingProvider,
-  MeetingConsumer,
   useMeeting,
   useParticipant,
 } from "@videosdk.live/react-sdk";
@@ -12,8 +11,7 @@ import { FaVideo } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa6";
 import { FaMicrophoneSlash } from "react-icons/fa";
 import useSendMail from "../Services/useSendMail";
-// import { AuthContext } from "../../Services/authprovider";
-// import { useContext } from "react";
+
 import { useLocation, useNavigate } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader";
 

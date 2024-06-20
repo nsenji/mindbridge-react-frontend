@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { TbFolderCancel } from "react-icons/tb";
-import { CiBadgeDollar } from "react-icons/ci";
-import { FaMoneyBillTrendUp } from "react-icons/fa6";
+
 import { useEffect } from "react";
 import { DoctorsEarnings } from "../Services/api";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";

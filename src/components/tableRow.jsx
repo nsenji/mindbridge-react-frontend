@@ -1,12 +1,8 @@
-import Person from "../assets/person.png";
-import { FaPlay } from "react-icons/fa";
-import { MdPendingActions } from "react-icons/md";
+
 import { RiUser2Line } from "react-icons/ri";
 import CustomButton from "./customButton";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import useSendMail from "../Services/useSendMail";
-import { MeetingConfig, authToken } from "../Services/api";
+
 
 export default function TableRowWidget({ appointment, isToday }) {
   const navigate = useNavigate();

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Appointments } from "../Services/api";
 import { Search } from "@mui/icons-material";
-import { FaRegCalendarTimes } from "react-icons/fa";
 import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";
 import HistoryTableRowWidget from "../components/historyTableRow";

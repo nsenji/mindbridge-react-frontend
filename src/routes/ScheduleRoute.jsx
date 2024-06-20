@@ -1,23 +1,17 @@
 import { useState, useEffect } from "react";
-import { GridLoader } from "react-spinners";
 import { Schedule } from "../Services/api";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";
 import CustomButton from "../components/customButton";
 import ScheduleTableRowWidget from "../components/scheduleTableRow";
 import * as React from "react";
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+
 
 const ScheduleRoute = () => {
   const [open, setOpen] = useState(false);
