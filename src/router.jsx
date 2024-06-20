@@ -1,4 +1,3 @@
-import { createBrowserRouter } from "react-router-dom";
 import Root from "./routes/Root.jsx";
 import History from "./routes/History.jsx";
 
