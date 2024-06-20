@@ -18,7 +18,7 @@ export default function FormField() {
         .setItem("currentUserToken", JSON.stringify(response.data))
         .then((value) => {
           if (value) {
-            window.location.href = "/dashboard";
+            window.location.href = "/";
           }
         });
     } catch (error) {
