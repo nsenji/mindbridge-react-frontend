@@ -11,7 +11,6 @@ import { FaVideo } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa6";
 import { FaMicrophoneSlash } from "react-icons/fa";
 import useSendMail from "../Services/useSendMail";
-
 import { useLocation, useNavigate } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader";
 
@@ -22,7 +21,10 @@ function MeetingRoom() {
 
   const [meetingId, setMeetingId] = useState(null);
   const { email } = location.state;
-  // const [response] = useSendMail(meetingId, email);  // work on this email later
+
+  if (meetingId) {
+    useSendMail(meetingId, email); 
+  }
 
   useEffect(() => {
     //Getting the meeting id by calling the api we just wrote
