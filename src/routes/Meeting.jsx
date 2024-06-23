@@ -22,9 +22,9 @@ function MeetingRoom() {
   const [meetingId, setMeetingId] = useState(null);
   const { email } = location.state;
 
-  if (meetingId) {
-    useSendMail(meetingId, email); 
-  }
+  
+    const [ response ] = useSendMail(meetingId, email); 
+  
 
   useEffect(() => {
     //Getting the meeting id by calling the api we just wrote
