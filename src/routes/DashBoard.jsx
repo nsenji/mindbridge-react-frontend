@@ -10,6 +10,7 @@ import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";
 import moment from "moment";
 import Person from "../assets/person.png";
+import EmptyState from "../assets/empty_state.png";
 import { DoctorsEarnings } from "../Services/api";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -160,23 +161,30 @@ export default function DashBoard() {
             </div>
           </div>
 
-          <table className="w-full">
-            <tbody className="">
-              {appointments.map((value) => (
-                <tr className="" key={value.selected_apt_ID}>
-                  <td>
-                    <TableRowWidget
-                      id={value.selected_apt_ID}
-                      appointment={value}
-                      isToday={
-                        currentdate.toLowerCase() == value.date.toLowerCase()
-                      }
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {appointments.length ? (
+            <table className="w-full">
+              <tbody className="">
+                {appointments.map((value) => (
+                  <tr className="" key={value.selected_apt_ID}>
+                    <td>
+                      <TableRowWidget
+                        id={value.selected_apt_ID}
+                        appointment={value}
+                        isToday={
+                          currentdate.toLowerCase() == value.date.toLowerCase()
+                        }
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className=" flex-grow flex flex-col justify-center items-center mt-[80px]">
+              <img src={EmptyState} className="min-h-[200px] min-w-[200px] h-[40px] w-[40px]" />
+              <p className="font-semibold text-lg">Nothing here yet.</p>
+            </div>
+          )}
         </div>
       </div>
     );

@@ -11,6 +11,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import EmptyState from "../assets/empty_state.png";
 
 
 const ScheduleRoute = () => {
@@ -129,20 +130,30 @@ const ScheduleRoute = () => {
             </div>
           </div>
 
-          <table className="w-full">
-            <tbody className="">
-              {schedules.map((value) => (
-                <tr className="" key={value.apt_schedule_ID}>
-                  <td>
-                    <ScheduleTableRowWidget
-                      id={value.apt_schedule_ID}
-                      schedule={value}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {schedules.length ? (
+            <table className="w-full">
+              <tbody className="">
+                {schedules.map((value) => (
+                  <tr className="" key={value.apt_schedule_ID}>
+                    <td>
+                      <ScheduleTableRowWidget
+                        id={value.apt_schedule_ID}
+                        schedule={value}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className=" flex-grow flex flex-col justify-center items-center mt-[100px]">
+              <img
+                src={EmptyState}
+                className="min-h-[200px] min-w-[200px] h-[40px] w-[40px]"
+              />
+              <p className="font-semibold text-lg">Nothing here yet.</p>
+            </div>
+          )}
         </div>
       </div>
     );

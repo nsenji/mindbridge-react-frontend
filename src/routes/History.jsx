@@ -6,6 +6,8 @@ import { Search } from "@mui/icons-material";
 import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";
 import HistoryTableRowWidget from "../components/historyTableRow";
+import EmptyState from "../assets/empty_state.png";
+
 
 const History = () => {
   const [appointments, setAppointments] = useState([]);
@@ -84,25 +86,35 @@ const History = () => {
           </div>
         </div>
 
-        <table className="w-full">
-          <tbody className="">
-            {targetValue.length === 0
-              ? appointments.map((app) => (
-                  <tr className="" key={app.selected_apt_ID}>
-                    <td>
-                      <HistoryTableRowWidget history={app} />
-                    </td>
-                  </tr>
-                ))
-              : appointments_2.map((app) => (
-                  <tr className="" key={app.selected_apt_ID}>
-                    <td>
-                      <HistoryTableRowWidget history={app} />
-                    </td>
-                  </tr>
-                ))}
-          </tbody>
-        </table>
+        {appointments.length ? (
+          <table className="w-full">
+            <tbody className="">
+              {targetValue.length === 0
+                ? appointments.map((app) => (
+                    <tr className="" key={app.selected_apt_ID}>
+                      <td>
+                        <HistoryTableRowWidget history={app} />
+                      </td>
+                    </tr>
+                  ))
+                : appointments_2.map((app) => (
+                    <tr className="" key={app.selected_apt_ID}>
+                      <td>
+                        <HistoryTableRowWidget history={app} />
+                      </td>
+                    </tr>
+                  ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className=" flex-grow flex flex-col justify-center items-center mt-[100px]">
+            <img
+              src={EmptyState}
+              className="min-h-[200px] min-w-[200px] h-[40px] w-[40px]"
+            />
+            <p className="font-semibold text-lg">Nothing here yet.</p>
+          </div>
+        )}
       </div>
     </div>
   );

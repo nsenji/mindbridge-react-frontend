@@ -7,6 +7,8 @@ import { useQuery } from "react-query";
 import isValidToken from "../utils/isValidToken";
 import { Search } from "@mui/icons-material";
 import EarningsTableRowWidget from "../components/earningsTableRow";
+import EmptyState from "../assets/empty_state.png";
+
 
 export default function Earnings() {
   const [earnings, setEarnings] = useState([]);
@@ -88,25 +90,35 @@ export default function Earnings() {
           </div>
         </div>
 
-        <table className="w-full">
-          <tbody className="">
-            {targetValue.length === 0
-              ? earnings.map((app) => (
-                  <tr className="" key={app.payment_ID}>
-                    <td>
-                      <EarningsTableRowWidget earnings={app} />
-                    </td>
-                  </tr>
-                ))
-              : earnings_2.map((app) => (
-                  <tr className="" key={app.payment_ID}>
-                    <td>
-                      <EarningsTableRowWidget earnings={app} />
-                    </td>
-                  </tr>
-                ))}
-          </tbody>
-        </table>
+        {earnings.length ? (
+          <table className="w-full">
+            <tbody className="">
+              {targetValue.length === 0
+                ? earnings.map((app) => (
+                    <tr className="" key={app.payment_ID}>
+                      <td>
+                        <EarningsTableRowWidget earnings={app} />
+                      </td>
+                    </tr>
+                  ))
+                : earnings_2.map((app) => (
+                    <tr className="" key={app.payment_ID}>
+                      <td>
+                        <EarningsTableRowWidget earnings={app} />
+                      </td>
+                    </tr>
+                  ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className=" flex-grow flex flex-col justify-center items-center mt-[100px]">
+            <img
+              src={EmptyState}
+              className="min-h-[200px] min-w-[200px] h-[40px] w-[40px]"
+            />
+            <p className="font-semibold text-lg">Nothing here yet.</p>
+          </div>
+        )}
       </div>
     </div>
   );
